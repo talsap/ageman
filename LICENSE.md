@@ -1,2 +1,2 @@
 
-Copyright (C) 2022 Tarcisio Sapucaia
+Copyright (C) 2022 Acbal Rucas Andrade, Tarcisio Sapucaia, UFRB
