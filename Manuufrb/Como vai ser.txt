@@ -1,0 +1,44 @@
+------------------------------ www.cetec.com\manuufbr
+
+  Usuário |-------------|    
+
+  Senha   |-------------| 
+
+------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+Responsáveis:(cadastro)		Nome:
+				e-mail:
+				celular:
+
+Ordens de Serviço: 		CALENDÁRIO:
+				TABELA: (Pode ser em uma futura atualização)
+
+Equipamentos:			Nome:
+				Patrimônio:
+				Descrição:
+				Local:
+				Foto:
+				Horas de uso diário:
+				Histórico de manutenções:
+				Alerta: Se tá ou não com problema.
+
+Procedimentos:			Nome: Limpeza de tal equipamento
+				Equipamento: 
+				Data:
+				Periodicidade:
+				Responsável:
+				Verificações: Troca de Oléo, Limpeza, Aperto de parafusos, Troca de peças (quais), 
+				Inspeção visual: sim ou não 
+				Observações: Escrever qualquer coisa aqui!
+
+Indicadores de Manutenção:    	Inspeções: Ok, Alerta, Problema. (problema só é corrigida quando acontece a manutenção corretiva)
+				Quantidade de procedimentos:
+		
+Tipos de manutenção:		Preventiva: -> (Criação dos formulários modelos)
+				Corretiva:  -> (Apenas corrige quando aparecer nos indicadores)
+
+------------------------------------------------------------------------------------------------------------------
