@@ -70,7 +70,8 @@ class Page{
             $links .= View::render('pages/menu/links',[
             'icon' => $module['icon'],
             'label' => $module['label'],
-            'link' => $module['link']
+            'link' => $module['link'],
+            'active' => $hash == $currentModule ? 'active' : ''
             ]);
         }
         //RETORNA A RENDERIZAÇÃO DO MENU
