@@ -15,6 +15,6 @@ class Home extends Page{
         $content = View::render('pages/home/home', []);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB', $content, 'home');
+        return parent::getPanel('MANUUFRB - Home', $content, 'home');
     }
 }

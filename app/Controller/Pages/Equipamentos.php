@@ -15,7 +15,7 @@ class Equipamentos extends Page{
         $content = View::render('pages/equipamentos/equipamentos', []);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB', $content, 'Equipamentos');
+        return parent::getPanel('MANUUFRB - Equipamentos', $content, 'Equipamentos');
     }
 
 }
