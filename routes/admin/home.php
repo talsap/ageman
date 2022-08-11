@@ -12,10 +12,3 @@ $obRouter->get('/admin', [
         return new Response(200, Pages\Home::getHome($request));
     }
 ]);
-
-//ROTA RESPONSÁVEIS
-$obRouter->get('/responsaveis', [
-    function($request){
-        return new Response(200, Pages\Responsaveis::getResponsaveis($request));
-    }
-]);

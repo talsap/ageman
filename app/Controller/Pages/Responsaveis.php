@@ -12,10 +12,10 @@ class Responsaveis extends Page{
     */
     public static function getResponsaveis($request){
         //CONTEÚDO DA PÁGINA 
-        $content = View::render('pages/responsaveis', ['title' => 'MANUUFRB', 'name' => 'MANUUFRB']);
+        $content = View::render('pages/responsaveis/responsaveis', []);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPage('MANUUFRB', $content);
+        return parent::getPanel('MANUUFRB', $content, 'Responsaveis');
     }
 
 }

@@ -12,9 +12,9 @@ class Home extends Page{
     */
     public static function getHome($request){
         //CONTEÚDO DA PÁGINA 
-        $content = View::render('pages/home', []);
+        $content = View::render('pages/home/home', []);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPage('MANUUFRB', $content);
+        return parent::getPanel('MANUUFRB', $content, 'home');
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+//INCLUI AS ROTAS DO MENU
+include __DIR__.'/admin/menu.php';
+
 //INCLUI AS ROTAS DE HOME
 include __DIR__.'/admin/home.php';
 
