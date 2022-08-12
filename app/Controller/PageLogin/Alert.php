@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\PageLogin;
 
 use \App\Utils\View;
 
@@ -12,7 +12,7 @@ class Alert{
      * @return string
      */
     public static function getErro($message){
-        return View::render( 'admin/alert/status', [
+        return View::render( 'PageLogin/alert/status', [
             'tipo' => 'danger',
             'mensagem' => $message
         ]);
@@ -24,7 +24,7 @@ class Alert{
      * @return string
      */
     public static function getSuccess($message){
-        return View::render( 'admin/alert/status', [
+        return View::render( 'PageLogin/alert/status', [
             'tipo' => 'success',
             'mensagem' => $message
         ]);

@@ -11,7 +11,13 @@ use \App\Http\Middleware\Queue as MiddlewareQueue;
 Environment::load(__DIR__.'/../');
 
 //DEFINE AS CONFIGURAÇÕES DE BANCO DE DADOS
-Database::config(getenv('DB_HOST'), getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASS'), getenv('DB_PORT'));
+Database::config(
+    getenv('DB_HOST'), 
+    getenv('DB_NAME'), 
+    getenv('DB_USER'), 
+    getenv('DB_PASS'), 
+    getenv('DB_PORT')
+);
 
 //DEFINE A CONSTANTE DE URL DO PROJETO
 define('URL',getenv('URL'));

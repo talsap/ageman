@@ -1,7 +1,7 @@
 <?php
 
 use \App\Http\Response;
-use \App\Controller\Pages;
+use \App\Controller\Admin;
 
 //ROTA ORDEM
 $obRouter->get('/ordens-servicos', [
@@ -9,7 +9,7 @@ $obRouter->get('/ordens-servicos', [
         'required-admin-login'
     ],
     function($request){
-        return new Response(200, Pages\Ordem::getOrdem($request));
+        return new Response(200, Admin\Ordem::getOrdem($request));
     }
 ]);
 
@@ -19,7 +19,7 @@ $obRouter->get('/responsaveis', [
         'required-admin-login'
     ],
     function($request){
-        return new Response(200, Pages\Responsaveis::getResponsaveis($request));
+        return new Response(200, Admin\Responsaveis::getResponsaveis($request));
     }
 ]);
 
@@ -29,7 +29,7 @@ $obRouter->get('/procedimentos', [
         'required-admin-login'
     ],
     function($request){
-        return new Response(200, Pages\Procedimentos::getProcedimentos($request));
+        return new Response(200, Admin\Procedimentos::getProcedimentos($request));
     }
 ]);
 
@@ -39,6 +39,6 @@ $obRouter->get('/equipamentos', [
         'required-admin-login'
     ],
     function($request){
-        return new Response(200, Pages\Equipamentos::getEquipamentos($request));
+        return new Response(200, Admin\Equipamentos::getEquipamentos($request));
     }
 ]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\PageLogin;
 
 use \App\Utils\View;
 use \App\Model\Entity\User;
@@ -18,7 +18,7 @@ class Login extends Page{
         $status = !is_null($errorMessage) ? Alert::getErro($errorMessage) : '';
         
         //CONTEÚDO DA PÁGINA DE LOGIN
-        $content = View::render('admin/login', [
+        $content = View::render('PageLogin/login', [
             'title' => 'MANUUFRB - Login',
              'name' => 'MANUUFRB',
             'status' => $status
@@ -51,7 +51,7 @@ class Login extends Page{
 
         //CRIA A SESSÃO DE LOGIN
         SessionAdminLogin::login($obUser);
-
+        
         //REDIRECIONA O USUÁRIO PARA O /ADMIN
         $request->getRouter()->redirect('/admin');
     }

@@ -1,7 +1,7 @@
 <?php
 
 use \App\Http\Response;
-use \App\Controller\Pages;
+use \App\Controller\Admin;
 
 //ROTA ADMIN
 $obRouter->get('/admin', [
@@ -9,6 +9,6 @@ $obRouter->get('/admin', [
         'required-admin-login'
     ],
     function($request){
-        return new Response(200, Pages\Home::getHome($request));
+        return new Response(200, Admin\Home::getHome($request));
     }
 ]);

@@ -1,7 +1,7 @@
 <?php
 
 use \App\Http\Response;
-use \App\Controller\Admin;
+use \App\Controller\PageLogin;
 
 //ROTA LOGIN
 $obRouter->get('/', [
@@ -9,7 +9,7 @@ $obRouter->get('/', [
         'required-admin-logout'
     ],
     function($request){
-        return new Response(200, Admin\Login::getLogin($request));
+        return new Response(200, PageLogin\Login::getLogin($request));
     }
 ]);
 
@@ -19,7 +19,7 @@ $obRouter->post('/', [
         'required-admin-logout'
     ],
     function($request){
-        return new Response(200, Admin\Login::setLogin($request));
+        return new Response(200, PageLogin\Login::setLogin($request));
     }
 ]);
 
@@ -29,13 +29,13 @@ $obRouter->get('/logout', [
         'required-admin-login'
     ],
     function($request){
-        return new Response(200, Admin\Login::setLogout($request));
+        return new Response(200, PageLogin\Login::setLogout($request));
     }
 ]);
 
 //ROTA RECUPERAR SENHA
 $obRouter->get('/recuperar-senha', [
     function($request){
-        return new Response(200, Admin\Forgot::getForgot($request));
+        return new Response(200, PageLogin\Forgot::getForgot($request));
     }
 ]);

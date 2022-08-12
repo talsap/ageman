@@ -16,6 +16,16 @@ Aqui estão as tecnologias que serão usadas neste projeto.
 
 * [PHP 8.1.6](https://www.php.net/downloads) (linguagem da programação)
 * [MySQL](https://www.mysql.com/downloads/) (banco de dados)
+* [xampp](https://www.apachefriends.org/pt_br/index.html) (XAMPP)
+* [composer](https://getcomposer.org/download/) (gerenciador de dependências PHP)
+
+## Comandos Utilizados
+cmd -> (ADM)
+* Instalação do dot-env (Biblioteca para gerenciar variáveis de ambiente em PHP):
+> $composer require william-costa/dot-env
+
+* Instalação do database-maneger (Biblioteca para gerenciar a conexão de banco de dados, paginação de resultados e construção de consultas em PHP):
+> $composer require william-costa/database-manager
 
 ## Autor
  

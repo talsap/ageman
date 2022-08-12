@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Pages;
+namespace App\Controller\Admin;
 
 use \App\Utils\View;
 
@@ -12,9 +12,9 @@ class Home extends Page{
     */
     public static function getHome($request){
         //CONTEÚDO DA PÁGINA 
-        $content = View::render('pages/home/home', []);
+        $content = View::render('Admin/home/home', []);
 
-        //RETORNA A PÁGINA COMPLETA
+        //RETORNA O CONTEÚDO DO PAINEL
         return parent::getPanel('MANUUFRB - Home', $content, 'home');
     }
 }

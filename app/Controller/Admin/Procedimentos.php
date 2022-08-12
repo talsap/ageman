@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Pages;
+namespace App\Controller\Admin;
 
 use \App\Utils\View;
 
@@ -12,7 +12,7 @@ class Procedimentos extends Page{
     */
     public static function getProcedimentos($request){
         //CONTEÚDO DA PÁGINA 
-        $content = View::render('pages/procedimentos/procedimentos', []);
+        $content = View::render('Admin/procedimentos/procedimentos', []);
 
         //RETORNA A PÁGINA COMPLETA
         return parent::getPanel('MANUUFRB - Procedimentos', $content, 'Procedimentos');

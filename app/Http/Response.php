@@ -35,8 +35,8 @@ class Response{
      * @param string  $contentType
      */
     public function __construct($httpCode, $content, $contentType = 'text/html'){
-        $this->$httpCode = $httpCode;
-        $this->content = $content;
+        $this->$httpCode    = $httpCode;
+        $this->content      = $content;
         $this->setContentType($contentType);
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Pages;
+namespace App\Controller\Admin;
 
 use \App\Utils\View;
 
@@ -12,7 +12,7 @@ class Ordem extends Page{
     */
     public static function getOrdem($request){
         //CONTEÚDO DA PÁGINA 
-        $content = View::render('pages/ordem/ordem', []);
+        $content = View::render('Admin/ordem/ordem', []);
 
         //RETORNA A PÁGINA COMPLETA
         return parent::getPanel('MANUUFRB - Ordens e Serviços', $content, 'Ordem');

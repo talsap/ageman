@@ -26,6 +26,7 @@ class View{
         $file = __DIR__.'/../../resources/view/'.$view.'.html';
         return file_exists($file) ? file_get_contents($file) : '';
     }
+    
     /**
      * MÉTODO RESPONSÁVEL EM RETORNAR O CONTEÚDO RENDERIZADO DE UMA VIEW
      * @param string $view

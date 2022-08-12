@@ -3,6 +3,7 @@
 require __DIR__.'/includes/app.php';
 
 use \App\Http\Router;
+use \App\controller\Pages\Home;
 
 //INICIA O ROUTER
 $obRouter = new Router(URL);

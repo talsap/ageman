@@ -10,7 +10,7 @@ use \App\Http\Middleware\Queue as MiddlewareQueue;
 class Router{
 
     /**
-     * URL COMPKETA DO PROJETO RAIZ
+     * URL COMPLETA DO PROJETO (RAIZ)
      * @var string
      */
     private $url = '';
@@ -69,7 +69,7 @@ class Router{
                 continue;
             }
         }
-
+    
         //MIDDLEWARES DA ROTA
         $params['middlewares'] = $params['middlewares'] ?? [];
 
@@ -200,7 +200,7 @@ class Router{
             $reflection = new ReflectionFunction($route['controller']);
             foreach($reflection->getParameters() as $parameter){
                 $name = $parameter->getName();
-                $args[$name] =  $route['variables'][$name] ?? '';
+                $args[$name] = $route['variables'][$name] ?? '';
             }
 
             //RETORNA A EXECUÇÃO DA FILA DE MIDDLEWARES

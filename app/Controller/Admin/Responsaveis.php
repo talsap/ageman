@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Pages;
+namespace App\Controller\Admin;
 
 use \App\Utils\View;
 
@@ -12,7 +12,7 @@ class Responsaveis extends Page{
     */
     public static function getResponsaveis($request){
         //CONTEÚDO DA PÁGINA 
-        $content = View::render('pages/responsaveis/responsaveis', []);
+        $content = View::render('Admin/responsaveis/responsaveis', []);
 
         //RETORNA A PÁGINA COMPLETA
         return parent::getPanel('MANUUFRB - Responsáveis', $content, 'Responsaveis');

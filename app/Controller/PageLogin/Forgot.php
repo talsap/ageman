@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\PageLogin;
 
 use \App\Utils\View;
 
@@ -12,10 +12,10 @@ class Forgot extends Page{
     */
     public static function getForgot($request){
         //CONTEÚDO DA PÁGINA DE LOGIN
-        $content = View::render('admin/forgot', ['title' => 'MANUUFRB - Login', 'name' => 'MANUUFRB']);
+        $content = View::render('PageLogin/forgot', ['title' => 'MANUUFRB - Login', 'name' => 'MANUUFRB']);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPage('MANUUFRB - recuperar', $content);
+        return parent::getPage('MANUUFRB - Recuperar', $content);
     }
 
 }
