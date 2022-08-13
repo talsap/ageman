@@ -1,17 +1,39 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Cadastrar Novo Equipamento</h1>
+    <h1 class="h3 mb-2 text-gray-800">{{title}}</h1>
 
     <hr>
 
-    <a href="{{URL}}/equipamentos" class="btn btn-primary btn-icon-split">
+    <a href="{{URL}}/equipamentos" class="{{type_btn}}">
         <span class="icon text-white-50">
-            <i class="fas fa-sm"></i>
+            <i class="fas fa-arrow-left"></i>
         </span>
-        <span class="text">Voltar</span>
+        <span class="text">{{botao}}</span>
     </a>
 
     <hr>
+
+    <form method="post">
+        <div class="form-group">
+            <label>Patrimônio</label>
+            <input type="text" name="patrimonio" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text" name="patrimonio" class="form-control" required>
+        </div>
+
+        <a type="submit" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-check"></i>
+            </span>
+            <span class="text">Cadastrar</span>
+        </a>
+    </form>
+
+
+    
 </div>
 <!-- /.container-fluid -->

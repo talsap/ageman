@@ -16,14 +16,24 @@ class Equipamentos extends Page{
         //EQUIPAMENTOS
         $itens  = '';
 
-        //RENDERIZA O ITEM
+        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        $id_user = $_SESSION['admin']['usuario']['id'];
+
+        //RESULTADOS DA PÁGINA
+        $results = EntityEquipamentos::getEquipamentos('id_user ='. $id_user, 'id DESC', NULL);
+
+        //RENDERIZA CADA EQUIPAMENTO
         while($obEquipamentos = $results->fetchObject(EntityEquipamentos::class)){
             $itens .= View::render('Admin/equipamentos/itens', [
                 'id'         => $obEquipamentos->id,        
                 'patrimonio' => $obEquipamentos->patrimonio,
                 'nome'       => $obEquipamentos->nome,
                 'descricao'  => $obEquipamentos->descricao,
-                'local'      => $obEquipamentos->local
+                'local'      => $obEquipamentos->local,
+                'imagem'     => $obEquipamentos->imagem,
+                'horas'      => $obEquipamentos->horas,
+                'status'     => $obEquipamentos->status,
+                'hist_manu'  => $obEquipamentos->hist_manu,
             ]);
         }
 
@@ -39,7 +49,10 @@ class Equipamentos extends Page{
     public static function getEquipamentos($request){
         //CONTEÚDO DA PÁGINA 
         $content = View::render('Admin/equipamentos/equipamentos', [
-            //'itens' => self::getEquipamentosItens($request)
+            'title'    => 'Equipamentos',
+            'botao'    => 'Cadastrar Equipamento',
+            'type_btn' => 'btn btn-primary btn-icon-split',
+            'itens'    => self::getEquipamentosItens($request)
         ]);
 
         //RETORNA A PÁGINA COMPLETA
@@ -54,7 +67,9 @@ class Equipamentos extends Page{
     public static function getNewEquipamento($request){
         //CONTEÚDO DO FORMULÁRIO
         $content = View::render('Admin/equipamentos/form', [
-
+            'title'    => 'Cadastrar Novo Equipamento',
+            'botao'    => 'Voltar', 
+            'type_btn' => 'btn btn-secondary btn-icon-split' 
         ]);
 
         //RETORNA A PÁGINA COMPLETA
@@ -72,19 +87,20 @@ class Equipamentos extends Page{
         $postVars = $request->getPostVars();
 
         //PEGA O ID DO USUÁRIO PELA SESSÃO
-        $id = $_SESSION['admin']['usuario']['id'];
+        $id_user = $_SESSION['admin']['usuario']['id'];
 
         //NOVA INSTÂNCIA DE DEPOIMENTO
         $obEquipamentos = new EntityEquipamentos;
-        $obEquipamentos->id_user    = $id;
+        $obEquipamentos->id_user    = $id_user;
         $obEquipamentos->patrimonio = $postVars['patrimonio'];
         $obEquipamentos->nome       = $postVars['nome'];
         $obEquipamentos->descricao  = $postVars['descricao'];
         $obEquipamentos->local      = $postVars['local'];
-        $obEquipamentos->dirImage   = $postVars['dirImage'];
-        $obEquipamentos->hrsUso     = $postVars['hrsUso'];
+        $obEquipamentos->imagem     = $postVars['imagem'];
+        $obEquipamentos->horas      = $postVars['horas'];
         $obEquipamentos->status     = $postVars['status'];
-        $obEquipamentos->histManu   = $postVars['histManu'];
+        $obEquipamentos->hist_manu   = $postVars['hist_manu'];
+        $obEquipamentos->cadastrar();
 
         return self::getEquipamentos();
     }

@@ -2,15 +2,15 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Equipamentos</h1>
+    <h1 class="h3 mb-2 text-gray-800">{{title}}</h1>
 
     <hr>
 
-    <a href="{{URL}}/new-equipamento" class="btn btn-primary btn-icon-split">
+    <a href="{{URL}}/new-equipamento" class="{{type_btn}}">
         <span class="icon text-white-50">
             <i class="fas fa-sm"></i>
         </span>
-        <span class="text">Cadastrar Equipamento</span>
+        <span class="text">{{botao}}</span>
     </a>
 
     <hr>
@@ -26,9 +26,20 @@
                             <th>Nome</th>
                             <th>Descrição</th>
                             <th>Local</th>
-                            <th>Ações</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Patrimônio</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Local</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </tfoot>
                     <tbody>
                         {{itens}}
                     </tbody>

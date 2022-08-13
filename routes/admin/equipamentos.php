@@ -12,3 +12,4 @@ $obRouter->get('/new-equipamento', [
         return new Response(200, Admin\Equipamentos::getNewEquipamento($request));
     }
 ]);
+

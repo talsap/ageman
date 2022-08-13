@@ -46,13 +46,13 @@ class Equipamentos{
      * DIR DE UMA IMAGEM PARA O EQUIPAMENTO
      * @var string
      */
-    public $dirImage;
+    public $imagem;
 
     /**
      * HORAS DE USO DIÁRIO DO EQUIPAMENTO
      * @var string
      */
-    public $hrsUso;
+    public $horas;
 
     /**
      * STATUS DO EQUIPAMENTO
@@ -64,31 +64,39 @@ class Equipamentos{
      * HISTORICO DE MANUTENÇÕES (VALOR/QUANTIDADE DE MANUTENÇÕES FEITAS)
      * @var string
      */
-    public $histManu;
+    public $hist_manu;
 
     /**
      * MÉTODO RESPONSÁVEL POR CADASTRAR A INSTANCIA ATUAL NO BANCO DE DADOS
      * @return boolean
      */
     public function cadastrar(){
-        echo '<pre>';
-        print_r($this);
-        echo '</pre>'; exit;
-        
         //INSERE OS DADOS DO EQUIPAMENTO NO BANCO DE DADOS
         $this->id = (new Database('equipamentos'))->isert([
             'id_user'       =>$this->id_user,
             'patrimonio'    =>$this->patrimonio,
-            'nome'          =>$this->patrimonio,
-            'descricao'     =>$this->patrimonio,
-            'local'         =>$this->patrimonio,
-            'dirImage'      =>$this->patrimonio,
-            'hrsUso'        =>$this->patrimonio,
-            'status'        =>$this->patrimonio,
-            'histManu'      =>$this->patrimonio
+            'nome'          =>$this->nome,
+            'descricao'     =>$this->descricao,
+            'local'         =>$this->local,
+            'imagem'        =>$this->imagem,
+            'horas'         =>$this->horas,
+            'status'        =>$this->status,
+            'hist_manu'     =>$this->hist_manu
         ]);
 
         //SUCESSO
         return true;
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR RETORNAR EQUIPAMENTOS DO BANCO
+     * @param string $where
+     * @param string $order
+     * @param string $limit
+     * @param string $fields
+     * @return PDOStatemet
+     */
+    public static function getEquipamentos($where = null, $order = null, $limit = null, $fields = '*'){
+        return (new Database('equipamentos'))->select($where,$order,$limit,$fields);
     }
 }
