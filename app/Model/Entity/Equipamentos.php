@@ -62,7 +62,7 @@ class Equipamentos{
 
     /**
      * HISTORICO DE MANUTENÇÕES (VALOR/QUANTIDADE DE MANUTENÇÕES FEITAS)
-     * @var string
+     * @var integer
      */
     public $hist_manu;
 
@@ -72,7 +72,7 @@ class Equipamentos{
      */
     public function cadastrar(){
         //INSERE OS DADOS DO EQUIPAMENTO NO BANCO DE DADOS
-        $this->id = (new Database('equipamentos'))->isert([
+        $this->id = (new Database('equipamentos'))->insert([
             'id_user'       =>$this->id_user,
             'patrimonio'    =>$this->patrimonio,
             'nome'          =>$this->nome,

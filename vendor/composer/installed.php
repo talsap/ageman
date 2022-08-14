@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'htdocs/manuufrb',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '850eb14940ca4547b42b62ad114aec7dd1cfe1df',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'htdocs/manuufrb' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '850eb14940ca4547b42b62ad114aec7dd1cfe1df',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
