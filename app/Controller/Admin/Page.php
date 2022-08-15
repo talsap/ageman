@@ -124,6 +124,9 @@ class Page{
             case 'edited':
                 return Alert::getSuccess('Editado com sucesso!');
                 break;
+            case 'deleted':
+                return Alert::getSuccess('Excluído com sucesso!');
+                break;
         }
 
     }

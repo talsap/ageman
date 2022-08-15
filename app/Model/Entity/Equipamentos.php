@@ -104,6 +104,16 @@ class Equipamentos{
     }
 
     /**
+     * MÉTODO RESPONSÁVEL POR EXCLUIR UM EQUIPAMENTO DO BANCO DE DADOS
+     * @return boolean
+     */
+    public function excluir(){
+        //EXCLUI UM EQUIPAMENTO DO BANCO DE DADOS
+        return (new Database('equipamentos'))->delete('id = '.$this->id);
+    }
+
+
+    /**
      * MÉTODO RESPONSÁVEL POR RETORNAR EQUIPAMENTOS DO BANCO
      * @param string $where
      * @param string $order

@@ -1,0 +1,32 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">{{title}}</h1>
+
+    <hr>
+
+    Deseja realmente Exclir o Equipamento <b>{{nome}}</b> cujo o patrimônio é <b>{{patrimonio}}</b> ?
+
+    <br>
+    <br>
+
+    <form method="post">
+        <a href="{{URL}}/equipamentos" class="{{type_btn1}}">
+            <span class="icon text-white-50">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+            <span class="text">{{botao1}}</span>
+        </a>
+
+        <button type="submit" class="{{type_btn2}}">
+            <span class="icon text-white-50">
+                <i class="fas fa-check"></i>
+            </span>
+            <span class="text">{{botao2}}</span>
+        </button>
+    </form>
+
+    <hr>
+
+</div>
+<!-- /.container-fluid -->
