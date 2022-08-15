@@ -15,7 +15,7 @@ class Responsaveis extends Page{
         $content = View::render('Admin/responsaveis/responsaveis', []);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Responsáveis', $content, 'Responsaveis');
+        return parent::getPanel('MANUUFRB - Responsáveis', $content, 'Responsaveis', $request);
     }
 
 }

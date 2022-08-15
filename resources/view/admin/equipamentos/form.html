@@ -5,52 +5,62 @@
 
     <hr>
 
-    <a href="{{URL}}/equipamentos" class="{{type_btn}}">
+    <a href="{{URL}}/equipamentos" class="{{type_btn1}}">
         <span class="icon text-white-50">
             <i class="fas fa-arrow-left"></i>
         </span>
-        <span class="text">{{botao}}</span>
+        <span class="text">{{botao1}}</span>
     </a>
 
     <hr>
 
     <div class="row">
-        <div class="col-lg-6">
-            <form method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label>Patrimônio</label>
-                    <input type="text" name="patrimonio" class="form-control" required>
+        <div class="col-xl-6">
+            <div>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Patrimônio</label>
+                        <input type="text" name="patrimonio" class="form-control" value="{{patrimonio}}" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" name="nome" class="form-control" value="{{nome}}" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Local</label>
+                        <input type="text" name="local" class="form-control" value="{{local}}" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea name="descricao" class="form-control" rows="3" required>{{descricao}}</textarea>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Imagem</label>
+                        <input type="file" name="image" class="form-data">
+                    </div>
+                    
+                    <div class="form-grop">
+                        <button type="submit" class="{{type_btn2}}">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">{{botao2}}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div>
+                <div>
+                    <label></label>
+                    <img class="card my-2 rounded" {{link}} style="max-height: 450px; max-width: 450px">
                 </div>
-        
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input type="text" name="nome" class="form-control" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Local</label>
-                    <input type="text" name="local" class="form-control" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Descrição</label>
-                    <textarea name="descricao" class="form-control"  rows="3" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Imagem</label>
-                    <input type="file" name="image" class="form-data">
-                </div>
-                
-                <div class="form-grop">
-                    <button type="submit" class="btn btn-success btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-check"></i>
-                        </span>
-                        <span class="text">Cadastrar</span>
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
     

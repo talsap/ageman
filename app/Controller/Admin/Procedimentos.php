@@ -15,7 +15,7 @@ class Procedimentos extends Page{
         $content = View::render('Admin/procedimentos/procedimentos', []);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Procedimentos', $content, 'Procedimentos');
+        return parent::getPanel('MANUUFRB - Procedimentos', $content, 'Procedimentos', $request);
     }
 
 }

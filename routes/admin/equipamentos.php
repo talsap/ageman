@@ -19,7 +19,27 @@ $obRouter->post('/new-equipamento', [
         'required-admin-login'
     ],
     function($request){
-        return new Response(200, Admin\Equipamentos::insertEquipamento($request));
+        return new Response(200, Admin\Equipamentos::setNewEquipamento($request));
+    }
+]);
+
+//ROTA DE EDIÇÃO DE EQUIPAMENTO
+$obRouter->get('/edit-equipamento={id}', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function($request, $id){
+        return new Response(200, Admin\Equipamentos::getEditEquipamento($request, $id));
+    }
+]);
+
+//ROTA DE EDIÇÃO DE EQUIPAMENTO (POST)
+$obRouter->post('/edit-equipamento={id}', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function($request, $id){
+        return new Response(200, Admin\Equipamentos::setEditEquipamento($request, $id));
     }
 ]);
 

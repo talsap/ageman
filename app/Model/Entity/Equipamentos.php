@@ -89,6 +89,21 @@ class Equipamentos{
     }
 
     /**
+     * MÉTODO RESPONSÁVEL POR ATUALIZAR OS DADOS DO BANCO COM A INSTANCIA ATUAL 
+     * @return boolean
+     */
+    public function atualizar(){
+        //ATUALIZA OS DADOS DO EQUIPAMENTO NO BANCO DE DADOS
+        return (new Database('equipamentos'))->update('id = '.$this->id,[
+            'patrimonio'    =>$this->patrimonio,
+            'nome'          =>$this->nome,
+            'descricao'     =>$this->descricao,
+            'local'         =>$this->local,
+            'imagem'        =>$this->imagem,
+        ]);
+    }
+
+    /**
      * MÉTODO RESPONSÁVEL POR RETORNAR EQUIPAMENTOS DO BANCO
      * @param string $where
      * @param string $order
@@ -98,5 +113,14 @@ class Equipamentos{
      */
     public static function getEquipamentos($where = null, $order = null, $limit = null, $fields = '*'){
         return (new Database('equipamentos'))->select($where,$order,$limit,$fields);
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR RETORNAR UM EQUIPAMENTO DO BANCO
+     * @param integer $id
+     * @return Equipamento
+     */
+    public static function getEquip($id){
+        return self::getEquipamentos('id = '.$id)->fetchObject(self::class);
     }
 }

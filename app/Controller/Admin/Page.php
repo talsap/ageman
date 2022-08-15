@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use \App\Utils\View;
+use \App\Controller\PageLogin\Alert;
 
 class Page{
 
@@ -90,16 +91,41 @@ class Page{
      * @param string $content
      * @return string 
     */
-    public static function getPanel($title, $content, $currentModule){
+    public static function getPanel($title, $content, $currentModule, $request){
         //RENDERIZA A VIEW DO PAINEL
         $contentPanel = View::render('Admin/panel/panel', [
-            'menu' => self::getMenu($currentModule),
-            'perfil' => self::getPerfil(),
-            'conteudo' => $content
+            'menu'      => self::getMenu($currentModule),
+            'perfil'    => self::getPerfil(),
+            'conteudo'  => $content,
+            'status'    => self::getStatus($request)
         ]);
 
         //RETORNA A PAGINA RENDERIZADA
         return self::getPage($title, $contentPanel);
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR RETORNAR A MSG DE STATUS
+     * @param Request $request
+     * @return string
+     */
+    private static function getStatus($request){
+        //QUERY PARAMS
+        $queryParams = $request->getQueryParams();
+        
+        //STATUS
+        if(!isset($queryParams['status'])) return '';
+
+        //MENSAGENS DE STATUS
+        switch ($queryParams['status']){
+            case 'created':
+                return Alert::getSuccess('Criado com sucesso!');
+                break;
+            case 'edited':
+                return Alert::getSuccess('Editado com sucesso!');
+                break;
+        }
+
     }
 }
 

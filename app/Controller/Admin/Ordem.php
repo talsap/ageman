@@ -15,6 +15,6 @@ class Ordem extends Page{
         $content = View::render('Admin/ordem/ordem', []);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Ordens e Serviços', $content, 'Ordem');
+        return parent::getPanel('MANUUFRB - Ordens e Serviços', $content, 'Ordem', $request);
     }
 }
