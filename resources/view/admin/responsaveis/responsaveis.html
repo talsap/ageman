@@ -1,3 +1,49 @@
-<div>
-    {{responsaveis}}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">{{title}}</h1>
+
+    <hr>
+
+    <a href="{{URL}}/new-responsible" class="{{type_btn}}">
+        <span class="icon text-white-50">
+            <i class="fas fa-sm"></i>
+        </span>
+        <span class="text">{{botao}}</span>
+    </a>
+
+    <hr>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {{itens}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
+<!-- /.container-fluid -->

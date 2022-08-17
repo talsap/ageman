@@ -9,5 +9,8 @@ include __DIR__.'/Admin/home.php';
 //INCLUI AS ROTAS DO MENU
 include __DIR__.'/Admin/menu.php';
 
+//INCLUI AS ROTAS DOS RESPONSÁVEIS
+include __DIR__.'/Admin/responsaveis.php';
+
 //INCLUI AS ROTAS DOS EQUIPAMENTOS
 include __DIR__.'/Admin/equipamentos.php';

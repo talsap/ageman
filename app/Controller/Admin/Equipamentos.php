@@ -68,7 +68,7 @@ class Equipamentos extends Page{
     public static function getNewEquipamento($request){
         //CONTEÚDO DO FORMULÁRIO
         $content = View::render('Admin/equipamentos/form', [
-            'title'    => 'Cadastrar Novo Equipamento',
+            'title'    => 'Cadastrar um Novo Equipamento',
             'patrimonio'=> '',
             'nome'      => '',
             'local'     => '',

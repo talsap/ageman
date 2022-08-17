@@ -1,0 +1,53 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">{{title}}</h1>
+
+    <hr>
+
+    <a href="{{URL}}/responsaveis" class="{{type_btn1}}">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">{{botao1}}</span>
+    </a>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div>
+                <form method="post" enctype="multipart/form-data">            
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" name="nome" class="form-control" value="{{nome}}" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" value="{{email}}" required>
+                    </div>
+                    
+                    <div class="form-grop">
+                        <button type="submit" class="{{type_btn2}}">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">{{botao2}}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div>
+                <div>
+                    <label></label>
+                    <img class="card my-2 rounded" {{link}} style="max-height: 450px; max-width: 450px">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<!-- /.container-fluid -->
