@@ -119,10 +119,10 @@ class Page{
         //MENSAGENS DE STATUS
         switch ($queryParams['status']){
             case 'created':
-                return Alert::getSuccess('Criado com sucesso!');
+                return Alert::getSuccess('Cadastrado com sucesso!');
                 break;
             case 'edited':
-                return Alert::getSuccess('Editado com sucesso!');
+                return Alert::getSuccess('Alterado com sucesso!');
                 break;
             case 'deleted':
                 return Alert::getSuccess('Excluído com sucesso!');

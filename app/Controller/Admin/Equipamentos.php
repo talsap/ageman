@@ -120,7 +120,6 @@ class Equipamentos extends Page{
                 }
             }
         }
-        
         //DADOS DO POST
         $postVars = $request->getPostVars();
 
@@ -248,36 +247,6 @@ class Equipamentos extends Page{
         
         //REDIRECIONA O USUÁRIO PARA A PAGE EQUIPAMENTOS
         $request->getRouter()->redirect('/equipamentos?status=edited');
-    }
-
-    /**
-     * MÉTODO RESPONSÁVEL POR RETORNA O FORMULÁRIO DE EXCLUSÃO DE UM EQUIPAMENTO
-     * @param Request $request
-     * @param integer $id
-     * @return string
-     */
-    public static function getDeleteEquipamento($request, $id){
-        //OBTÉM O EQUIPAMENTO DO BANCO DE DADOS
-        $obEquipamento = EntityEquipamentos::getEquip($id);
-
-        //VALIDA A INSTANCIA
-        if(!$obEquipamento instanceof EntityEquipamentos){
-            $request->getRouter()->redirect('/equipamentos');
-        }
-
-        //CONTEÚDO DO FORMULÁRIO
-        $content = View::render('Admin/equipamentos/delete', [
-            'title'     => 'Excluir Equipamento',
-            'patrimonio'=> $obEquipamento->patrimonio,
-            'nome'      => $obEquipamento->nome,
-            'botao1'    => 'Voltar', 
-            'type_btn1' => 'btn btn-secondary btn-icon-split',
-            'botao2'    => 'Excluir', 
-            'type_btn2' => 'btn btn-danger btn-icon-split',
-        ]);
-
-        //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Excluir Equipamento', $content, 'Equipamentos', $request);
     }
 
     /**

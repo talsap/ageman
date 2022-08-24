@@ -49,17 +49,8 @@ $obRouter->get('/delete-equipamento={id}', [
         'required-admin-login'
     ],
     function($request, $id){
-        return new Response(200, Admin\Equipamentos::getDeleteEquipamento($request, $id));
-    }
-]);
-
-//ROTA DE EXCLUSÃO DE UM EQUIPAMENTO (POST)
-$obRouter->post('/delete-equipamento={id}', [
-    'middlewares' => [
-        'required-admin-login'
-    ],
-    function($request, $id){
         return new Response(200, Admin\Equipamentos::setDeleteEquipamento($request, $id));
     }
 ]);
+
 

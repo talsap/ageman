@@ -158,36 +158,6 @@ class Responsaveis extends Page{
     }
 
     /**
-     * MÉTODO RESPONSÁVEL POR RETORNA O FORMULÁRIO DE EXCLUSÃO DE UM RESPONSÁVEL
-     * @param Request $request
-     * @param integer $id
-     * @return string
-     */
-    public static function getDeleteResponsible($request, $id){
-        //OBTÉM O EQUIPAMENTO DO BANCO DE DADOS
-        $obResponsavel = EntityResponsaveis::getResp($id);
-
-        //VALIDA A INSTANCIA
-        if(!$obResponsavel instanceof EntityResponsaveis){
-            $request->getRouter()->redirect('/responsaveis');
-        }
-
-        //CONTEÚDO DO FORMULÁRIO
-        $content = View::render('Admin/responsaveis/delete', [
-            'title'     => 'Excluir Responsável',
-            'nome'      => $obResponsavel->nome,
-            'email'     => $obResponsavel->email,
-            'botao1'    => 'Voltar', 
-            'type_btn1' => 'btn btn-secondary btn-icon-split',
-            'botao2'    => 'Excluir', 
-            'type_btn2' => 'btn btn-danger btn-icon-split',
-        ]);
-
-        //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Excluir Responsável', $content, 'Responsaveis', $request);
-    }
-
-    /**
      * MÉTODO RESPONSÁVEL POR EXCLUIR UM RESPONSÁVEL
      * @param Request $request
      * @param integer $id

@@ -7,8 +7,26 @@
         </a>
     </td>
     <td>
-        <a href="{{URL}}/delete-responsible={{id}}" class="btn btn-danger btn-circle">
+        <a href="#" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#delete-reponsavel{{id}}">
             <i class="fas fa-trash"></i>
         </a>
     </td>
+    <!-- Delete Modal Responsável-->
+    <div class="modal fade" id="delete-reponsavel{{id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Excluir Responsável.</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Deseja realmente exclir o Responsável <b>{{nome}}</b> ?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger" href="{{URL}}/delete-responsible={{id}}">Excluir</a>
+                </div>
+            </div>
+        </div>
+        </div>
 </tr>

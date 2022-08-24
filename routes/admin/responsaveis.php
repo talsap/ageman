@@ -49,17 +49,8 @@ $obRouter->get('/delete-responsible={id}', [
         'required-admin-login'
     ],
     function($request, $id){
-        return new Response(200, Admin\Responsaveis::getDeleteResponsible($request, $id));
-    }
-]);
-
-//ROTA DE EXCLUSÃO DE UM RESPONSÁVEL (POST)
-$obRouter->post('/delete-responsible={id}', [
-    'middlewares' => [
-        'required-admin-login'
-    ],
-    function($request, $id){
         return new Response(200, Admin\Responsaveis::setDeleteResponsible($request, $id));
     }
 ]);
+
 
