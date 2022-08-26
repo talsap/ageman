@@ -25,10 +25,22 @@ class Locais{
     public $local;
 
     /**
+     * NOME DO LOCAL ANTERIORMENTE
+     * @var string
+     */
+    public $localAnt;
+
+    /**
      * NOME DA ÁREA
      * @var string
      */
     public $area;
+
+    /**
+     * NOME DA ÁREA ANTERIORMENTE
+     * @var string
+     */
+    public $areaAnt;
 
     /**
      * MÉTODO RESPONSÁVEL POR CADASTRAR UM LOCAL NO BANCO DE DADOS
@@ -65,14 +77,17 @@ class Locais{
      * MÉTODO RESPONSÁVEL POR ATUALIZAR O LOCAL NO BANCO DE DADOS
      * @return boolean
      */
-    public function atualizarLocal($localAnt){
+    public function atualizarLocal(){
+        //STRING DE BUSCA SQL
+        $sql = 'id_user = '.$this->id_user.' and local = "'.$this->localAnt.'"';
+        
         //ATUALIZA TODOS OS LOCAIS DENTRO DA TABELA EQUIPAMENTOS NO BANCO DE DADO
-        $atualizaEquipamentos = (new Database('equipamentos'))->update('id_user = '.$this->id_user,[
+        $atualizaEquipamentos = (new Database('equipamentos'))->update($sql,[
             'local'         =>$this->local
         ]);
 
         //ATUALIZA OS DADOS DO LOCAL NO BANCO DE DADOS
-        return (new Database('locais'))->update('id_user = '.$this->id_user,[
+        return (new Database('locais'))->update($sql,[
             'local'         =>$this->local
         ]);
     }
@@ -98,17 +113,17 @@ class Locais{
      * @return boolean
      */
     public function excluirLocal(){
-        $local = '';
-        $area  = '';
+        //STRING DE BUSCA SQL
+        $sql = 'id_user = '.$this->id_user.' and local = "'.$this->local.'"';
 
         //ATUALIZA TODOS OS LOCAIS E ÁREAS DENTRO DA TABELA EQUIPAMENTOS NO BANCO DE DADO
-        $atualizaEquipamentos = (new Database('equipamentos'))->update('id_user = '.$this->id_user,[
-            'local'         =>$this->local,
-            'area'          =>$this->area
+        $atualizaEquipamentos = (new Database('equipamentos'))->update($sql,[
+            'local'         =>'',
+            'area'          =>''
         ]);
 
-        //EXCLUI O LOCAL DO BANCO DE DADOS
-        return (new Database('locais'))->delete('id = '.$this->id);
+        //EXCLUI OS LOCAL DO BANCO DE DADOS
+        return (new Database('locais'))->delete($sql);
     }
 
     /**

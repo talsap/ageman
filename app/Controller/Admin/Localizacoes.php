@@ -95,8 +95,9 @@ class Localizacoes extends Page{
         //ATUALIZA A INSTÂNCIA DO LOCAL
         $obLocal->id         = $id;
         $obLocal->id_user    = strval($_SESSION['admin']['usuario']['id']);
+        $obLocal->localAnt   = $obLocal->local ?? '';
         $obLocal->local      = $postVars['local'] ?? $obLocal->local;
-
+        
         //ATUALIZA O LOCAL BANCO DE DADOS
         $obLocal->atualizarLocal();
 
@@ -178,9 +179,9 @@ class Localizacoes extends Page{
      * @param integer $id
      * @return string
      */
-    public static function setDeleteLocal($request, $idLocal){
+    public static function setDeleteLocal($request, $id){
         //OBTÉM A INSTÂNCIA DO LOCAL NO BANCO DE DADOS
-        $obLocal = EntityLocal::getLocal($idLocal);
+        $obLocal = EntityLocal::getLocal($id);
 
         //VALIDA A INSTANCIA
         if(!$obLocal instanceof EntityLocal){
