@@ -48,7 +48,7 @@ class Locais{
      */
     public function cadastrarLocal(){
         //INSERE OS DADOS DO LOCAL NO BANCO DE DADOS
-        $this->idLocal = (new Database('locais'))->insert([
+        $this->id = (new Database('locais'))->insert([
             'id_user'       =>$this->id_user,
             'local'         =>$this->local,
         ]);
@@ -63,7 +63,7 @@ class Locais{
      */
     public function cadastrarArea(){
         //INSERE OS DADOS DA AREA NO BANCO DE DADOS
-        $this->idArea = (new Database('area'))->insert([
+        $this->id = (new Database('locais'))->insert([
             'id_user'       =>$this->id_user,
             'local'         =>$this->local,
             'area'          =>$this->area
@@ -97,14 +97,19 @@ class Locais{
      * @return boolean
      */
     public function atualizarArea(){
+        //STRING DE BUSCA SQL
+        $sql = 'id_user = '.$this->id_user.' and local = "'.$this->localAnt.'"'.' and area = "'.$this->areaAnt.'"';
+
         //ATUALIZA TODOS AS ÁREAS DENTRO DA TABELA EQUIPAMENTOS NO BANCO DE DADO
-        $atualizaEquipamentos = (new Database('equipamentos'))->update('id_user = '.$this->id_user,[
+        $atualizaEquipamentos = (new Database('equipamentos'))->update($sql,[
+            'local'        =>$this->local,
             'area'         =>$this->area
         ]);
 
-        //ATUALIZA OS DADOS DA AREA NO BANCO DE DADOS
+        //ATUALIZA OS DADOS DA AREA E LOCAL NO BANCO DE DADOS
         return (new Database('locais'))->update('id = '.$this->id,[
-            'area'    =>$this->area,
+            'local'        =>$this->local,
+            'area'         =>$this->area
         ]);
     }
 
@@ -124,6 +129,24 @@ class Locais{
 
         //EXCLUI OS LOCAL DO BANCO DE DADOS
         return (new Database('locais'))->delete($sql);
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR EXCLUIR UM LOCAL E ÁREA DO BANCO DE DADOS
+     * @return boolean
+     */
+    public function excluirArea(){
+        //STRING DE BUSCA SQL
+        $sql = 'id_user = '.$this->id_user.' and local = "'.$this->local.'"'.' and area = "'.$this->area.'"';
+
+        //ATUALIZA TODOS OS LOCAIS E ÁREAS DENTRO DA TABELA EQUIPAMENTOS NO BANCO DE DADO
+        $atualizaEquipamentos = (new Database('equipamentos'))->update($sql,[
+            'local'         =>'',
+            'area'          =>''
+        ]);
+
+        //EXCLUI OS LOCAL DO BANCO DE DADOS
+        return (new Database('locais'))->delete('id = '.$this->id);
     }
 
     /**
