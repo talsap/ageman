@@ -169,4 +169,37 @@ class Locais{
     public static function getLocal($id){
         return self::getLocais('id = '.$id)->fetchObject(self::class);
     }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR OBTER OS DADOS SELECT DAS ÁREA
+     * @param iteger $id
+     * @return string
+     */
+    private static function getAreaItens($id){
+        //ITENS
+        $itens  = '';
+
+        //OBJETO DO LOCAL
+        $obL = self::getLocal($id);
+
+        //PEGA APENAS O LOCAL
+        $local = $obL['local'];
+
+        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        $id_user = $_SESSION['admin']['usuario']['id'];
+
+        //RESULTADOS DO LOCAIS
+        $results = self::getLocais('id_user = '.$id_user.' '.'AND local = "'.$local.'"', 'id DESC', NULL);
+
+        //CRIA ARRAY COM AS ÁREAS
+        while($obLocal = $results->fetchObject(self::class)){
+            $itens = [
+                'id'         => $obLocal->id,        
+                'area'       => $obLocal->area,
+            ];
+        }
+
+        //RETORNA OS EQUIPAMENTOS
+        return $itens;
+    }
 }

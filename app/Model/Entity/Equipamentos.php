@@ -43,6 +43,12 @@ class Equipamentos{
     public $local;
 
     /**
+     * AREA DO EQUIPAMENTO
+     * @var string
+     */
+    public $area;
+
+    /**
      * DIR DE UMA IMAGEM PARA O EQUIPAMENTO
      * @var string
      */
@@ -78,6 +84,7 @@ class Equipamentos{
             'nome'          =>$this->nome,
             'descricao'     =>$this->descricao,
             'local'         =>$this->local,
+            'area'          =>$this->area,
             'imagem'        =>$this->imagem,
             'horas'         =>$this->horas,
             'status'        =>$this->status,
@@ -99,6 +106,7 @@ class Equipamentos{
             'nome'          =>$this->nome,
             'descricao'     =>$this->descricao,
             'local'         =>$this->local,
+            'area'          =>$this->area,
             'imagem'        =>$this->imagem,
         ]);
     }

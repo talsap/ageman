@@ -401,7 +401,7 @@ class Localizacoes extends Page{
         //EXCLUI A ÁREA
         $obLocal->excluirArea();
         
-        //REDIRECIONA O USUÁRIO PARA A PAGE LOCALIZACOES
+        //REDIRECIONA O USUÁRIO PARA A PAGE LOCALIZAÇÕES
         $request->getRouter()->redirect('/localizacoes?status=deleted');
     }
 }

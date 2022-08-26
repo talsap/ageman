@@ -27,12 +27,38 @@
                         <label>Nome</label>
                         <input type="text" name="nome" class="form-control" value="{{nome}}" required>
                     </div>
-    
+                    
                     <div class="form-group">
                         <label>Local</label>
-                        <input type="text" name="local" class="form-control" value="{{local}}" required>
+                        <select class="form-control" name="eq-local" id="eq-local" onchange="ActionSelectLocal()" required>
+                            <option value=""></option>
+                            {{local}}
+                        </select>
                     </div>
-    
+                    <script>
+                        function ActionSelectLocal(){
+                            let select = document.querySelector('#eq-local');
+                            let area = document.getElementById('eq-area');
+                            let id = select.options[select.selectedIndex].value;
+                            //console.log(id);
+                            
+                            listar();
+
+                            async function listar(){
+                                let opcoes = '<?php criarLista($'+id+'); ?>';
+                                area.innerHTML = opcoes;
+                            }
+                        }
+                    </script>
+                  
+                    <div class="form-group">
+                        <label>Área</label>
+                        <select class="form-control" name="eq-area" id="eq-area" required>
+                            <option value=""></option>
+                            {{area}}
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label>Descrição</label>
                         <textarea name="descricao" class="form-control" rows="3" required>{{descricao}}</textarea>

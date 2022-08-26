@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use \App\Utils\View;
 use \App\Model\Entity\Equipamentos as EntityEquipamentos;
+use \App\Model\Entity\Locais as EntityLocal;
 use \App\File\Uploud;
 
 class Equipamentos extends Page{
@@ -31,6 +32,7 @@ class Equipamentos extends Page{
                 'nome'       => $obEquipamentos->nome,
                 'descricao'  => $obEquipamentos->descricao,
                 'local'      => $obEquipamentos->local,
+                'area'       => $obEquipamentos->area,
                 'imagem'     => $obEquipamentos->imagem,
                 'horas'      => $obEquipamentos->horas,
                 'status'     => $obEquipamentos->status,
@@ -71,7 +73,8 @@ class Equipamentos extends Page{
             'title'    => 'Cadastrar um Novo Equipamento',
             'patrimonio'=> '',
             'nome'      => '',
-            'local'     => '',
+            'local'     => self::getLocalItens($request),
+            'area'      => '',
             'descricao' => '',
             'botao1'    => 'Voltar', 
             'type_btn1' => 'btn btn-secondary btn-icon-split',
@@ -130,6 +133,7 @@ class Equipamentos extends Page{
         $obEquipamentos->nome       = $postVars['nome'];
         $obEquipamentos->descricao  = $postVars['descricao'];
         $obEquipamentos->local      = $postVars['local'];
+        $obEquipamentos->local      = $postVars['area'];
         $obEquipamentos->imagem     = $dir_image ?? '';
         $obEquipamentos->horas      = $postVars['horas'] ?? '';
         $obEquipamentos->status     = $postVars['status'] ?? '';
@@ -163,6 +167,7 @@ class Equipamentos extends Page{
             'patrimonio'=> $obEquipamento->patrimonio,
             'nome'      => $obEquipamento->nome,
             'local'     => $obEquipamento->local,
+            'area'      => $obEquipamento->area,
             'descricao' => $obEquipamento->descricao,
             'botao1'    => 'Voltar', 
             'type_btn1' => 'btn btn-secondary btn-icon-split',
@@ -237,6 +242,7 @@ class Equipamentos extends Page{
         $obEquipamento->nome       = $postVars['nome'] ?? $obEquipamento->nome;
         $obEquipamento->descricao  = $postVars['descricao'] ?? $obEquipamento->descricao ;
         $obEquipamento->local      = $postVars['local'] ?? $obEquipamento->local;
+        $obEquipamento->area       = $postVars['area'] ?? $obEquipamento->area;
         $obEquipamento->imagem     = $dir_image ?? $obEquipamento->imagem ;
         $obEquipamento->horas      = $postVars['horas'] ?? $obEquipamento->horas;
         $obEquipamento->status     = $postVars['status'] ?? $obEquipamento->status;
@@ -274,6 +280,34 @@ class Equipamentos extends Page{
         
         //REDIRECIONA O USUÁRIO PARA A PAGE EQUIPAMENTOS
         $request->getRouter()->redirect('/equipamentos?status=deleted');
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL PRO OBTER A RENDERIZAÇÃO DO SELECT DOS LOCAIS
+     * @param Request $request
+     * @return string
+     */
+    private static function getLocalItens($request){
+        //ITENS
+        $itens  = '';
+
+        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        $id_user = $_SESSION['admin']['usuario']['id'];
+
+        //RESULTADOS DA PÁGINA
+        $results = EntityLocal::getLocais('id_user = '.$id_user.' '.'AND area = ""', 'id DESC', NULL);
+
+        //RENDERIZA CADA EQUIPAMENTO
+        while($obLocal = $results->fetchObject(EntityLocal::class)){
+            $itens .= View::render('Admin/equipamentos/option', [
+                'id'         => $obLocal->id,        
+                'value'      => $obLocal->local,
+                'selected'   => '',
+            ]);
+        }
+
+        //RETORNA OS EQUIPAMENTOS
+        return $itens;
     }
 
 }
