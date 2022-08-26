@@ -48,12 +48,28 @@ CREATE TABLE IF NOT EXISTS `equipamentos` (
   `nome` varchar(255) NOT NULL,
   `descricao` text NOT NULL,
   `local` varchar(255) NOT NULL,
+  `area` varchar(255) NOT NULL,
   `imagem` varchar(255) NOT NULL,
   `horas` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `hist_manu` int(11) NOT NULL,
   UNIQUE (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `locais`
+--
+
+CREATE TABLE IF NOT EXISTS `locais` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `local` varchar(255) NOT NULL,
+  `area` varchar(255) NOT NULL,
+  UNIQUE (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- --------------------------------------------------------
 

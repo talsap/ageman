@@ -1,0 +1,40 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">{{title}}</h1>
+
+    <hr>
+
+    <a href="{{URL}}/localizacoes" class="{{type_btn1}}">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">{{botao1}}</span>
+    </a>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div>
+                <form method="post">
+                    <div class="form-group">
+                        <label>Local</label>
+                        <input type="text" name="local" class="form-control" value="{{local}}" required>
+                    </div>
+                    
+                    <div class="form-grop">
+                        <button type="submit" class="{{type_btn2}}">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">{{botao2}}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<!-- /.container-fluid -->

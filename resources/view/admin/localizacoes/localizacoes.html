@@ -1,0 +1,104 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">{{title}}</h1>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{{URL}}/new-localization" class="{{type_btn1}}">
+                <span class="icon text-white-50">
+                    <i class="fas fa-pen"></i>
+                </span>
+                <span class="text">{{botao1}}</span>
+            </a>
+            <a href="#" class="{{type_btn2}}">
+                <span class="icon text-white-50">
+                    <i class="fas fa-pen"></i>
+                </span>
+                <span class="text">{{botao2}}</span>
+            </a>
+        </div>
+        <div class="col-md-6" align="right">
+            <form class="form-inline" method="post">
+                <div class="col-xl-12">
+                    <select class="form-control" name="local" id="local" onchange="atualizouSelect()" required>
+                        {{option}}
+                    </select>
+                    <button type="submit" class="{{type_btn3}}">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        <span class="text">{{botao3}}</span>
+                    </button>
+                    <button type="button" class="{{type_btn4}}" data-toggle="modal" data-target="#delete-local">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                        <span class="text">{{botao4}}</span>
+                    </button>
+                    <!-- Delete Modal Local-->
+                    <div class="modal fade" id="delete-local" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalLabel">Deseja realmente excluir?</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">Ao confimar excluirá o Local nos equipamentos já cadastrados.</div>
+                                <script>
+                                    function RotaDeleteLocalJS(){
+                                        let select = document.querySelector('#local');
+                                        let id = select.options[select.selectedIndex].value;
+                                        window.location.href = "{{URL}}/delete-local="+id;
+                                    }
+                                </script>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger" onclick="RotaDeleteLocalJS()">Excluir</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>        
+    </div>
+    
+    <hr>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Local</th>
+                            <th>Área</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Local</th>
+                            <th>Área</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {{itens}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->

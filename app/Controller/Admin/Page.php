@@ -18,12 +18,12 @@ class Page{
             'link' => URL.'/ordens-servicos'
         ],
         'Procedimentos' => [
-            'icon' => 'clipboard-list',
+            'icon' => 'tasks',
             'label' => 'Procedimentos',
             'link' => URL.'/procedimentos'
         ],
         'Responsaveis' => [
-            'icon' => 'user',
+            'icon' => 'users-cog',
             'label' => 'Responsáveis',
             'link' => URL.'/responsaveis'
         ],
@@ -31,6 +31,11 @@ class Page{
             'icon' => 'cogs',
             'label' => 'Equipamentos',
             'link' => URL.'/equipamentos'
+        ],
+        'Localizacoes' => [
+            'icon' => 'map-marker-alt',
+            'label'=> 'Localizações',
+            'link' => URL.'/localizacoes'
         ]
     ];
 

@@ -42,3 +42,23 @@ $obRouter->get('/equipamentos', [
         return new Response(200, Admin\Equipamentos::getEquipamentos($request));
     }
 ]);
+
+//ROTA LOCALIZAÇÕES
+$obRouter->get('/localizacoes', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function($request){
+        return new Response(200, Admin\Localizacoes::getLocalizacoes($request));
+    }
+]);
+
+//ROTA LOCALIZAÇÕES (POST)
+$obRouter->post('/localizacoes', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function($request){
+        return new Response(200, Admin\Localizacoes::setLocalizacoes($request));
+    }
+]);

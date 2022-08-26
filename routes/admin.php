@@ -14,3 +14,6 @@ include __DIR__.'/Admin/responsaveis.php';
 
 //INCLUI AS ROTAS DOS EQUIPAMENTOS
 include __DIR__.'/Admin/equipamentos.php';
+
+//INCLUI AS ROTAS DAS LOCALIZAÇÕES
+include __DIR__.'/Admin/localizacoes.php';
