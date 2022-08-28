@@ -22,7 +22,7 @@ class Login{
     public static function login($obUser){
         //INICIA A SESSÃO
         self::init();
-        
+
         //DEFINE A SESSÃO DO USUÁRIO
         $_SESSION['admin']['usuario'] = [
             'id' => $obUser->id,

@@ -40,17 +40,31 @@
                             let select = document.querySelector('#eq-local');
                             let area = document.getElementById('eq-area');
                             let id = select.options[select.selectedIndex].value;
+                            let id_user = 1;
                             //console.log(id);
-                            
-                            listar();
 
-                            async function listar(){
-                                let opcoes = '<?php criarLista($'+id+'); ?>';
-                                area.innerHTML = opcoes;
-                            }
+                            $.ajax({
+                                method: "POST",
+                                url: 'app/Model/Entity/Areas.php',
+                                data: {'id': id, 'id_user': id_user},
+                                success: function(response) {
+                                    console.log(response)
+                                },
+                                error: function(XMLHttpRequest, textStatus, errorThrown){
+                                    alert(errorThrown);
+                                }
+                            }); 
+                            //console.log(a);
+                            
+                            //listar();
+
+                            //tem que retornar um objeto js
+                            //async function listar(){ 
+                                //let opcoes = await fetch('app/Model/Entity/Areas.php');
+                                //area.innerHTML = opcoes;
+                            //}
                         }
                     </script>
-                  
                     <div class="form-group">
                         <label>Área</label>
                         <select class="form-control" name="eq-area" id="eq-area" required>

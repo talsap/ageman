@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use \App\Utils\View;
 use \App\Model\Entity\Equipamentos as EntityEquipamentos;
 use \App\Model\Entity\Locais as EntityLocal;
+use \App\Model\Entity\Areas;
 use \App\File\Uploud;
 
 class Equipamentos extends Page{
