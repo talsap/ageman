@@ -38,31 +38,32 @@
                     <script>
                         function ActionSelectLocal(){
                             let select = document.querySelector('#eq-local');
-                            let area = document.getElementById('eq-area');
                             let id = select.options[select.selectedIndex].value;
-                            let id_user = 1;
-                            //console.log(id);
 
-                            $.ajax({
-                                method: "POST",
-                                url: 'app/Model/Entity/Areas.php',
-                                data: {'id': id, 'id_user': id_user},
-                                success: function(response) {
-                                    console.log(response)
-                                },
-                                error: function(XMLHttpRequest, textStatus, errorThrown){
-                                    alert(errorThrown);
-                                }
-                            }); 
-                            //console.log(a);
-                            
-                            //listar();
+                            if(!id){
+                                //console.log(!id);
+                            }else{
+                                carrega_dados();
+                            }
 
-                            //tem que retornar um objeto js
-                            //async function listar(){ 
-                                //let opcoes = await fetch('app/Model/Entity/Areas.php');
-                                //area.innerHTML = opcoes;
-                            //}
+                            function carrega_dados(){
+                                $.ajax({
+                                    method: "POST",
+                                    url: 'app/Model/Entity/Areas.php',
+                                    data: {'id': id},
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '<option value=""></option>';
+                                        for(var i = 0; i < data.dados.length; i++){
+                                            html += '<option value="' + data.dados[i].id + '">' + data.dados[i].area + '</option>';
+                                        }
+                                        $('#eq-area').html(html);
+                                    },
+                                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                                        alert(errorThrown);
+                                    }
+                                });
+                            }
                         }
                     </script>
                     <div class="form-group">
