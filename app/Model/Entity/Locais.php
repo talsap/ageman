@@ -172,7 +172,7 @@ class Locais{
 
     /**
      * MÉTODO RESPONSÁVEL POR OBTER OS DADOS SELECT DAS ÁREA
-     * @param iteger $id
+     * @param integer $id
      * @return string
      */
     public static function getAreaItens($id, $id_user){

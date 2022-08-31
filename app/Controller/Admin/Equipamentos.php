@@ -127,14 +127,26 @@ class Equipamentos extends Page{
         //DADOS DO POST
         $postVars = $request->getPostVars();
 
-        //INSTÂNCIA DO EQUIPAMENTO
+        //PEGA O ID DA ÁREA
+        $id_area = $postVars['eq-area'];
+
+        //OBTÉM A INSTÂNCIA DO LOCAL NO BANCO DE DADOS
+        $obLocal = EntityLocal::getLocal($id_area);
+
+        //CRIA A VARIÁVEL LOCAL APARTIR DA INSTÂNCIA
+        $local = $obLocal->local;
+
+        //CRIA A VARIÁVEL AREA APARTIR DA INSTÂNCIA
+        $area = $obLocal->area;
+
+        //CRIA NOVA INSTÂNCIA DO EQUIPAMENTO
         $obEquipamentos = new EntityEquipamentos();
         $obEquipamentos->id_user    = strval($_SESSION['admin']['usuario']['id']);
-        $obEquipamentos->patrimonio = $postVars['patrimonio'];
-        $obEquipamentos->nome       = $postVars['nome'];
-        $obEquipamentos->descricao  = $postVars['descricao'];
-        $obEquipamentos->local      = $postVars['local'];
-        $obEquipamentos->local      = $postVars['area'];
+        $obEquipamentos->patrimonio = $postVars['patrimonio'] ?? '';
+        $obEquipamentos->nome       = $postVars['nome'] ?? '';
+        $obEquipamentos->descricao  = $postVars['descricao'] ?? '';
+        $obEquipamentos->local      = $local ?? '';
+        $obEquipamentos->area       = $area ?? '';
         $obEquipamentos->imagem     = $dir_image ?? '';
         $obEquipamentos->horas      = $postVars['horas'] ?? '';
         $obEquipamentos->status     = $postVars['status'] ?? '';
@@ -167,8 +179,8 @@ class Equipamentos extends Page{
             'title'     => 'Editar Equipamento',
             'patrimonio'=> $obEquipamento->patrimonio,
             'nome'      => $obEquipamento->nome,
-            'local'     => $obEquipamento->local,
-            'area'      => $obEquipamento->area,
+            'local'     => self::getLocalItensSelector($request, $obEquipamento->local),
+            'area'      => self::getAreaItensSelector($request, $obEquipamento->local, $obEquipamento->area),
             'descricao' => $obEquipamento->descricao,
             'botao1'    => 'Voltar', 
             'type_btn1' => 'btn btn-secondary btn-icon-split',
@@ -236,14 +248,26 @@ class Equipamentos extends Page{
         //POST VARS
         $postVars = $request->getPostVars();
 
+        //PEGA O ID DA ÁREA
+        $id_area = $postVars['eq-area'];
+
+        //OBTÉM A INSTÂNCIA DO LOCAL NO BANCO DE DADOS
+        $obLocal = EntityLocal::getLocal($id_area);
+
+        //CRIA A VARIÁVEL LOCAL APARTIR DA INSTÂNCIA
+        $local = $obLocal->local;
+
+        //CRIA A VARIÁVEL AREA APARTIR DA INSTÂNCIA
+        $area = $obLocal->area;
+
         //ATUALIZA A INSTÂNCIA DO EQUIPAMENTO
         $obEquipamento->id         = $id;
         $obEquipamento->id_user    = strval($_SESSION['admin']['usuario']['id']);
         $obEquipamento->patrimonio = $postVars['patrimonio'] ?? $obEquipamento->patrimonio;
         $obEquipamento->nome       = $postVars['nome'] ?? $obEquipamento->nome;
         $obEquipamento->descricao  = $postVars['descricao'] ?? $obEquipamento->descricao ;
-        $obEquipamento->local      = $postVars['local'] ?? $obEquipamento->local;
-        $obEquipamento->area       = $postVars['area'] ?? $obEquipamento->area;
+        $obEquipamento->local      = $local ?? $obEquipamento->local;
+        $obEquipamento->area       = $area ?? $obEquipamento->area;
         $obEquipamento->imagem     = $dir_image ?? $obEquipamento->imagem ;
         $obEquipamento->horas      = $postVars['horas'] ?? $obEquipamento->horas;
         $obEquipamento->status     = $postVars['status'] ?? $obEquipamento->status;
@@ -307,7 +331,75 @@ class Equipamentos extends Page{
             ]);
         }
 
-        //RETORNA OS EQUIPAMENTOS
+        //RETORNA OS LOCAIS
+        return $itens;
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL PRO OBTER A RENDERIZAÇÃO DO SELECT DOS LOCAIS COM O SELECTOR
+     * @param Request $request
+     * @return string
+     */
+    private static function getLocalItensSelector($request, $lc){
+        //ITENS
+        $itens  = '';
+
+        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        $id_user = $_SESSION['admin']['usuario']['id'];
+
+        //RESULTADOS DA PÁGINA
+        $results = EntityLocal::getLocais('id_user = '.$id_user.' '.'AND area = ""', 'id DESC', NULL);
+
+        //RENDERIZA CADA LOCAL
+        while($obLocal = $results->fetchObject(EntityLocal::class)){
+            if($lc == $obLocal->local) {
+                $select = 'selected';
+            }else{
+                $select = '';
+            }
+            $itens .= View::render('Admin/equipamentos/option', [
+                'id'         => $obLocal->id,        
+                'value'      => $obLocal->local,
+                'selected'   => $select,
+            ]);
+        }
+
+        //RETORNA OS LOCAIS
+        return $itens;
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL PRO OBTER A RENDERIZAÇÃO DO SELECT DAS ÁREAS COM O SELECTOR
+     * @param Request $request
+     * @return string
+     */
+    private static function getAreaItensSelector($request, $lc, $ar){
+        //ITENS
+        $itens  = '';
+
+        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        $id_user = $_SESSION['admin']['usuario']['id'];
+
+        //RESULTADOS DA PÁGINA
+        $results = EntityLocal::getLocais('id_user = '.$id_user.' '.'AND local = "'.$lc.'"', 'id DESC', NULL);
+
+        //RENDERIZA CADA AREA
+        while($obLocal = $results->fetchObject(EntityLocal::class)){
+            if($ar == $obLocal->area) {
+                $select = 'selected';
+            }else{
+                $select = '';
+            }
+            if($obLocal->area != ''){
+                $itens .= View::render('Admin/equipamentos/option', [
+                    'id'         => $obLocal->id,        
+                    'value'      => $obLocal->area,
+                    'selected'   => $select,
+                ]);
+            }
+        }
+
+        //RETORNA AS ÁREAS
         return $itens;
     }
 
