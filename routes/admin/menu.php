@@ -23,13 +23,13 @@ $obRouter->get('/responsaveis', [
     }
 ]);
 
-//ROTA PROCEDIMENTOS
-$obRouter->get('/procedimentos', [
+//ROTA AGENDAMENTOS
+$obRouter->get('/agendamentos', [
     'middlewares' => [
         'required-admin-login'
     ],
     function($request){
-        return new Response(200, Admin\Procedimentos::getProcedimentos($request));
+        return new Response(200, Admin\Agendamentos::getAgendamentos($request));
     }
 ]);
 

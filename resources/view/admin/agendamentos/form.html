@@ -1,0 +1,109 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">{{title}}</h1>
+
+    <hr>
+
+    <a href="{{URL}}/agendamentos" class="{{type_btn1}}">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">{{botao1}}</span>
+    </a>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Patrimônio</label>
+                        <input type="text" name="patrimonio" class="form-control" value="{{patrimonio}}" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" name="nome" class="form-control" value="{{nome}}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Local</label>
+                        <select class="form-control" name="eq-local" id="eq-local" onchange="ActionSelectLocal()" required>
+                            <option value=""></option>
+                            {{local}}
+                        </select>
+                    </div>
+                    <script>
+                        function ActionSelectLocal(){
+                            let select = document.querySelector('#eq-local');
+                            let id = select.options[select.selectedIndex].value;
+
+                            if(!id){
+                                //console.log(!id);
+                            }else{
+                                carrega_dados();
+                            }
+
+                            function carrega_dados(){
+                                $.ajax({
+                                    method: "POST",
+                                    url: 'app/Model/Entity/Areas.php',
+                                    data: {'id': id},
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '<option value=""></option>';
+                                        for(var i = 0; i < data.dados.length; i++){
+                                            html += '<option value="' + data.dados[i].id + '">' + data.dados[i].area + '</option>';
+                                        }
+                                        $('#eq-area').html(html);
+                                    },
+                                    error: function(XMLHttpRequest, textStatus, errorThrown){
+                                        alert(errorThrown);
+                                    }
+                                });
+                            }
+                        }
+                    </script>
+                    <div class="form-group">
+                        <label>Área</label>
+                        <select class="form-control" name="eq-area" id="eq-area" required>
+                            <option value=""></option>
+                            {{area}}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea name="descricao" class="form-control" rows="3" required>{{descricao}}</textarea>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Imagem</label>
+                        <input type="file" name="image" class="form-data">
+                    </div>
+                    
+                    <div class="form-grop">
+                        <button type="submit" class="{{type_btn2}}">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">{{botao2}}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div>
+                <div>
+                    <label></label>
+                    <img class="card my-2 rounded" {{link}} style="max-height: 450px; max-width: 450px">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<!-- /.container-fluid -->

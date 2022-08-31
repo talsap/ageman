@@ -17,10 +17,10 @@ class Page{
             'label' => 'Ordens e Serviços',
             'link' => URL.'/ordens-servicos'
         ],
-        'Procedimentos' => [
+        'Agendamentos' => [
             'icon' => 'tasks',
-            'label' => 'Procedimentos',
-            'link' => URL.'/procedimentos'
+            'label' => 'Agendamentos',
+            'link' => URL.'/agendamentos'
         ],
         'Responsaveis' => [
             'icon' => 'users-cog',
