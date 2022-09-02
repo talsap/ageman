@@ -19,61 +19,32 @@
             <div>
                 <form method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label>Patrimônio</label>
-                        <input type="text" name="patrimonio" class="form-control" value="{{patrimonio}}" required>
+                        <label>Título</label>
+                        <input type="text" name="titulo" class="form-control" value="{{titulo}}" required>
                     </div>
             
                     <div class="form-group">
-                        <label>Nome</label>
-                        <input type="text" name="nome" class="form-control" value="{{nome}}" required>
+                        <label>Equipamento</label>
+                        <select class="form-control" name="equipamento" id="equipamento" onchange="ActionSelectLocal()" required>
+                            <option value=""></option>
+                            {{equipamento}}
+                        </select>
                     </div>
                     
                     <div class="form-group">
-                        <label>Local</label>
-                        <select class="form-control" name="eq-local" id="eq-local" onchange="ActionSelectLocal()" required>
-                            <option value=""></option>
-                            {{local}}
-                        </select>
-                    </div>
-                    <script>
-                        function ActionSelectLocal(){
-                            let select = document.querySelector('#eq-local');
-                            let id = select.options[select.selectedIndex].value;
-
-                            if(!id){
-                                //console.log(!id);
-                            }else{
-                                carrega_dados();
-                            }
-
-                            function carrega_dados(){
-                                $.ajax({
-                                    method: "POST",
-                                    url: 'app/Model/Entity/Areas.php',
-                                    data: {'id': id},
-                                    dataType: "json",
-                                    success: function(data) {
-                                        var html = '<option value=""></option>';
-                                        for(var i = 0; i < data.dados.length; i++){
-                                            html += '<option value="' + data.dados[i].id + '">' + data.dados[i].area + '</option>';
-                                        }
-                                        $('#eq-area').html(html);
-                                    },
-                                    error: function(XMLHttpRequest, textStatus, errorThrown){
-                                        alert(errorThrown);
-                                    }
-                                });
-                            }
-                        }
-                    </script>
-                    <div class="form-group">
-                        <label>Área</label>
-                        <select class="form-control" name="eq-area" id="eq-area" required>
-                            <option value=""></option>
+                        <label>Responsável</label>
+                        <select class="form-control" name="respons" id="respons" multiple required>
+                            <option value="1">a</option>
+                            <option value="2">b</option>
                             {{area}}
                         </select>
+                        <script>
+                            $(document).ready(function(){
+                                $('#respons').multiselect();
+                            });
+                        </script>
                     </div>
-
+                    
                     <div class="form-group">
                         <label>Descrição</label>
                         <textarea name="descricao" class="form-control" rows="3" required>{{descricao}}</textarea>

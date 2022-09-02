@@ -1,18 +1,30 @@
 <tr>
-    <td>{{patrimonio}}</td>
-    <td>{{nome}}</td>
-    <td>{{descricao}}</td>
-    <td>{{local}}</td>
-    <td>{{area}}</td>
     <td>
-        <a href="{{URL}}/edit-equipamento={{id}}" class="btn btn-info btn-circle">
-            <i class="fas fa-cog"></i>
-        </a>
-    </td>
-    <td>
-        <a href="#" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#delete-equipamento{{id}}">
-            <i class="fas fa-trash"></i>
-        </a>
+        <!-- Card Header - Dropdown -->
+        <div class="card-body py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 ml-3 font-weight-bold text-secundary">{{patrimonio}} - {{nome}}</h6>
+            <div class="mr-3 dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h fa-fw text-gray-600"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{URL}}/edit-equipamento={{id}}">
+                        <span class="icon">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        <span class="text">Editar</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete-equipamento{{id}}">
+                        <span class="icon">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                        <span class="text">Excluir</span>
+                    </a>
+                </div>
+            </div> 
+        </div>
     </td>
     <!-- Delete Modal Equipamento-->
     <div class="modal fade" id="delete-equipamento{{id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">

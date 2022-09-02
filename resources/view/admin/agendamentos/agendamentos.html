@@ -22,33 +22,91 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Patrimônio</th>
-                            <th>Nome</th>
-                            <th>Descrição</th>
-                            <th>Local</th>
-                            <th>Area</th>
-                            <th>Editar</th>
-                            <th>Excluir</th>
+                            <th>Agendamentos</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Patrimônio</th>
-                            <th>Nome</th>
-                            <th>Descrição</th>
-                            <th>Local</th>
-                            <th>Area</th>
-                            <th>Editar</th>
-                            <th>Excluir</th>
+                            <th>Agendamentos</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        {{itens}}
+                        <tr>
+                            <td>
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-body border-left-success py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 ml-3 font-weight-bold text-primary">Trocar Peça</h6>
+                                    <div class="mr-3 dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-h fa-fw text-gray-600"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#">
+                                                <span class="icon">
+                                                    <i class="fas fa-paper-plane"></i>
+                                                </span>
+                                                <span class="text">Enviar</span>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">
+                                                <span class="icon">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                                <span class="text">Editar</span>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">
+                                                <span class="icon">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                                <span class="text">Excluir</span>
+                                            </a>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-body border-left-primary py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 ml-3 font-weight-bold text-primary">Trocar Óleo</h6>
+                                    <div class="mr-3 dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-h fa-fw text-gray-600"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#">
+                                                <span class="icon">
+                                                    <i class="fas fa-paper-plane"></i>
+                                                </span>
+                                                <span class="text">Enviar</span>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">
+                                                <span class="icon">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                                <span class="text">Editar</span>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">
+                                                <span class="icon">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                                <span class="text">Excluir</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 </div>
 <!-- /.container-fluid -->
