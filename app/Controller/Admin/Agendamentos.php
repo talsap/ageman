@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use \App\Utils\View;
+use \App\Model\Entity\Equipamentos as EntityEquipamentos;
+use \App\Model\Entity\Responsaveis as EntityResponsaveis;
 
 class Agendamentos extends Page{
     /**
@@ -31,10 +33,10 @@ class Agendamentos extends Page{
     public static function getNewAgendamento($request){
         //CONTEÚDO DO FORMULÁRIO
         $content = View::render('Admin/agendamentos/form', [
-            'title'    => 'Novo Agendamento',
-            'patrimonio'=> '',
-            'nome'      => '',
-            'local'     => '',
+            'title'     => 'Novo Agendamento',
+            'titulo'    => '',
+            'equip'     => self::getEquipamentosItens($request),
+            'respons'   => self::getResponsaveisItens($request),
             'area'      => '',
             'descricao' => '',
             'botao1'    => 'Voltar', 
@@ -48,4 +50,59 @@ class Agendamentos extends Page{
         return parent::getPanel('MANUUFRB - Agendamento', $content, 'Agendamentos', $request);
     }
 
+    /**
+     * MÉTODO RESPONSÁVEL EM OBTER A RENDERIZAÇÃO DOS ITENS DOS RESPONSAVEIS PARA A PÁGINA
+     * @param Request $request
+     * @return string
+     */
+    private static function getResponsaveisItens($request){
+        //ITENS
+        $itens  = '';
+
+        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        $id_user = $_SESSION['admin']['usuario']['id'];
+
+        //RESULTADOS DA PÁGINA
+        $results = EntityResponsaveis::getResponsaveis('id_user ='. $id_user, 'id DESC', NULL);
+
+        //RENDERIZA CADA RESPONSÁVEL
+        while($obResponsaveis = $results->fetchObject(EntityResponsaveis::class)){
+            $itens .= View::render('Admin/agendamentos/option', [
+                'id'         => $obResponsaveis->id,        
+                'value'       => $obResponsaveis->nome,
+                'selected'   => ''
+            ]);
+        }
+
+        //RETORNA OS RESPONSÁVEIS
+        return $itens;
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL EM OBTER A RENDERIZAÇÃO DOS ITENS DOS EQUIPAMENTOS PARA A PÁGINA
+     * @param Request $request
+     * @return string
+     */
+    private static function getEquipamentosItens($request){
+        //ITENS
+        $itens  = '';
+
+        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        $id_user = $_SESSION['admin']['usuario']['id'];
+
+        //RESULTADOS DA PÁGINA
+        $results = EntityEquipamentos::getEquipamentos('id_user ='. $id_user, 'id DESC', NULL);
+
+        //RENDERIZA CADA EQUIPAMENTO
+        while($obEquipamentos = $results->fetchObject(EntityEquipamentos::class)){
+            $itens .= View::render('Admin/agendamentos/option', [
+                'id'         => $obEquipamentos->id,        
+                'value'       => $obEquipamentos->patrimonio.' - '.$obEquipamentos->nome,
+                'selected'   => ''
+            ]);
+        }
+
+        //RETORNA OS EQUIPAMENTOS
+        return $itens;
+    }
 }

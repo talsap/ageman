@@ -17,42 +17,56 @@
     <div class="row">
         <div class="col-xl-6">
             <div>
-                <form method="post" enctype="multipart/form-data">
+                <form method="post">
                     <div class="form-group">
                         <label>Título</label>
-                        <input type="text" name="titulo" class="form-control" value="{{titulo}}" required>
+                        <input class="form-control" type="text" name="titulo" id="titulo" value="{{titulo}}" required>
                     </div>
-            
+
                     <div class="form-group">
                         <label>Equipamento</label>
-                        <select class="form-control" name="equipamento" id="equipamento" onchange="ActionSelectLocal()" required>
+                        <select class="form-control" name="equipamento" id="equipamento" required>
                             <option value=""></option>
-                            {{equipamento}}
+                            {{equip}}
                         </select>
                     </div>
                     
+                    <div class="form-grop">
+                        <label>Datas</label>
+                        <div class="input-group input-daterange" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-language="pt-BR">
+                            <input type="text" class="form-control" name="data-st" id="data-st" placeholder="Início">
+                            <div class="input-group-addon">
+                                <span class="btn btn-secondary">
+                                    <i class="fas fa-calendar fa-sm"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" name="data-fs" id="data-fs" placeholder="Fim">
+                        </div>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label>Descrição</label>
+                        <textarea class="form-control" name="descricao" rows="3" required>{{descricao}}</textarea>
+                    </div>
+
                     <div class="form-group">
-                        <label>Responsável</label>
-                        <select class="selectpicker form-control" id="respons" multiple="multiple" required>
-                            <option value="1">a</option>
-                            <option value="2">b</option>
-                            {{area}}
+                        <label for="resp">Pessoas</label>
+                        <select class="form-check" name="resp" id="resp"  multiple required>
+                            {{respons}}
                         </select>
-                        <script>
-                            $(document).ready(function(){
-                                $('#respons').multiselect();
+
+                        <script type="text/javascript">
+                            VirtualSelect.init({
+                                ele: '#resp',
+                                placeholder: 'Responsáveis',
+                                noOptionsText: 'Nenhum resultado encontrado',
+                                searchPlaceholderText: 'Encontrar...',
+                                allOptionsSelectedText: 'Todos',
+                                emptyValue: '',
+                                required: true,
+                                disableValidation: true,
                             });
                         </script>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Descrição</label>
-                        <textarea name="descricao" class="form-control" rows="3" required>{{descricao}}</textarea>
-                    </div>
-    
-                    <div class="form-group">
-                        <label>Imagem</label>
-                        <input type="file" name="image" class="form-data">
                     </div>
                     
                     <div class="form-grop">

@@ -19,15 +19,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'snapappointments/bootstrap-select' => array(
-            'pretty_version' => 'v1.13.18',
-            'version' => '1.13.18.0',
-            'reference' => '6c4c75f61e69ca54d5ab557a2b90ffdccf1c63cd',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../snapappointments/bootstrap-select',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'william-costa/database-manager' => array(
             'pretty_version' => 'v0.1.0',
             'version' => '0.1.0.0',
