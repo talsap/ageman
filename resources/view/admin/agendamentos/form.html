@@ -33,8 +33,8 @@
                     
                     <div class="form-grop">
                         <label>Datas</label>
-                        <div class="input-group input-daterange" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-language="pt-BR">
-                            <input type="text" class="form-control" name="data-st" id="data-st" placeholder="Início">
+                        <div class="input-group input-daterange" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" data-date-start-date="+0" data-date-autoclose="true">
+                            <input type="text" class="form-control" name="data-st" id="data-st" placeholder="Início" onchange="ActionSelectDate()">
                             <div class="input-group-addon">
                                 <span class="btn btn-secondary">
                                     <i class="fas fa-calendar fa-sm"></i>
@@ -43,8 +43,286 @@
                             <input type="text" class="form-control" name="data-fs" id="data-fs" placeholder="Fim">
                         </div>
                     </div>
+                    <script>
+                        function ActionSelectDate(){
+                            var datast = document.getElementById("data-st").value;
+                            var parts = datast.split("/"), date = new Date(+parts[2], parts[1]-1, +parts[0]);
+                            document.getElementById("dom").checked = false;
+                            document.getElementById("seg").checked = false;
+                            document.getElementById("ter").checked = false;
+                            document.getElementById("qua").checked = false;
+                            document.getElementById("qui").checked = false;
+                            document.getElementById("sex").checked = false;
+                            document.getElementById("sab").checked = false;
+                            switch(date.getDay()) {
+                                case 0:
+                                    document.getElementById("dom").checked = true;
+                                    break;
+                                case 1:
+                                    document.getElementById("seg").checked = true;
+                                    break;
+                                case 2:
+                                    document.getElementById("ter").checked = true;
+                                    break;
+                                case 3:
+                                    document.getElementById("qua").checked = true;
+                                    break;
+                                case 4:
+                                    document.getElementById("qui").checked = true;
+                                    break;
+                                case 5:
+                                    document.getElementById("sex").checked = true;
+                                    break;
+                                case 6:
+                                    document.getElementById("sab").checked = true;
+                                    break;
+                                default:
+                                    document.getElementById("seg").checked = true;
+                                    break;
+                            }
+                            if(datast != ""){
+                                document.getElementById("not_replace").disabled = false;
+                                document.getElementById("diare").disabled = false;
+                                document.getElementById("semanal").disabled = false;
+                                document.getElementById("mensal").disabled = false;
+                                document.getElementById("anual").disabled = false;
+                                document.getElementById("alert0").disabled = false;
+                                document.getElementById("alert1").disabled = false;
+                                document.getElementById("alert2").disabled = false;
+                            }else{
+                                document.getElementById("not_replace").disabled = true;
+                                document.getElementById("diare").disabled = true;
+                                document.getElementById("semanal").disabled = true;
+                                document.getElementById("mensal").disabled = true;
+                                document.getElementById("anual").disabled = true;
+                                document.getElementById("alert0").disabled = true;
+                                document.getElementById("alert1").disabled = true;
+                                document.getElementById("alert2").disabled = true;
+                            }
+                        }
+                    </script>
 
                     <div class="form-group my-3">
+                        <label>Repetições</label>
+                        <div class="ml-3" onchange="ActionSelectReplace()"> 
+                            <input type="radio" name="replace" id="not_replace" value="0" checked disabled>
+                            <label>Não repetir</label><br>
+
+                            <input type="radio" name="replace" id="diare" value="1" disabled>
+                            <label>A cada</label>
+                            <input type="text" id="dia" size="1" value="" style="display: none;">
+                            <label>dia</label><br>
+
+                            <input type="radio" name="replace" id="semanal" value="2" disabled>
+                            <label>A cada</label>
+                            <input type="text" id="semana" size="1" value="" style="display: none;">
+                            <label>semana</label><br>
+                            <div class="ml-3" id="sem_check" style="display: none;" onchange="ActionSelectCheck()">
+                                <input type="checkbox" name="sem_check" id="dom" value="dom">
+                                <label>Dom</label></br>
+                                <input type="checkbox" name="sem_check" id="seg" value="seg">
+                                <label>Seg</label></br>
+                                <input type="checkbox" name="sem_check" id="ter" value="ter">
+                                <label>Ter</label></br>
+                                <input type="checkbox" name="sem_check" id="qua" value="qua">
+                                <label>Qua</label></br>
+                                <input type="checkbox" name="sem_check" id="qui" value="qui">
+                                <label>Qui</label></br>
+                                <input type="checkbox" name="sem_check" id="sex" value="sex">
+                                <label>Sex</label></br>
+                                <input type="checkbox" name="sem_check" id="sab" value="sab">
+                                <label>Sáb</label>
+                            </div>
+                            <script>
+                                function ActionSelectCheck(){
+                                    var bots = document.getElementsByName("sem_check"); 
+                                    var i = 1;
+                                    var j = 1;
+                                    var contador = 0;
+
+                                    for(i in bots){
+                                        if(bots[i].checked){
+                                            contador++;
+                                            j=i;
+                                        }
+                                    }
+                                    bots[j].checked = true;
+                                }
+                            </script>
+                            <input type="radio" name="replace" id="mensal" value="3" disabled>
+                            <label>A cada</label>
+                            <input type="text" id="mes" size="1" value="" style="display: none;">
+                            <label>mês</label><br>
+                            
+                            <input type="radio" name="replace" id="anual" value="4" disabled>
+                            <label>A cada</label>
+                            <input type="text" id="ano" size="1" value="" style="display: none;">
+                            <label>ano</label><br>
+                        </div>
+                        
+                        <div class="ml-3" id="duracao" style="display: none;" onchange="ActionSelectDuration()">
+                            <label>Duração</label></br>
+                            <div class="ml-3">
+                                <input type="radio" name="duracao" id="sempre" value="0" checked>
+                                <label>Sempre</label><br>
+
+                                <input type="radio" name="duracao" id="total_vzs" value="1">
+                                <label>Total de</label>
+                                <input type="text" id="num" size="1" value="" style="display: none;">
+                                <label>vezes</label><br>
+
+                                <input type="radio" name="duracao" id="ate" value="2">
+                                <label>Até</label>
+                                <div class="input-group input-date" id="date_ate" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" style="display: none;">
+                                    <input type="text" class="form-control" name="data-ate-fs" id="data-ate-fs" placeholder="Fim" value="" style="display: none;">
+                                </div>
+                            </div>
+                            <script>
+                                function ActionSelectDuration(){
+                                    var bott = document.getElementsByName("duracao");
+                                    var num = document.getElementById("num");
+                                    var date_ate = document.getElementById("date_ate");
+                                    var datafs = document.getElementById("data-fs");
+                                    var dataatefs = document.getElementById("data-ate-fs");
+                                    var i = 0;
+                                    
+                                    for(i in bott){
+                                        if(bott[i].checked){
+                                            var c = bott[i].value;
+                                            switch(c){
+                                                case "0":
+                                                    num.style.display = "none";
+                                                    date_ate.style.display = "none";
+                                                    break;
+                                                case "1":
+                                                    num.placeholder = 10;
+                                                    num.style.display = "";
+                                                    date_ate.style.display = "none";
+                                                    break;                            
+                                                case "2":
+                                                    datafs.value = dataatefs.value;
+                                                    num.style.display = "none";
+                                                    date_ate.style.display = "";
+                                                    break;                                            
+                                                default:
+                                                    num.style.display = "none";
+                                                    date_ate.style.display = "none";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                }
+                            </script>
+                        </div>
+                        <script>
+                            function ActionSelectReplace(){
+                                var botoes = document.getElementsByName("replace");
+                                var day = document.getElementById("dia");
+                                var week = document.getElementById("semana");
+                                var week_check = document.getElementById("sem_check");
+                                var month = document.getElementById("mes");
+                                var year = document.getElementById("ano");
+                                var duration = document.getElementById("duracao");
+                                var i = 0;
+
+                                for(i in botoes){
+                                    if(botoes[i].checked){
+                                        var casos = botoes[i].value;
+                                        day.style.display = "none";
+                                        week.style.display = "none";
+                                        week_check.style.display = "none";
+                                        month.style.display = "none";
+                                        year.style.display = "none";
+                                        duration.style.display = "";
+                                        switch(casos){
+                                            case "1":
+                                                day.placeholder = 1;
+                                                day.style.display = "";
+                                                break;
+                                            case "2":
+                                                week.placeholder = 1;
+                                                week.style.display = "";
+                                                week_check.style.display = "";
+                                                break;
+                                            case "3":
+                                                month.placeholder = 1;
+                                                month.style.display = "";
+                                                break;
+                                            case "4":
+                                                year.placeholder = 1;
+                                                year.style.display = "";
+                                                break;
+                                            default:
+                                                duration.style.display = "none";
+                                                break;
+                                        }
+                                    }
+                                }       
+                            }
+                        </script>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label>Alertas</label>
+                        <div class="ml-3" onchange="ActionSelectAlert()"> 
+                            <input type="checkbox" name="alert" id="alert0" value="0" disabled>
+                            <label>No dia do evento às</label>
+                            <input type="time" id="alert_0" size="3" value="" style="display: none;"><br>
+
+                            <input type="checkbox" name="alert" id="alert1" value="1" disabled>
+                            <label>No dia anterior ao evento às</label>
+                            <input type="time" id="alert_1" size="3" value="" style="display: none;"><br>
+
+                            <input type="checkbox" name="alert" id="alert2" value="2" disabled>
+                            <label>2 dias anterior ao evento às</label>
+                            <input type="time" id="alert_2" size="3" value="" style="display: none;">
+                        </div>
+                        <script>
+                            function ActionSelectAlert(){
+                                var alert = document.getElementsByName("alert");
+                                var alert0 = document.getElementById("alert_0");
+                                var alert1 = document.getElementById("alert_1");
+                                var alert2 = document.getElementById("alert_2");
+                                var i = 0;
+
+                                for(i in alert){
+                                    if(alert[i].checked){
+                                        var ket = alert[i].value;
+                                        switch(ket){
+                                            case "0":
+                                                alert0.style.display = "";
+                                                break;
+                                            case "1":
+                                                alert1.style.display = "";
+                                                break;
+                                            case "2":
+                                                alert2.style.display = "";
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }else{
+                                        var ket = alert[i].value;
+                                        switch(ket){
+                                            case "0":
+                                                alert0.style.display = "none";
+                                                break;
+                                            case "1":
+                                                alert1.style.display = "none";
+                                                break;
+                                            case "2":
+                                                alert2.style.display = "none";
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                        </script>
+                    </div>
+
+                    <div class="form-group">
                         <label>Descrição</label>
                         <textarea class="form-control" name="descricao" rows="3" required>{{descricao}}</textarea>
                     </div>
