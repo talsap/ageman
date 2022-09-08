@@ -33,23 +33,26 @@
                     
                     <div class="form-group my-3">
                         <label>Tipo de manutenção</label>
-                        <div class="ml-3" onchange="ActionSelectTipo()"> 
+                        <div class="ml-3" onchange="ActionSelectTipo()">
                             <input type="radio" name="tipo" value="0" checked>
-                            <label>Preventiva</label></br>
+                            <label>Corretiva</label></br>
 
                             <input type="radio" name="tipo" value="1">
-                            <label>Periódica</label></br>
+                            <label>Preventiva</label></br>
 
                             <input type="radio" name="tipo" value="2">
-                            <label>Limpeza</label></br>
+                            <label>Periódica</label></br>
 
                             <input type="radio" name="tipo" value="3">
-                            <label>Troca de oléo</label></br>
+                            <label>Limpeza</label></br>
 
                             <input type="radio" name="tipo" value="4">
-                            <label>Troca de peças</label></br>
+                            <label>Troca de oléo</label></br>
 
                             <input type="radio" name="tipo" value="5">
+                            <label>Troca de peças</label></br>
+
+                            <input type="radio" name="tipo" value="6">
                             <label>Outro</label>
                             <input type="text" name="outro" id="outro" value="" style="display: none;">
                         </div>
@@ -62,7 +65,7 @@
                                     if(tipos[i].checked){
                                         var t = tipos[i].value;
                                         switch (t) {
-                                            case "5":
+                                            case "6":
                                                 outro.style.display = "";
                                                 break;
                                             default:
@@ -308,16 +311,16 @@
 
                     <div class="form-group">
                         <label>Descrição</label>
-                        <textarea class="form-control" name="descricao" rows="3" required>{{descricao}}</textarea>
+                        <textarea class="form-control" name="descricao" rows="3">{{descricao}}</textarea>
                     </div>
 
                     <div class="form-group my-3">
                         <label>Inspeção visual</label>
                         <div id="inspecao" class="ml-3">
-                            <input type="radio" name="inspecao" id="sim" value="1" checked>
+                            <input type="radio" name="inspecao" id="sim" value="0" checked>
                             <label>Sim</label>
 
-                            <input type="radio" name="inspecao" id="nao" value="0">
+                            <input type="radio" name="inspecao" id="nao" value="1">
                             <label>Não</label>   
                         </div>
                     </div>

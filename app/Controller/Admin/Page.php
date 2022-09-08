@@ -126,11 +126,20 @@ class Page{
             case 'created':
                 return Alert::getSuccess('Cadastrado com sucesso!');
                 break;
+            case 'agended':
+                return Alert::getSuccess('Agendado com sucesso!');
+                break;
             case 'edited':
                 return Alert::getSuccess('Alterado com sucesso!');
                 break;
             case 'deleted':
                 return Alert::getSuccess('Excluído com sucesso!');
+                break;
+            case 'sent':
+                return Alert::getSuccess('Enviado com sucesso!');
+                break;
+            case 'error':
+                return Alert::getErro('Algum erro encontrado!');
                 break;
         }
 

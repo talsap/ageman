@@ -20,7 +20,7 @@ class Agendamentos extends Page{
             'title'    => 'Agenda de manutenções',
             'botao'    => 'Agendar Manutenções',
             'type_btn' => 'btn btn-primary btn-icon-split',
-            'itens'    => ''
+            'itens'    => self::getAgendamentosItens($request)
         ]);
 
         //RETORNA A PÁGINA COMPLETA
@@ -106,6 +106,34 @@ class Agendamentos extends Page{
         //RETORNA OS EQUIPAMENTOS
         return $itens;
     }
+
+    /**
+     * MÉTODO RESPONSÁVEL EM OBTER A RENDERIZAÇÃO DOS ITENS DOS AGENDAMENTOS PARA A PÁGINA
+     * @param Request $request
+     * @return string
+     */
+    private static function getAgendamentosItens($request){
+        //ITENS
+        $itens  = '';
+
+        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        $id_user = $_SESSION['admin']['usuario']['id'];
+
+        //RESULTADOS DA PÁGINA
+        $results = EntityAgendamentos::getAgendamentos('id_user ='. $id_user, 'id DESC', NULL);
+
+        //RENDERIZA CADA AGENDAMENTO
+        while($obAgendamentos = $results->fetchObject(EntityAgendamentos::class)){
+            $itens .= View::render('Admin/agendamentos/itens', [
+                'id'         => $obAgendamentos->id,        
+                'title'      => $obAgendamentos->title.' - '.explode(',', $obAgendamentos->equipamento)[1],
+                'status'     => $obAgendamentos->status
+            ]);
+        }
+
+        //RETORNA OS EQUIPAMENTOS
+        return $itens;
+    }
     
     /**
      * MÉTODO RESPONSÁVEL POR CRIAR UM NOVO AGENDAMENTO
@@ -118,8 +146,13 @@ class Agendamentos extends Page{
 
         //TIPO DE MANUTENÇÃO
         $tipos = self::getTipoManutencao($postVars['tipo'], $postVars['outro']);
+        $tipo = $postVars['tipo'].','.$tipos;
 
-        //CRIA AS VARIAVEIS DE SEMANA
+        //OBTÉM O EQUIPAMENTO DO BANCO DE DADOS
+        $obEquipamento = EntityEquipamentos::getEquip(strval($postVars['equipamento']));
+        $equipamento = $postVars['equipamento'].','.$obEquipamento->nome;
+
+        //VERIFICAÇÕES DO POST
         $dom = $postVars['dom'] ?? '';
         $seg = $postVars['seg'] ?? '';
         $ter = $postVars['ter'] ?? '';
@@ -127,34 +160,37 @@ class Agendamentos extends Page{
         $qui = $postVars['qui'] ?? '';
         $sex = $postVars['sex'] ?? '';
         $sab = $postVars['sab'] ?? '';
-        $dias_semana = Array($dom, $seg, $ter, $qua, $qui, $sex, $sab);
+        $replace = $postVars['replace'] ?? '';
+        $duracao = $postVars['duracao'] ?? '';
+        $count = $postVars['num'] ?? '';
+        $until = $postVars['data-ate-fs'] ?? '';
 
         //REPETIÇÕES
-        $frequecia = self::getFrequeciaRepeticoes($postVars['replace'], $postVars['dia'], $postVars['semana'], $dias_semana, $postVars['mes'], $postVars['ano'], $postVars['duracao'], $postVars['num'], $postVars['data-ate-fs']);
+        $frequecia = $replace.','.$duracao.','.$count.','.$until.','.$dom.','.$seg.','.$ter.','.$qua.','.$qui.','.$sex.','.$sab;
 
-        echo '<pre>';
-        print_r($frequecia);
-        echo '</pre>';
-
-        echo '<pre>';
-        print_r($postVars);
-        echo '</pre>'; exit;
+        //ALERTAS
+        $alertas = $postVars['alert0'].','.$postVars['alert1'].','.$postVars['alert2'];
 
         //CRIA NOVA INSTÂNCIA DE AGENDAMENTO
         $obAgendamento = new EntityAgendamentos();
         $obAgendamento->id_user         = strval($_SESSION['admin']['usuario']['id']);
-        $obAgendamento->id_equipamento  = strval($postVars['equipamento']) ?? NULL;
-        //$obAgendamento->id_responsaveis = $postVars['resp'] ?? '';
-        //$obAgendamento->title           = $postVars['title'] ?? '';
-        $obAgendamento->dt_st           = 'VALUE=DATE:'.self::getDateFormatCalendar($postVars['data-st']) ?? '';
-        $obAgendamento->dt_fs           = 'VALUE=DATE:'.self::getDateFormatCalendar($postVars['data-fs']) ?? '';
-        //$obAgendamento->freq            =
-        //$obAgendamento->alert           =
-        //$obAgendamento->tipo            = $tipos ?? '';
-        //$obAgendamento->inspecao        = strval($postVars['inspecao']);
-        //$obAgendamento->descricao       = $postVars['descricao'] ?? '';
-        //$obAgendamento->status          =
+        $obAgendamento->equipamento     = $equipamento ?? NULL;
+        $obAgendamento->responsaveis    = $postVars['resp'] ?? '';
+        $obAgendamento->title           = $postVars['titulo'] ?? '';
+        $obAgendamento->dt_st           = $postVars['data-st'] ?? '';
+        $obAgendamento->dt_fs           = $postVars['data-fs'] ?? '';
+        $obAgendamento->freq            = $frequecia ?? '';
+        $obAgendamento->alert           = $alertas ?? '';
+        $obAgendamento->tipo            = $tipo ?? '';
+        $obAgendamento->inspecao        = strval($postVars['inspecao']);
+        $obAgendamento->descricao       = $postVars['descricao'] ?? '';
+        $obAgendamento->status          = 'success'; //COLORS STATUS: success=VERDE | primary=AZUL
 
+        //CADASTRA O AGENDAMENTO NO BANCO DE DADOS
+        $obAgendamento->cadastrar();
+
+        //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+        $request->getRouter()->redirect('/new-agendamento?status=agended');
     }
     
     /**
@@ -185,6 +221,7 @@ class Agendamentos extends Page{
         if($sem == ''){ $sem = '1';}
         if($mes == ''){ $mes = '1';}
         if($ano == ''){ $ano = '1';}
+        //$dias_semana = Array($dom, $seg, $ter, $qua, $qui, $sex, $sab);
 
         //VERIFICA E CONCATENA CADA DIA DA SEMANA COM UMA VÍRGULA
         $string_day = '';
@@ -256,21 +293,24 @@ class Agendamentos extends Page{
         if(isset($idt)){
             switch ($idt) {
                 case '0':
-                    return 'preventiva';
+                    return 'corretiva';
                     break;
                 case '1':
-                    return 'periodica';
+                    return 'preventiva';
                     break;
                 case '2':
-                    return 'limpeza';
+                    return 'periodica';
                     break;
                 case '3':
-                    return 'troca de oleo';
+                    return 'limpeza';
                     break;
                 case '4':
-                    return 'troca de peca';
+                    return 'troca de oleo';
                     break;
                 case '5':
+                    return 'troca de peca';
+                    break;
+                case '6':
                     return $outro;
                     break;
                 default:
@@ -278,5 +318,27 @@ class Agendamentos extends Page{
                     break;
             }
         }
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR EXCLUIR UM AGENDAMENTO
+     * @param Request $request
+     * @param integer $id
+     * @return string
+     */
+    public static function setDeleteAgendamento($request, $id){
+        //OBTÉM O AGENDAMENTO DO BANCO DE DADOS
+        $obAgendamento = EntityAgendamentos::getAgend($id);
+
+        //VALIDA A INSTANCIA
+        if(!$obAgendamento instanceof EntityAgendamentos){
+            $request->getRouter()->redirect('/agendamentos');
+        }
+
+        //EXCLUI O AGENDAMENTO
+        $obAgendamento->excluir();
+        
+        //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+        $request->getRouter()->redirect('/agendamentos?status=deleted');
     }
 }

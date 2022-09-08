@@ -26,15 +26,15 @@ class Agendamentos{
 
     /**
      * ID DO EQUIPAMENTO
-     * @var integer
+     * @var string
      */
-    public $id_equipamento;
+    public $equipamento;
 
     /**
      * ID DOS RESPONSÁVEIS CONCATENADO
      * @var string
      */
-    public $id_responsaveis;
+    public $responsaveis;
 
     /**
      * DATA DE ÍNICIO DO AGENDAMENTO
@@ -92,8 +92,8 @@ class Agendamentos{
         //INSERE OS DADOS DO AGENDAMENTO NO BANCO DE DADOS
         $this->id = (new Database('agendamentos'))->insert([
             'id_user'       =>$this->id_user,
-            'equipamento'   =>$this->id_equipamento,
-            'responsaveis'  =>$this->id_responsaveis,
+            'equipamento'   =>$this->equipamento,
+            'responsaveis'  =>$this->responsaveis,
             'title'         =>$this->title,
             'dt_st'         =>$this->dt_st,
             'dt_fs'         =>$this->dt_fs,
@@ -116,8 +116,8 @@ class Agendamentos{
     public function atualizar(){
         //ATUALIZA OS DADOS DO AGENDAMENTO NO BANCO DE DADOS
         return (new Database('agedamentos'))->update('id = '.$this->id,[
-            'equipamento'   =>$this->id_equipamento,
-            'responsaveis'  =>$this->id_responsaveis,
+            'equipamento'   =>$this->equipamento,
+            'responsaveis'  =>$this->responsaveis,
             'title'         =>$this->title,
             'dt_st'         =>$this->dt_st,
             'dt_fs'         =>$this->dt_fs,

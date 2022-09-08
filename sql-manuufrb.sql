@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `agendamentos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
-  `equipamento` int(11) NOT NULL,
+  `equipamento` varchar(255) NOT NULL,
   `responsaveis` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `dt_st` varchar(255) NOT NULL,
