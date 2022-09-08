@@ -338,6 +338,7 @@ class Equipamentos extends Page{
     /**
      * MÉTODO RESPONSÁVEL PRO OBTER A RENDERIZAÇÃO DO SELECT DOS LOCAIS COM O SELECTOR
      * @param Request $request
+     * @param string $lc
      * @return string
      */
     private static function getLocalItensSelector($request, $lc){

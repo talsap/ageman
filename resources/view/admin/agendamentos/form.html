@@ -34,27 +34,27 @@
                     <div class="form-group my-3">
                         <label>Tipo de manutenção</label>
                         <div class="ml-3" onchange="ActionSelectTipo()">
-                            <input type="radio" name="tipo" value="0" checked>
+                            <input type="radio" name="tipo" value="0" {{tipo0}}>
                             <label>Corretiva</label></br>
 
-                            <input type="radio" name="tipo" value="1">
+                            <input type="radio" name="tipo" value="1" {{tipo1}}>
                             <label>Preventiva</label></br>
 
-                            <input type="radio" name="tipo" value="2">
+                            <input type="radio" name="tipo" value="2" {{tipo2}}>
                             <label>Periódica</label></br>
 
-                            <input type="radio" name="tipo" value="3">
+                            <input type="radio" name="tipo" value="3" {{tipo3}}>
                             <label>Limpeza</label></br>
 
-                            <input type="radio" name="tipo" value="4">
+                            <input type="radio" name="tipo" value="4" {{tipo4}}>
                             <label>Troca de oléo</label></br>
 
-                            <input type="radio" name="tipo" value="5">
+                            <input type="radio" name="tipo" value="5" {{tipo5}}>
                             <label>Troca de peças</label></br>
 
-                            <input type="radio" name="tipo" value="6">
+                            <input type="radio" name="tipo" value="6" {{tipo6}}>
                             <label>Outro</label>
-                            <input type="text" name="outro" id="outro" value="" style="display: none;">
+                            <input type="text" name="outro" id="outro" value="{{outro_text}}" {{outro_display}}>
                         </div>
                         <script>
                             function ActionSelectTipo(){
@@ -81,13 +81,13 @@
                     <div class="form-grop">
                         <label>Datas</label>
                         <div class="input-group input-daterange" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" data-date-start-date="+0" data-date-autoclose="true">
-                            <input type="text" class="form-control" name="data-st" id="data-st" placeholder="Início" onchange="ActionSelectDate()" required>
+                            <input type="text" class="form-control" name="data-st" id="data-st" placeholder="Início" onchange="ActionSelectDate()" value="{{dt_st}}" required>
                             <div class="input-group-addon">
                                 <span class="btn btn-secondary">
                                     <i class="fas fa-calendar fa-sm"></i>
                                 </span>
                             </div>
-                            <input type="text" class="form-control" name="data-fs" id="data-fs" placeholder="Fim" required>
+                            <input type="text" class="form-control" name="data-fs" id="data-fs" placeholder="Fim" value="{{dt_fs}}" required>
                         </div>
                     </div>
                     <script>
@@ -152,32 +152,32 @@
                     <div class="form-group my-3">
                         <label>Repetições</label>
                         <div class="ml-3" id="replace" onchange="ActionSelectReplace()"> 
-                            <input type="radio" name="replace" id="not_replace" value="0" checked>
+                            <input type="radio" name="replace" id="not_replace" value="0" {{replace0}}>
                             <label>Não repetir</label><br>
 
-                            <input type="radio" name="replace" id="diare" value="1">
+                            <input type="radio" name="replace" id="diare" value="1" {{replace1}}>
                             <label>A cada</label>
-                            <input type="text" name="dia" id="dia" size="1" value="" style="display: none;">
+                            <input type="text" name="dia" id="dia" size="1" value="{{dia_text}}" {{dia_display}}>
                             <label>dia</label><br>
 
-                            <input type="radio" name="replace" id="semanal" value="2">
+                            <input type="radio" name="replace" id="semanal" value="2" {{replace2}}>
                             <label>A cada</label>
-                            <input type="text" name="semana" id="semana" size="1" value="" style="display: none;">
+                            <input type="text" name="semana" id="semana" size="1" value="{{sem_text}}" {{sem_display}}>
                             <label>semana</label><br>
-                            <div class="ml-3" id="sem_check" style="display: none;" onchange="ActionSelectCheck()">
-                                <input type="checkbox" class="sem_check" name="dom" id="dom" value="SU">
+                            <div class="ml-3" id="sem_check" {{sem_display}} onchange="ActionSelectCheck()">
+                                <input type="checkbox" class="sem_check" name="dom" id="dom" value="SU" {{dom}}>
                                 <label>Dom</label></br>
-                                <input type="checkbox" class="sem_check" name="seg" id="seg" value="MO">
+                                <input type="checkbox" class="sem_check" name="seg" id="seg" value="MO" {{seg}}>
                                 <label>Seg</label></br>
-                                <input type="checkbox" class="sem_check" name="ter" id="ter" value="TU">
+                                <input type="checkbox" class="sem_check" name="ter" id="ter" value="TU" {{ter}}>
                                 <label>Ter</label></br>
-                                <input type="checkbox" class="sem_check" name="qua" id="qua" value="WE">
+                                <input type="checkbox" class="sem_check" name="qua" id="qua" value="WE" {{qua}}>
                                 <label>Qua</label></br>
-                                <input type="checkbox" class="sem_check" name="qui" id="qui" value="TH">
+                                <input type="checkbox" class="sem_check" name="qui" id="qui" value="TH" {{qui}}>
                                 <label>Qui</label></br>
-                                <input type="checkbox" class="sem_check" name="sex" id="sex" value="FR">
+                                <input type="checkbox" class="sem_check" name="sex" id="sex" value="FR" {{sex}}>
                                 <label>Sex</label></br>
-                                <input type="checkbox" class="sem_check" name="sab" id="sab" value="SA">
+                                <input type="checkbox" class="sem_check" name="sab" id="sab" value="SA" {{sab}}>
                                 <label>Sáb</label>
                             </div>
                             <script>
@@ -196,32 +196,32 @@
                                     bots[j].checked = true;
                                 }
                             </script>
-                            <input type="radio" name="replace" id="mensal" value="3">
+                            <input type="radio" name="replace" id="mensal" value="3" {{replace3}}>
                             <label>A cada</label>
-                            <input type="text" name="mes" id="mes" size="1" value="" style="display: none;">
+                            <input type="text" name="mes" id="mes" size="1" value="{{mes_text}}" {{mes_display}}>
                             <label>mês</label><br>
                             
-                            <input type="radio" name="replace" id="anual" value="4">
+                            <input type="radio" name="replace" id="anual" value="4" {{replace4}}>
                             <label>A cada</label>
-                            <input type="text" name="ano" id="ano" size="1" value="" style="display: none;">
+                            <input type="text" name="ano" id="ano" size="1" value="{{ano_text}}" {{ano_display}}>
                             <label>ano</label><br>
                         </div>
                         
-                        <div class="ml-3" id="duracao" style="display: none;" onchange="ActionSelectDuration()">
+                        <div class="ml-3" id="duracao" {{dur_display}} onchange="ActionSelectDuration()">
                             <label>Duração</label></br>
                             <div class="ml-3">
-                                <input type="radio" name="duracao" id="sempre" value="0" checked>
+                                <input type="radio" name="duracao" id="sempre" value="0" {{duracao0}}>
                                 <label>Sempre</label><br>
 
-                                <input type="radio" name="duracao" id="total_vzs" value="1">
+                                <input type="radio" name="duracao" id="total_vzs" value="1" {{duracao1}}>
                                 <label>Total de</label>
-                                <input type="text" name="num" id="num" size="1" value="" style="display: none;">
+                                <input type="text" name="num" id="num" size="1" value="{{num_text}}" {{num_display}}>
                                 <label>vezes</label><br>
 
-                                <input type="radio" name="duracao" id="ate" value="2">
+                                <input type="radio" name="duracao" id="ate" value="2" {{duracao2}}>
                                 <label>Até</label>
-                                <div class="input-group input-date" id="date_ate" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" style="display: none;">
-                                    <input type="text" class="form-control" name="data-ate-fs" id="data-ate-fs" placeholder="Fim" value="" style="display: none;">
+                                <div class="input-group input-date" id="date_ate" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" {{dt_ate_display}}>
+                                    <input type="text" class="form-control" name="data-ate-fs" id="data-ate-fs" value="{{date_ate_text}}" style="display: none;">
                                 </div>
                             </div>
                             <script>
@@ -317,17 +317,17 @@
                     <div class="form-group my-3">
                         <label>Inspeção visual</label>
                         <div id="inspecao" class="ml-3">
-                            <input type="radio" name="inspecao" id="sim" value="0" checked>
+                            <input type="radio" name="inspecao" id="sim" value="0" {{insp0}}>
                             <label>Sim</label>
 
-                            <input type="radio" name="inspecao" id="nao" value="1">
+                            <input type="radio" name="inspecao" id="nao" value="1" {{insp1}}>
                             <label>Não</label>   
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="resp">Pessoas</label>
-                        <select class="form-check" name="resp" id="resp"  multiple required>
+                        <select class="form-check" name="resp" id="resp" multiple required>
                             {{respons}}
                         </select>
 
@@ -348,17 +348,17 @@
                     <div class="form-group my-3">
                         <label>Alertas</label>
                         <div class="ml-3" onchange="ActionSelectAlert()"> 
-                            <input type="checkbox" name="alert" id="alert0" value="0">
+                            <input type="checkbox" name="alert" id="alert0" value="0" {{alert0}}>
                             <label>No dia do evento às</label>
-                            <input type="time" name="alert0" id="alert_0" size="3" value="" style="display: none;"><br>
+                            <input type="time" name="alert0" id="alert_0" size="3" value="{{alert_text0}}" {{alert_display0}}><br>
 
-                            <input type="checkbox" name="alert" id="alert1" value="1">
+                            <input type="checkbox" name="alert" id="alert1" value="1" {{alert1}}>
                             <label>No dia anterior ao evento às</label>
-                            <input type="time" name="alert1" id="alert_1" size="3" value="" style="display: none;"><br>
+                            <input type="time" name="alert1" id="alert_1" size="3" value="{{alert_text1}}" {{alert_display1}}><br>
 
-                            <input type="checkbox" name="alert" id="alert2" value="2">
+                            <input type="checkbox" name="alert" id="alert2" value="2" {{alert2}}>
                             <label>2 dias anterior ao evento às</label>
-                            <input type="time" name="alert2" id="alert_2" size="3" value="" style="display: none;">
+                            <input type="time" name="alert2" id="alert_2" size="3" value="{{alert_text2}}" {{alert_display2}}>
                         </div>
                         <script>
                             function ActionSelectAlert(){

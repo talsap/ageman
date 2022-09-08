@@ -115,7 +115,7 @@ class Agendamentos{
      */
     public function atualizar(){
         //ATUALIZA OS DADOS DO AGENDAMENTO NO BANCO DE DADOS
-        return (new Database('agedamentos'))->update('id = '.$this->id,[
+        return (new Database('agendamentos'))->update('id = '.$this->id,[
             'equipamento'   =>$this->equipamento,
             'responsaveis'  =>$this->responsaveis,
             'title'         =>$this->title,
