@@ -31,16 +31,60 @@
                         </select>
                     </div>
                     
+                    <div class="form-group my-3">
+                        <label>Tipo de manutenção</label>
+                        <div class="ml-3" onchange="ActionSelectTipo()"> 
+                            <input type="radio" name="tipo" value="0" checked>
+                            <label>Preventiva</label></br>
+
+                            <input type="radio" name="tipo" value="1">
+                            <label>Periódica</label></br>
+
+                            <input type="radio" name="tipo" value="2">
+                            <label>Limpeza</label></br>
+
+                            <input type="radio" name="tipo" value="3">
+                            <label>Troca de oléo</label></br>
+
+                            <input type="radio" name="tipo" value="4">
+                            <label>Troca de peças</label></br>
+
+                            <input type="radio" name="tipo" value="5">
+                            <label>Outro</label>
+                            <input type="text" name="outro" id="outro" value="" style="display: none;">
+                        </div>
+                        <script>
+                            function ActionSelectTipo(){
+                                var tipos = document.getElementsByName("tipo");
+                                var outro = document.getElementById("outro");
+                                var i = 0;
+                                for(i in tipos){
+                                    if(tipos[i].checked){
+                                        var t = tipos[i].value;
+                                        switch (t) {
+                                            case "5":
+                                                outro.style.display = "";
+                                                break;
+                                            default:
+                                                outro.style.display = "none";
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                        </script>
+                    </div>
+
                     <div class="form-grop">
                         <label>Datas</label>
                         <div class="input-group input-daterange" data-provide="datepicker-inline" data-date-format="dd/mm/yyyy" data-date-language="pt-BR" data-date-start-date="+0" data-date-autoclose="true">
-                            <input type="text" class="form-control" name="data-st" id="data-st" placeholder="Início" onchange="ActionSelectDate()">
+                            <input type="text" class="form-control" name="data-st" id="data-st" placeholder="Início" onchange="ActionSelectDate()" required>
                             <div class="input-group-addon">
                                 <span class="btn btn-secondary">
                                     <i class="fas fa-calendar fa-sm"></i>
                                 </span>
                             </div>
-                            <input type="text" class="form-control" name="data-fs" id="data-fs" placeholder="Fim">
+                            <input type="text" class="form-control" name="data-fs" id="data-fs" placeholder="Fim" required>
                         </div>
                     </div>
                     <script>
@@ -104,38 +148,38 @@
 
                     <div class="form-group my-3">
                         <label>Repetições</label>
-                        <div class="ml-3" onchange="ActionSelectReplace()"> 
-                            <input type="radio" name="replace" id="not_replace" value="0" checked disabled>
+                        <div class="ml-3" id="replace" onchange="ActionSelectReplace()"> 
+                            <input type="radio" name="replace" id="not_replace" value="0" checked>
                             <label>Não repetir</label><br>
 
-                            <input type="radio" name="replace" id="diare" value="1" disabled>
+                            <input type="radio" name="replace" id="diare" value="1">
                             <label>A cada</label>
-                            <input type="text" id="dia" size="1" value="" style="display: none;">
+                            <input type="text" name="dia" id="dia" size="1" value="" style="display: none;">
                             <label>dia</label><br>
 
-                            <input type="radio" name="replace" id="semanal" value="2" disabled>
+                            <input type="radio" name="replace" id="semanal" value="2">
                             <label>A cada</label>
-                            <input type="text" id="semana" size="1" value="" style="display: none;">
+                            <input type="text" name="semana" id="semana" size="1" value="" style="display: none;">
                             <label>semana</label><br>
                             <div class="ml-3" id="sem_check" style="display: none;" onchange="ActionSelectCheck()">
-                                <input type="checkbox" name="sem_check" id="dom" value="dom">
+                                <input type="checkbox" class="sem_check" name="dom" id="dom" value="SU">
                                 <label>Dom</label></br>
-                                <input type="checkbox" name="sem_check" id="seg" value="seg">
+                                <input type="checkbox" class="sem_check" name="seg" id="seg" value="MO">
                                 <label>Seg</label></br>
-                                <input type="checkbox" name="sem_check" id="ter" value="ter">
+                                <input type="checkbox" class="sem_check" name="ter" id="ter" value="TU">
                                 <label>Ter</label></br>
-                                <input type="checkbox" name="sem_check" id="qua" value="qua">
+                                <input type="checkbox" class="sem_check" name="qua" id="qua" value="WE">
                                 <label>Qua</label></br>
-                                <input type="checkbox" name="sem_check" id="qui" value="qui">
+                                <input type="checkbox" class="sem_check" name="qui" id="qui" value="TH">
                                 <label>Qui</label></br>
-                                <input type="checkbox" name="sem_check" id="sex" value="sex">
+                                <input type="checkbox" class="sem_check" name="sex" id="sex" value="FR">
                                 <label>Sex</label></br>
-                                <input type="checkbox" name="sem_check" id="sab" value="sab">
+                                <input type="checkbox" class="sem_check" name="sab" id="sab" value="SA">
                                 <label>Sáb</label>
                             </div>
                             <script>
                                 function ActionSelectCheck(){
-                                    var bots = document.getElementsByName("sem_check"); 
+                                    var bots = document.getElementsByClassName("sem_check"); 
                                     var i = 1;
                                     var j = 1;
                                     var contador = 0;
@@ -149,14 +193,14 @@
                                     bots[j].checked = true;
                                 }
                             </script>
-                            <input type="radio" name="replace" id="mensal" value="3" disabled>
+                            <input type="radio" name="replace" id="mensal" value="3">
                             <label>A cada</label>
-                            <input type="text" id="mes" size="1" value="" style="display: none;">
+                            <input type="text" name="mes" id="mes" size="1" value="" style="display: none;">
                             <label>mês</label><br>
                             
-                            <input type="radio" name="replace" id="anual" value="4" disabled>
+                            <input type="radio" name="replace" id="anual" value="4">
                             <label>A cada</label>
-                            <input type="text" id="ano" size="1" value="" style="display: none;">
+                            <input type="text" name="ano" id="ano" size="1" value="" style="display: none;">
                             <label>ano</label><br>
                         </div>
                         
@@ -168,7 +212,7 @@
 
                                 <input type="radio" name="duracao" id="total_vzs" value="1">
                                 <label>Total de</label>
-                                <input type="text" id="num" size="1" value="" style="display: none;">
+                                <input type="text" name="num" id="num" size="1" value="" style="display: none;">
                                 <label>vezes</label><br>
 
                                 <input type="radio" name="duracao" id="ate" value="2">
@@ -262,20 +306,56 @@
                         </script>
                     </div>
 
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea class="form-control" name="descricao" rows="3" required>{{descricao}}</textarea>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label>Inspeção visual</label>
+                        <div id="inspecao" class="ml-3">
+                            <input type="radio" name="inspecao" id="sim" value="1" checked>
+                            <label>Sim</label>
+
+                            <input type="radio" name="inspecao" id="nao" value="0">
+                            <label>Não</label>   
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resp">Pessoas</label>
+                        <select class="form-check" name="resp" id="resp"  multiple required>
+                            {{respons}}
+                        </select>
+
+                        <script type="text/javascript">
+                            VirtualSelect.init({
+                                ele: '#resp',
+                                placeholder: 'Responsáveis',
+                                noOptionsText: 'Nenhum resultado encontrado',
+                                searchPlaceholderText: 'Encontrar...',
+                                allOptionsSelectedText: 'Todos',
+                                emptyValue: '',
+                                required: true,
+                                disableValidation: true,
+                            });
+                        </script>
+                    </div>
+
                     <div class="form-group my-3">
                         <label>Alertas</label>
                         <div class="ml-3" onchange="ActionSelectAlert()"> 
-                            <input type="checkbox" name="alert" id="alert0" value="0" disabled>
+                            <input type="checkbox" name="alert" id="alert0" value="0">
                             <label>No dia do evento às</label>
-                            <input type="time" id="alert_0" size="3" value="" style="display: none;"><br>
+                            <input type="time" name="alert0" id="alert_0" size="3" value="" style="display: none;"><br>
 
-                            <input type="checkbox" name="alert" id="alert1" value="1" disabled>
+                            <input type="checkbox" name="alert" id="alert1" value="1">
                             <label>No dia anterior ao evento às</label>
-                            <input type="time" id="alert_1" size="3" value="" style="display: none;"><br>
+                            <input type="time" name="alert1" id="alert_1" size="3" value="" style="display: none;"><br>
 
-                            <input type="checkbox" name="alert" id="alert2" value="2" disabled>
+                            <input type="checkbox" name="alert" id="alert2" value="2">
                             <label>2 dias anterior ao evento às</label>
-                            <input type="time" id="alert_2" size="3" value="" style="display: none;">
+                            <input type="time" name="alert2" id="alert_2" size="3" value="" style="display: none;">
                         </div>
                         <script>
                             function ActionSelectAlert(){
@@ -305,12 +385,15 @@
                                         var ket = alert[i].value;
                                         switch(ket){
                                             case "0":
+                                                alert0.value = "";
                                                 alert0.style.display = "none";
                                                 break;
                                             case "1":
+                                                alert1.value = "";
                                                 alert1.style.display = "none";
                                                 break;
                                             case "2":
+                                                alert2.value = "";
                                                 alert2.style.display = "none";
                                                 break;
                                             default:
@@ -319,31 +402,6 @@
                                     }
                                 }
                             }
-                        </script>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Descrição</label>
-                        <textarea class="form-control" name="descricao" rows="3" required>{{descricao}}</textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="resp">Pessoas</label>
-                        <select class="form-check" name="resp" id="resp"  multiple required>
-                            {{respons}}
-                        </select>
-
-                        <script type="text/javascript">
-                            VirtualSelect.init({
-                                ele: '#resp',
-                                placeholder: 'Responsáveis',
-                                noOptionsText: 'Nenhum resultado encontrado',
-                                searchPlaceholderText: 'Encontrar...',
-                                allOptionsSelectedText: 'Todos',
-                                emptyValue: '',
-                                required: true,
-                                disableValidation: true,
-                            });
                         </script>
                     </div>
                     
@@ -356,14 +414,6 @@
                         </button>
                     </div>
                 </form>
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <div>
-                <div>
-                    <label></label>
-                    <img class="card my-2 rounded" {{link}} style="max-height: 450px; max-width: 450px">
-                </div>
             </div>
         </div>
     </div>

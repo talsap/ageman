@@ -1,0 +1,36 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20220919
+DTEND;VALUE=DATE:20220920
+DTSTAMP:20220907T215900Z
+ORGANIZER;CN=tarcisiosapucaia27@gmail.com:mailto:tarcisiosapucaia27@gmail.c
+ om
+UID:c8pjccj46tijgbb375i34b9k6so6cb9pcgo34b9o69ij2cpkcks6ce36cc@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=tarcisiosapucaia27@gmail.com;X-NUM-GUESTS=0:mailto:tarcisiosapucaia27@g
+ mail.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=tarcisiosapucaia@aluno.ufrb.edu.br;X-NUM-GUESTS=0:mailto:tarcisiosa
+ pucaia@aluno.ufrb.edu.br
+X-MICROSOFT-CDO-OWNERAPPTID:1657676529
+CREATED:20220907T215856Z
+DESCRIPTION:-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~
+ :~:~:~:~:~:~:~:~::~:~::-\nVisualize o seu evento em https://calendar.google
+ .com/calendar/event?action=VIEW&eid=YzhwamNjajQ2dGlqZ2JiMzc1aTM0YjlrNnNvNmN
+ iOXBjZ28zNGI5bzY5aWoyY3BrY2tzNmNlMzZjYyB0YXJjaXNpb3NhcHVjYWlhQGFsdW5vLnVmcm
+ IuZWR1LmJy&tok=MjgjdGFyY2lzaW9zYXB1Y2FpYTI3QGdtYWlsLmNvbTgxNGEyNmQ4MjhjM2Uy
+ N2U2NjBjNTlhYmMzZDVlODFlYWMzZDIyMzE&ctz=America%2FBahia&hl=pt_BR&es=1.\n\nN
+ ão edite esta seção da descrição.\n-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:
+ ~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~::~:~::-
+LAST-MODIFIED:20220907T215856Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:A cada dia
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

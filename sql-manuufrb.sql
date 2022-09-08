@@ -24,6 +24,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `agendamentos`
+--
+
+CREATE TABLE IF NOT EXISTS `agendamentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `equipamento` int(11) NOT NULL,
+  `responsaveis` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `dt_st` varchar(255) NOT NULL,
+  `dt_fs` varchar(255) NOT NULL,
+  `freq` varchar(255) NOT NULL,
+  `alert` varchar(255) NOT NULL,
+  `tipo` varchar(255) NOT NULL,
+  `inspecao` boolean NOT NULL,
+  `descricao` text NOT NULL,
+  `status` varchar(255) NOT NULL,
+  UNIQUE (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `responsaveis`
 --
 
