@@ -183,10 +183,22 @@ class Agendamentos extends Page{
 
         //RENDERIZA CADA AGENDAMENTO
         while($obAgendamentos = $results->fetchObject(EntityAgendamentos::class)){
+            //VERIFICA SE O EQUIPAMENTO NÃO É NULO
+            if($obAgendamentos->equipamento != ''){
+                $eq = ' - '.explode(',', $obAgendamentos->equipamento)[1];
+            }else{
+                $eq = '';
+            }
+            if($obAgendamentos->status != 'success'){
+                $env_display = 'style="display: none;"';
+            }else{
+                $env_display = '';
+            }
             $itens .= View::render('Admin/agendamentos/itens', [
                 'id'         => $obAgendamentos->id,        
-                'title'      => $obAgendamentos->title.' - '.explode(',', $obAgendamentos->equipamento)[1],
-                'status'     => $obAgendamentos->status
+                'title'      => $obAgendamentos->title.$eq,
+                'status'     => $obAgendamentos->status,
+                'env_display'=> $env_display
             ]);
         }
 
@@ -252,7 +264,7 @@ class Agendamentos extends Page{
         $obAgendamento->tipo            = $tipo ?? '';
         $obAgendamento->inspecao        = strval($postVars['inspecao']);
         $obAgendamento->descricao       = $postVars['descricao'] ?? '';
-        $obAgendamento->status          = 'success'; //COLORS STATUS: success=VERDE | primary=AZUL
+        $obAgendamento->status          = 'success'; //COLORS STATUS: success=VERDE|primary=AZUL|warning=AMARELO|info=CIANO|danger=VERMELHO
 
         //CADASTRA O AGENDAMENTO NO BANCO DE DADOS
         $obAgendamento->cadastrar();
@@ -618,7 +630,7 @@ class Agendamentos extends Page{
         $obAgendamento->tipo            = $tipo ?? '';
         $obAgendamento->inspecao        = strval($postVars['inspecao']);
         $obAgendamento->descricao       = $postVars['descricao'] ?? '';
-        $obAgendamento->status          = 'success'; //COLORS STATUS: success=VERDE | primary=AZUL
+        $obAgendamento->status          = 'success'; //COLORS STATUS: success=VERDE|primary=AZUL|warning=AMARELO|info=CIANO|danger=VERMELHO
 
         //ATUALIZA O AGENDAMENTO NO BANCO DE DADOS
         $obAgendamento->atualizar();

@@ -112,10 +112,44 @@ class Equipamentos{
     }
 
     /**
+     * MÉTODO RESPONSÁVEL POR ATUALIZAR OS DADOS DO BANCO COM A INSTANCIA ATUAL ALTERNADO O AGENDAMENTO
+     * @return boolean
+     */
+    public function atualizarAmpla(){
+        //STRING DE BUSCA SQL
+        $sql = 'id_user = '.$this->id_user.' and equipamento LIKE "'.$this->id.'%"';
+
+        //ATUALIZA TODOS OS AGENDAMENTO NO BANCO DE DADOS MUDANDO O STATUS
+        $atualizaAgendamentos = (new Database('agendamentos'))->update($sql,[
+            'equipamento'     => $this->id.','.$this->nome,
+            'status'          => 'success'
+        ]);
+
+        //ATUALIZA OS DADOS DO EQUIPAMENTO NO BANCO DE DADOS
+        return (new Database('equipamentos'))->update('id = '.$this->id,[
+            'patrimonio'    =>$this->patrimonio,
+            'nome'          =>$this->nome,
+            'descricao'     =>$this->descricao,
+            'local'         =>$this->local,
+            'area'          =>$this->area,
+            'imagem'        =>$this->imagem,
+        ]);
+    }
+
+    /**
      * MÉTODO RESPONSÁVEL POR EXCLUIR UM EQUIPAMENTO DO BANCO DE DADOS
      * @return boolean
      */
     public function excluir(){
+        //STRING DE BUSCA SQL
+        $sql = 'id_user = '.$this->id_user.' and equipamento = "'.$this->id.','.$this->nome.'"';
+
+        //ATUALIZA TODOS OS AGENDAMENTO NO BANCO DE DADOS MUDANDO O STATUS
+        $atualizaAgendamentos = (new Database('agendamentos'))->update($sql,[
+            'equipamento'     =>'',
+            'status'          =>'warning'
+        ]);
+
         //EXCLUI UM EQUIPAMENTO DO BANCO DE DADOS
         return (new Database('equipamentos'))->delete('id = '.$this->id);
     }

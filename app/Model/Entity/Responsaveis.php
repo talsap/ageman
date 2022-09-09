@@ -59,10 +59,38 @@ class Responsaveis{
     }
 
     /**
+     * MÉTODO RESPONSÁVEL POR ATUALIZAR OS DADOS DO BANCO COM A INSTANCIA ATUAL ALTERNADO O AGENDAMENTO
+     * @return boolean
+     */
+    public function atualizarAmpla(){
+        //STRING DE BUSCA SQL
+        $sql = 'id_user = '.$this->id_user.' and responsaveis LIKE "%'.$this->id.'%"';
+
+        //ATUALIZA TODOS OS AGENDAMENTO NO BANCO DE DADOS MUDANDO O STATUS
+        $atualizaAgendamentos = (new Database('agendamentos'))->update($sql,[
+            'status'          =>'success'
+        ]);
+
+        //ATUALIZA OS DADOS DO RESPONSÁVEL NO BANCO DE DADOS
+        return (new Database('responsaveis'))->update('id = '.$this->id,[
+            'nome'          =>$this->nome,
+            'email'         =>$this->email,
+        ]);
+    }
+
+    /**
      * MÉTODO RESPONSÁVEL POR EXCLUIR UM RESPONSÁVEL DO BANCO DE DADOS
      * @return boolean
      */
     public function excluir(){
+        //STRING DE BUSCA SQL
+        $sql = 'id_user = '.$this->id_user.' and responsaveis LIKE "%'.$this->id.'%"';
+
+        //ATUALIZA TODOS OS AGENDAMENTO NO BANCO DE DADOS MUDANDO O STATUS
+        $atualizaAgendamentos = (new Database('agendamentos'))->update($sql,[
+            'status'          =>'warning'
+        ]);
+
         //EXCLUI UM EQUIPAMENTO DO BANCO DE DADOS
         return (new Database('responsaveis'))->delete('id = '.$this->id);
     }

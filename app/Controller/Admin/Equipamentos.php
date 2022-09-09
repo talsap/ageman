@@ -260,6 +260,11 @@ class Equipamentos extends Page{
         //CRIA A VARIÁVEL AREA APARTIR DA INSTÂNCIA
         $area = $obLocal->area;
 
+        //VERIFICA SE O NOME, O PATRIMONIO, O LACAL E A AREA DO EQUIPAMENTO MUDOU
+        if($obEquipamento->patrimonio != $postVars['patrimonio'] or $obEquipamento->nome != $postVars['nome']){
+            $condition = true;
+        }else{$condition = false;}
+        
         //ATUALIZA A INSTÂNCIA DO EQUIPAMENTO
         $obEquipamento->id         = $id;
         $obEquipamento->id_user    = strval($_SESSION['admin']['usuario']['id']);
@@ -274,7 +279,11 @@ class Equipamentos extends Page{
         $obEquipamento->hist_manu  = $postVars['hist_manu'] ?? $obEquipamento->hist_manu;
         
         //ATUALIZA O EQUIPAMENTO NO BANCO DE DADOS
-        $obEquipamento->atualizar();
+        if($condition){
+            $obEquipamento->atualizarAmpla();
+        }else{
+            $obEquipamento->atualizar();
+        }
         
         //REDIRECIONA O USUÁRIO PARA A PAGE EQUIPAMENTOS
         $request->getRouter()->redirect('/equipamentos?status=edited');

@@ -140,9 +140,13 @@ class Responsaveis extends Page{
         if(!$obResponsavel instanceof EntityResponsaveis){
             $request->getRouter()->redirect('/equipamentos');
         }
-
         //POST VARS
         $postVars = $request->getPostVars();
+
+        //VERIFICA SE O EMAIL DO RESPONSÁVEL MUDOU
+        if($obResponsavel->email != $postVars['email']){
+            $condition = true;
+        }else{$condition = false;}
 
         //ATUALIZA A INSTÂNCIA DO RESPONSÁVEL
         $obResponsavel->id         = $id;
@@ -151,7 +155,11 @@ class Responsaveis extends Page{
         $obResponsavel->email      = $postVars['email'] ?? $obResponsavel->email;
         
         //ATUALIZA O RESPONSÁVEL NO BANCO DE DADOS
-        $obResponsavel->atualizar();
+        if($condition){
+            $obResponsavel->atualizarAmpla();
+        }else{
+            $obResponsavel->atualizar();
+        }
         
         //REDIRECIONA O USUÁRIO PARA A PAGE RESPONSÁVEL
         $request->getRouter()->redirect('/responsaveis?status=edited');
