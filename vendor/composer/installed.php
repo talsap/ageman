@@ -3,7 +3,7 @@
         'name' => 'htdocs/manuufrb',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '04745e88f5657273facd4bbc812b032dade3812a',
+        'reference' => 'd9cce276e962992a6f7ff95307448b4d0635d0cf',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'htdocs/manuufrb' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '04745e88f5657273facd4bbc812b032dade3812a',
+            'reference' => 'd9cce276e962992a6f7ff95307448b4d0635d0cf',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
