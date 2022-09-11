@@ -23,6 +23,16 @@ $obRouter->post('/', [
     }
 ]);
 
+//ROTA LOGIN GOOGLE (POST)
+$obRouter->get('/login-google', [
+    'middlewares' => [
+        'required-admin-logout'
+    ],
+    function($request){
+        return new Response(200, PageLogin\Login::setLoginGoogle($request));
+    }
+]);
+
 //ROTA LOGOUT
 $obRouter->get('/logout', [
     'middlewares' => [

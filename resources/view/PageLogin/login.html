@@ -12,9 +12,11 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">{{name}}</h1>
                             </div>
+
                             <div class="text-center">
-                                {{status}}
+                                {{statuss}}
                             </div>
+
                             <form method="post" class="user">
                                 <div class="form-group">
                                     <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="E-mail">
@@ -28,8 +30,32 @@
                                         <label class="custom-control-label" for="customCheck">Lembre-me</label>
                                     </div>
                                 </div>
+
                                 <button href="{{URL}}" class="btn btn-primary btn-user btn-block" type="submit">Entrar</button>
+                                
                                 <hr>
+
+                                <script src="https://accounts.google.com/gsi/client" async defer></script>
+                                <div id="g_id_onload"
+                                    data-client_id="{{ID_OAUTH}}"
+                                    data-login_uri="https://your.domain/your_login_endpoint"
+                                    data-auto_prompt="false">
+                                </div>
+                                <div class="g_id_signin custom-control"
+                                    data-type="standard"
+                                    data-size="large"
+                                    data-theme="filled_black"
+                                    data-text="sign_in_with"
+                                    data-shape="pill"
+                                    data-logo_alignment="left"
+                                    data-width=345>
+                                </div>
+                                
+                                <hr>
+                            </form>
+
+
+            
                             <div class="text-center">
                                 <a class="small" href="{{URL}}/recuperar-senha">Esqueceu a senha?</a>
                             </div>

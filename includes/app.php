@@ -21,10 +21,12 @@ Database::config(
 
 //DEFINE A CONSTANTE DE URL DO PROJETO
 define('URL',getenv('URL'));
+define('ID_OAUTH', getenv('ID_OAUTH'));
 
 //DEFINE O VALOR PADRÃO DAS VARIÁVEIS
 View::init([
-    'URL'=> URL
+    'URL'       => URL,
+    'ID_OAUTH'  => ID_OAUTH
 ]);
 
 //DEFINE O MAPEAMENTO DE MIDDLEWARES

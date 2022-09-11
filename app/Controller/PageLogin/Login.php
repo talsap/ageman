@@ -35,6 +35,39 @@ class Login extends Page{
     public static function setLogin($request){
         //POST VARS
         $postVars = $request->getPostVars();
+        
+        $email = $postVars['email'] ?? '';
+        $senha = $postVars['senha'] ?? ''; 
+
+        //BUSCA O USUÁRIO PELO E-MAIL
+        $obUser = User::getUserByEmail($email);
+        if(!$obUser instanceof User){
+            return self::getLogin($request, 'E-mail ou senha inválidos');
+        }
+
+        //VERIFICA A SENHA DO USUÁRIO
+        if(!password_verify($senha, $obUser->senha)){
+            return self::getLogin($request, 'E-mail ou senha inválidos');
+        }
+
+        //CRIA A SESSÃO DE LOGIN
+        SessionAdminLogin::login($obUser);
+        
+        //REDIRECIONA O USUÁRIO PARA O /ADMIN
+        $request->getRouter()->redirect('/admin');
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR DEFINIR O LOGIN DO USUÁRIO PELO GOOGLE
+     * @param Request $request
+     */
+    public static function setLoginGoogle($request){
+        //POST VARS
+        $postVars = $request->getPostVars();
+        
+        echo '<pre>';
+        print_r($postVars);
+        echo '</pre>'; exit;
         $email = $postVars['email'] ?? '';
         $senha = $postVars['senha'] ?? ''; 
 
