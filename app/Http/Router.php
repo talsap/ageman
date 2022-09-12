@@ -138,7 +138,7 @@ class Router{
         $xUri = strlen($this->prefix) ? explode($this->prefix, $uri) : [$uri];
 
         //RETORNA A URI SEM O PREFIXO
-        return end($xUri);        
+        return end($xUri);
     }
 
     /**

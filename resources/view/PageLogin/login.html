@@ -14,7 +14,7 @@
                             </div>
 
                             <div class="text-center">
-                                {{statuss}}
+                                {{status}}
                             </div>
 
                             <form method="post" class="user">
@@ -38,10 +38,10 @@
                                 <script src="https://accounts.google.com/gsi/client" async defer></script>
                                 <div id="g_id_onload"
                                     data-client_id="{{ID_OAUTH}}"
-                                    data-login_uri="https://your.domain/your_login_endpoint"
+                                    data-login_uri="{{URL}}/login-google"
                                     data-auto_prompt="false">
                                 </div>
-                                <div class="g_id_signin custom-control"
+                                <div class="g_id_signin row justify-content-center"
                                     data-type="standard"
                                     data-size="large"
                                     data-theme="filled_black"

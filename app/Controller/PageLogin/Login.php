@@ -5,6 +5,7 @@ namespace App\Controller\PageLogin;
 use \App\Utils\View;
 use \App\Model\Entity\User;
 use \App\Session\Admin\Login as SessionAdminLogin;
+use Google\Client as GoogleClient;
 
 class Login extends Page{
     /**
@@ -65,21 +66,43 @@ class Login extends Page{
         //POST VARS
         $postVars = $request->getPostVars();
         
-        echo '<pre>';
-        print_r($postVars);
-        echo '</pre>'; exit;
-        $email = $postVars['email'] ?? '';
-        $senha = $postVars['senha'] ?? ''; 
+        //VERIFICA OS CAMPOS OBRIGATÓRIOS
+        if(!isset($postVars['credential']) || !isset($postVars['g_csrf_token'])){
+            //REDIRECIONA O USUÁRIO PARA O /
+            $request->getRouter()->redirect('/');
+            exit;
+        }
+        //COOKIE CSRF
+        $cookie = $_COOKIE['g_csrf_token'] ?? '';
+
+        //VERIFICA O VALOR DO COOKIE E DO POST PARA O CSRF
+        if($postVars['g_csrf_token'] != $cookie){
+            //REDIRECIONA O USUÁRIO PARA O /
+            $request->getRouter()->redirect('/');
+            exit;
+        }
+
+        //INSTÂNCIA DO CLIENTE GOOGLE
+        $client = new GoogleClient(['client_id' => ID_OAUTH]);
+
+        //OBTÉM OS DADOS DO USUÁRIO COM BASE NO JWT
+        $payload = $client->verifyIdToken($postVars['credential']); //CREDENTIAL=JWT
+        
+        //VERIFICA OS DADOS DO PAYLOAD
+        if(isset($payload['email'])){
+            $email = $payload['email'] ?? '';
+            //$idGoogle = $payload['sub'] ?? '';
+        }else{
+            //REDIRECIONA O USUÁRIO PARA O /
+            $request->getRouter()->redirect('/');
+            exit;
+        }
 
         //BUSCA O USUÁRIO PELO E-MAIL
         $obUser = User::getUserByEmail($email);
-        if(!$obUser instanceof User){
-            return self::getLogin($request, 'E-mail ou senha inválidos');
-        }
 
-        //VERIFICA A SENHA DO USUÁRIO
-        if(!password_verify($senha, $obUser->senha)){
-            return self::getLogin($request, 'E-mail ou senha inválidos');
+        if(!$obUser instanceof User){
+            return self::getLogin($request, 'Usuário inválido!');
         }
 
         //CRIA A SESSÃO DE LOGIN

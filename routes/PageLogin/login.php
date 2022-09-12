@@ -23,8 +23,38 @@ $obRouter->post('/', [
     }
 ]);
 
-//ROTA LOGIN GOOGLE (POST)
+//ROTA LOGIN
+$obRouter->get('/login', [
+    'middlewares' => [
+        'required-admin-logout'
+    ],
+    function($request){
+        return new Response(200, PageLogin\Login::getLogin($request));
+    }
+]);
+
+//ROTA LOGIN (POST)
+$obRouter->post('/login', [
+    'middlewares' => [
+        'required-admin-logout'
+    ],
+    function($request){
+        return new Response(200, PageLogin\Login::setLogin($request));
+    }
+]);
+
+//ROTA LOGIN GOOGLE
 $obRouter->get('/login-google', [
+    'middlewares' => [
+        'required-admin-logout'
+    ],
+    function($request){
+        return new Response(200, PageLogin\Login::getLogin($request));
+    }
+]);
+
+//ROTA LOGIN GOOGLE (POST)
+$obRouter->post('/login-google', [
     'middlewares' => [
         'required-admin-logout'
     ],

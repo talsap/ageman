@@ -27,6 +27,9 @@ cmd -> (ADM)
 * Instalação do database-maneger (Biblioteca para gerenciar a conexão de banco de dados, paginação de resultados e construção de consultas em PHP):
 > $composer require william-costa/database-manager
 
+* Instalação do google API client (google api):
+> $composer require google/apiclient
+
 ## Autor
  
 * **Tarcisio Sapucaia**: @talsap (https://github.com/talsap) e-mail: (tarcisiosapucaia@hotmail.com)
