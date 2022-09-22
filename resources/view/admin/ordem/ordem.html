@@ -1,3 +1,36 @@
-<div>
-    {{ordem}}
+<div class="container-fluid">
+    <div class="calendar"  id='calendar'></div>
+    <style>
+        .calendar{
+            width: 100%;
+            height: 80vh;
+            color: rgb(90, 92, 105);
+        }
+    </style>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let calendarEl = document.getElementById('calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            themeSystem: 'bootstrap',
+            locale: 'pt-br',
+            headerToolbar:{
+                start: 'prevYear,prev,next,nextYear,today',
+                center: 'title',
+                end: 'timeGridDay,timeGridWeek,dayGridMonth'
+            },
+            buttonText:{
+                today: 'hoje',
+                month: 'mês',
+                week: 'semana',
+                day: 'dia',
+                list: 'lista'
+            }
+        });
+        calendar.render();
+    });
+    
+</script>
+
