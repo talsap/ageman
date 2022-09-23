@@ -5,7 +5,7 @@ namespace App\Controller\PageLogin;
 use \App\Utils\View;
 use \App\Model\Entity\User;
 use \App\Session\Admin\Login as SessionAdminLogin;
-use Google\Client as GoogleClient;
+use Google;
 
 class Login extends Page{
     /**
@@ -52,7 +52,7 @@ class Login extends Page{
         }
 
         //CRIA A SESSÃO DE LOGIN
-        SessionAdminLogin::login($obUser);
+        SessionAdminLogin::login($obUser, '');
         
         //REDIRECIONA O USUÁRIO PARA O /ADMIN
         $request->getRouter()->redirect('/admin');
@@ -75,7 +75,7 @@ class Login extends Page{
         //COOKIE CSRF
         $cookie = $_COOKIE['g_csrf_token'] ?? '';
 
-        //VERIFICA O VALOR DO COOKIE E DO POST PARA O CSRF
+        //VERIFICA O VALOR DO COOKIE E O DO POST PARA O CSRF
         if($postVars['g_csrf_token'] != $cookie){
             //REDIRECIONA O USUÁRIO PARA O /
             $request->getRouter()->redirect('/');
@@ -83,7 +83,7 @@ class Login extends Page{
         }
 
         //INSTÂNCIA DO CLIENTE GOOGLE
-        $client = new GoogleClient(['client_id' => ID_OAUTH]);
+        $client = new Google\Client(['client_id' => ID_OAUTH]);
 
         //OBTÉM OS DADOS DO USUÁRIO COM BASE NO JWT
         $payload = $client->verifyIdToken($postVars['credential']); //CREDENTIAL=JWT
@@ -106,7 +106,7 @@ class Login extends Page{
         }
 
         //CRIA A SESSÃO DE LOGIN
-        SessionAdminLogin::login($obUser);
+        SessionAdminLogin::login($obUser, $postVars['credential']);
         
         //REDIRECIONA O USUÁRIO PARA O /ADMIN
         $request->getRouter()->redirect('/admin');
