@@ -43,7 +43,7 @@ $obRouter->post('/login', [
     }
 ]);
 
-//ROTA LOGIN GOOGLE
+//ROTA LOGIN GOOGLE - VERIFICA O CODIGO DE ACESSO
 $obRouter->get('/login-google', [
     'middlewares' => [
         'required-admin-logout'

@@ -24,26 +24,26 @@
                                 <div class="form-group">
                                     <input name="senha" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Senha">
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <div class="custom-control custom-checkbox small">
                                         <input name="remember" type="checkbox" class="custom-control-input" id="customCheck">
                                         <label class="custom-control-label" for="customCheck">Lembre-me</label>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <button href="{{URL}}" class="btn btn-primary btn-user btn-block" type="submit">Entrar</button>
                                 
                                 <hr>
 
-                                <script src="https://accounts.google.com/gsi/client" async defer></script>
                                 <div id="g_id_onload"
                                     data-client_id="{{ID_OAUTH}}"
                                     data-login_uri="{{URL}}/login-google"
+                                    data-context="use"
                                     data-auto_prompt="false">
                                 </div>
                                 <div class="g_id_signin row justify-content-center"
                                     data-type="standard"
-                                    data-size="large"
+                                    data-size="pill"
                                     data-theme="filled_black"
                                     data-text="sign_in_with"
                                     data-shape="pill"

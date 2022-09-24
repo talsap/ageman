@@ -52,7 +52,7 @@ class Login extends Page{
         }
 
         //CRIA A SESSÃO DE LOGIN
-        SessionAdminLogin::login($obUser, '', '');
+        SessionAdminLogin::login($obUser, '');
         
         //REDIRECIONA O USUÁRIO PARA O /ADMIN
         $request->getRouter()->redirect('/admin');
@@ -106,7 +106,7 @@ class Login extends Page{
         }
 
         //CRIA A SESSÃO DE LOGIN
-        SessionAdminLogin::login($obUser, $postVars['credential'], $cookie);
+        SessionAdminLogin::login($obUser, $postVars['credential']);
         
         //REDIRECIONA O USUÁRIO PARA O /ADMIN
         $request->getRouter()->redirect('/admin');

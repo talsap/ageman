@@ -19,17 +19,32 @@ class Login{
      * @param User $obUser
      * @return boolean
      */
-    public static function login($obUser, $token, $cookie){
+    public static function login($obUser, $token){
         //INICIA A SESSÃO
         self::init();
 
         //DEFINE A SESSÃO DO USUÁRIO
         $_SESSION['admin']['usuario'] = [
-            'id'     => $obUser->id,
-            'nome'   => $obUser->nome,
-            'email'  => $obUser->email,
-            'token'  => $token,
-            'cookie' => $cookie
+            'id'         => $obUser->id,
+            'nome'       => $obUser->nome,
+            'email'      => $obUser->email,
+            'token'      => $token,
+            'tokenOAuth' => ''
+        ];
+
+        //SECESSO
+        return true;
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR INSERIR O TOKEN DE AUTORIÇÃO NA SESSÃO DO USUÁRIO
+     * @param string $token
+     * @return boolean
+     */
+    public static function tokenAutorization($token){
+        //ADICIONA O TOKEN NA SESSÃO
+        $_SESSION['admin']['usuario'] = [
+            'tokenOAuth' => $token
         ];
 
         //SECESSO
