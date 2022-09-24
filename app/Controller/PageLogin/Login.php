@@ -52,7 +52,7 @@ class Login extends Page{
         }
 
         //CRIA A SESSÃO DE LOGIN
-        SessionAdminLogin::login($obUser, '');
+        SessionAdminLogin::login($obUser, '', '');
         
         //REDIRECIONA O USUÁRIO PARA O /ADMIN
         $request->getRouter()->redirect('/admin');
@@ -65,7 +65,7 @@ class Login extends Page{
     public static function setLoginGoogle($request){
         //POST VARS
         $postVars = $request->getPostVars();
-        
+
         //VERIFICA OS CAMPOS OBRIGATÓRIOS
         if(!isset($postVars['credential']) || !isset($postVars['g_csrf_token'])){
             //REDIRECIONA O USUÁRIO PARA O /
@@ -83,11 +83,11 @@ class Login extends Page{
         }
 
         //INSTÂNCIA DO CLIENTE GOOGLE
-        $client = new Google\Client(['client_id' => ID_OAUTH]);
-
+        $client = new Google\Client();
+        
         //OBTÉM OS DADOS DO USUÁRIO COM BASE NO JWT
         $payload = $client->verifyIdToken($postVars['credential']); //CREDENTIAL=JWT
-        
+
         //VERIFICA OS DADOS DO PAYLOAD
         if(isset($payload['email'])){
             $email = $payload['email'] ?? '';
@@ -106,7 +106,7 @@ class Login extends Page{
         }
 
         //CRIA A SESSÃO DE LOGIN
-        SessionAdminLogin::login($obUser, $postVars['credential']);
+        SessionAdminLogin::login($obUser, $postVars['credential'], $cookie);
         
         //REDIRECIONA O USUÁRIO PARA O /ADMIN
         $request->getRouter()->redirect('/admin');

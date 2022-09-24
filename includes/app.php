@@ -22,11 +22,15 @@ Database::config(
 //DEFINE A CONSTANTE DE URL DO PROJETO
 define('URL',getenv('URL'));
 define('ID_OAUTH', getenv('ID_OAUTH'));
+define('CLIENT_SECRET', getenv('CLIENT_SECRET'));
+define('API_KEY', getenv('API_KEY'));
 
 //DEFINE O VALOR PADRÃO DAS VARIÁVEIS
 View::init([
-    'URL'       => URL,
-    'ID_OAUTH'  => ID_OAUTH
+    'URL'           => URL,
+    'ID_OAUTH'      => ID_OAUTH,
+    'CLIENT_SECRET' => CLIENT_SECRET,
+    'API_KEY'       => API_KEY
 ]);
 
 //DEFINE O MAPEAMENTO DE MIDDLEWARES

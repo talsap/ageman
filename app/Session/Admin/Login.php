@@ -19,16 +19,17 @@ class Login{
      * @param User $obUser
      * @return boolean
      */
-    public static function login($obUser, $token){
+    public static function login($obUser, $token, $cookie){
         //INICIA A SESSÃO
         self::init();
 
         //DEFINE A SESSÃO DO USUÁRIO
         $_SESSION['admin']['usuario'] = [
-            'id' => $obUser->id,
-            'nome' => $obUser->nome,
-            'email' => $obUser->email,
-            'token' => $token
+            'id'     => $obUser->id,
+            'nome'   => $obUser->nome,
+            'email'  => $obUser->email,
+            'token'  => $token,
+            'cookie' => $cookie
         ];
 
         //SECESSO
