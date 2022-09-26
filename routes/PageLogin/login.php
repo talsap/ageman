@@ -49,7 +49,7 @@ $obRouter->get('/login-google', [
         'required-admin-logout'
     ],
     function($request){
-        return new Response(200, PageLogin\Login::getLogin($request));
+        return new Response(200, PageLogin\Login::setLoginGoogle($request));
     }
 ]);
 

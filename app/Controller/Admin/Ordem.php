@@ -12,36 +12,37 @@ class Ordem extends Page{
      * @return string 
     */
     public static function getOrdem($request){
-        $token  = $_SESSION['admin']['usuario']['token'];
-        $usuario = $_SESSION['admin']['usuario']['email'];
+        $id_token      = $_SESSION['admin']['usuario']['id_token'];
+        $access_token  = $_SESSION['admin']['usuario']['id_token'];
+        $email         = $_SESSION['admin']['usuario']['email'];
 
         //INSTÂNCIA OAUTH2 PARA API GOOGLE CALENDAR
         $client = new Google\Client();
         $client->setClientId(ID_OAUTH);
         $client->setClientSecret(CLIENT_SECRET);
         $client->addScope(Google\Service\Calendar::CALENDAR);
-        $client->setRedirectUri(URL.'/login-google');
+        //$client->setRedirectUri(URL.'/login-google');
         $client->setAccessType('offline');
         $client->setIncludeGrantedScopes(true);
-        $client->setLoginHint($usuario);
-        $auth_url = $client->createAuthUrl();
-        //$client->authenticate($_GET['code']);
-        //$client->setAccessToken($token);
-        //$tokenn = $client->verifyIdToken($token);
+        //$client->setLoginHint($email);
+        $client->setAccessToken($access_token);
+        //$client->fetchAccessTokenWithAuthCode($access_token);
+        $token = $client->verifyIdToken($id_token);
+        //$client->authenticate($access_token);
+        //$client->setDeveloperKey($access_token);
         
         //REDIRECIONA O USUÁRIO PARA AUTORIZAÇÃO
         //header('location: '.filter_var($auth_url, FILTER_SANITIZE_URL));
-        
-        
+
         echo '<pre>';
-        print_r($_SESSION);
-        echo '</pre>'; exit;
+        print_r($client->isAccessTokenExpired());
+        echo '</pre>';
 
         $service = new Google\Service\Calendar($client);
-        $results = $service->calendarList->listCalendarList();
+        $calendar = $service->calendars->get('primary');
 
         echo '<pre>';
-        print_r($_SESSION);
+        print_r($calendar->getSummary());
         echo '</pre>'; exit;
 
         /////////////////////////
