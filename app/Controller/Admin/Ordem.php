@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use \App\Utils\View;
+use \App\Apis\GoogleCalendar as GC;
 use Google;
 
 class Ordem extends Page{
@@ -12,37 +13,33 @@ class Ordem extends Page{
      * @return string 
     */
     public static function getOrdem($request){
-        $id_token      = $_SESSION['admin']['usuario']['id_token'];
-        $access_token  = $_SESSION['admin']['usuario']['id_token'];
-        $email         = $_SESSION['admin']['usuario']['email'];
+        //PEGA OS TOKEN NA SESSÃO
+        $access_token  = $_SESSION['admin']['usuario']['access_token'];
+        $refresh_token  = $_SESSION['admin']['usuario']['refresh_token'];
 
         //INSTÂNCIA OAUTH2 PARA API GOOGLE CALENDAR
         $client = new Google\Client();
-        $client->setClientId(ID_OAUTH);
-        $client->setClientSecret(CLIENT_SECRET);
-        $client->addScope(Google\Service\Calendar::CALENDAR);
-        //$client->setRedirectUri(URL.'/login-google');
-        $client->setAccessType('offline');
-        $client->setIncludeGrantedScopes(true);
-        //$client->setLoginHint($email);
         $client->setAccessToken($access_token);
-        //$client->fetchAccessTokenWithAuthCode($access_token);
-        $token = $client->verifyIdToken($id_token);
-        //$client->authenticate($access_token);
-        //$client->setDeveloperKey($access_token);
-        
-        //REDIRECIONA O USUÁRIO PARA AUTORIZAÇÃO
-        //header('location: '.filter_var($auth_url, FILTER_SANITIZE_URL));
 
-        echo '<pre>';
-        print_r($client->isAccessTokenExpired());
-        echo '</pre>';
-
+        //INICIA A CLIENTE DE SERVICO
         $service = new Google\Service\Calendar($client);
-        $calendar = $service->calendars->get('primary');
+
+        //VERIFICA SE O CALENDÁRIO ESPECIFICADO EXISTE PARA O CLIENTE DE SERVICO
+        $lista = GC\CalendarList::VerifyExistCalendar($service, 'MANU');
+        
+        //CRIA O CALENDÁRIO SE NÃO EXISTIR CASO CONTRÁRIO PEGA O ID
+        if($lista == false){
+            //CRIA UM NOVO CALENDÁRIO
+            $IDcalendar = GC\Calendar::CrateCalendarSummary($service, 'MANU');
+        }else{
+            //PEGA O ID DO CALENDÁRIO DE ACORDO COM O NOME
+            $IDcalendar = GC\CalendarList::getCalendarSummary($service, 'MANU');
+        }
+
+        $events = $service->events->listEvents($IDcalendar);
 
         echo '<pre>';
-        print_r($calendar->getSummary());
+        print_r($events);
         echo '</pre>'; exit;
 
         /////////////////////////

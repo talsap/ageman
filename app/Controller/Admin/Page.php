@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use \App\Utils\View;
 use \App\Controller\PageLogin\Alert;
+use Google;
 
 class Page{
 
@@ -58,11 +59,23 @@ class Page{
      */
     private static function getPerfil(){
         //PEGA O NOME DO USUÁRIO PELA SESSÃO
-        $name = $_SESSION['admin']['usuario']['nome'];
-        
+        $name       = $_SESSION['admin']['usuario']['nome'];
+        $id_token   = $_SESSION['admin']['usuario']['id_token'] ?? '';
+        $foto = 'resources/img/uplouds/perfil/default-1.svg';
+
+        //MODIFICA A IMAGEM DO PERFIL SE HOUVER LOGIN GOOGLE
+        if(!empty($id_token)){
+            $client = new Google\Client();
+            $user = $client->verifyIdToken($id_token);
+            if(!empty($user['picture'])){
+                $foto = $user['picture'];
+            }
+        }
+
         //RETORNA A RENDERIZAÇÃO DO PERFIL
         return View::render('Admin/perfil/perfil', [
-            'name' => $name
+            'name' => $name,
+            'foto' => $foto
         ]);
     }
 

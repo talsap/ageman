@@ -79,7 +79,7 @@ class Login extends Page{
         $client->setRedirectUri(URL.'/login-google');
         $client->setAccessType('offline');
         $client->setIncludeGrantedScopes(true);
-
+        //$client->setPrompt('consent');
         
         //VERIFICA SE O MÉTODO É O POST (LOGIN)
         if($request->getHttpMethod() == 'POST'){
@@ -126,7 +126,7 @@ class Login extends Page{
 
             //CRIA A URi GOOGLE DE REDIRECIONAMENTO PRA A AUTORIZAÇÃO DO USO DAS APIS
             $auth_url = $client->createAuthUrl();
-            
+
             //DIRECIONA O USUÁRIO PARA A PAGINA DE AUTORIZAÇÃO
             header('location: '.filter_var($auth_url, FILTER_SANITIZE_URL));
             die;
@@ -159,6 +159,13 @@ class Login extends Page{
 
                     //BUSCA O USUÁRIO PELO E-MAIL
                     $obUser = User::getUserByEmail($email);
+
+                    if(isset($token['refresh_token'])){
+                        $obUser->refresh_token = $token['refresh_token'];
+                        $obUser->atualizar();
+                    }else{
+                        $token['refresh_token'] = $obUser->refresh_token;
+                    }
 
                     //CRIA A SESSÃO DE LOGIN
                     SessionAdminLogin::login($obUser, $token['id_token'], $token['access_token'], $token['refresh_token']);

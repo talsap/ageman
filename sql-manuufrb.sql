@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `senha` varchar(255) NOT NULL,
+  `refresh_token` varchar(255) NOT NULL,
   UNIQUE (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -112,9 +113,9 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`) VALUES
-(1, 'Teste Manuufrb', 'teste@teste.com', '$2y$10$6KwhKt5FGvI1EXYzDSNtkOGDPb0/ua4xIKPvFQP1oSlujWWROEe2W'),
-(2, 'Tarcisio', 'tarcisiosapucaia@aluno.ufrb.edu.br', '$2y$10$6KwhKt5FGvI1EXYzDSNtkOGDPb0/ua4xIKPvFQP1oSlujWWROEe2W');
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `refresh_token`) VALUES
+(1, 'Teste Manuufrb', 'teste@teste.com', '$2y$10$6KwhKt5FGvI1EXYzDSNtkOGDPb0/ua4xIKPvFQP1oSlujWWROEe2W', ''),
+(2, 'Tarcisio', 'tarcisiosapucaia@aluno.ufrb.edu.br', '$2y$10$6KwhKt5FGvI1EXYzDSNtkOGDPb0/ua4xIKPvFQP1oSlujWWROEe2W', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
