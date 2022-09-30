@@ -130,7 +130,7 @@ class Router{
      * MÉTODO RESPONSÁVEL POR RETORNAR A URI DESCONSIDERANDO O PREFIXO
      * @return string
      */
-    private function getUri(){
+    public function getUri(){
         //URI DA REQUEST
         $uri = $this->request->getUri();
 

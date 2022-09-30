@@ -63,7 +63,7 @@ class Login extends Page{
      * @param Request $request
      */
     public static function setLoginGoogle($request){
-        //ATIVA O BUFFER INTERNO
+        //ATIVA O BUFFER INTERNO DE SAÍDA
         ob_start();
 
         //DETERMINA OS ESCOPOS DA APLICAÇÃO PARA USO DAS APIS

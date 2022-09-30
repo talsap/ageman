@@ -6,7 +6,8 @@ use \App\Controller\Admin;
 //ROTA ORDEM
 $obRouter->get('/ordens-servicos', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'cache'
     ],
     function($request){
         return new Response(200, Admin\Ordem::getOrdem($request));
@@ -16,7 +17,8 @@ $obRouter->get('/ordens-servicos', [
 //ROTA RESPONSÁVEIS
 $obRouter->get('/responsaveis', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'cache'
     ],
     function($request){
         return new Response(200, Admin\Responsaveis::getResponsaveis($request));
@@ -26,7 +28,8 @@ $obRouter->get('/responsaveis', [
 //ROTA AGENDAMENTOS
 $obRouter->get('/agendamentos', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'cache'
     ],
     function($request){
         return new Response(200, Admin\Agendamentos::getAgendamentos($request));
@@ -36,7 +39,8 @@ $obRouter->get('/agendamentos', [
 //ROTA EQUIPAMENTOS
 $obRouter->get('/equipamentos', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'cache'
     ],
     function($request){
         return new Response(200, Admin\Equipamentos::getEquipamentos($request));
@@ -46,7 +50,8 @@ $obRouter->get('/equipamentos', [
 //ROTA LOCALIZAÇÕES
 $obRouter->get('/localizacoes', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
+        'cache'
     ],
     function($request){
         return new Response(200, Admin\Localizacoes::getLocalizacoes($request));
@@ -56,7 +61,7 @@ $obRouter->get('/localizacoes', [
 //ROTA LOCALIZAÇÕES (POST)
 $obRouter->post('/localizacoes', [
     'middlewares' => [
-        'required-admin-login'
+        'required-admin-login',
     ],
     function($request){
         return new Response(200, Admin\Localizacoes::setLocalizacoes($request));

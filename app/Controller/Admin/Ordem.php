@@ -13,11 +13,16 @@ class Ordem extends Page{
      * @return string 
     */
     public static function getOrdem($request){
-        //PEGA OS TOKEN NA SESSÃO
-        $id_token = $_SESSION['admin']['usuario']['id_token'];
-        $access_token = $_SESSION['admin']['usuario']['access_token'];
-        $refresh_token = $_SESSION['admin']['usuario']['refresh_token'];
+        //ATIVA O BUFFER INTERNO DE SAÍDA
+        ob_start();
 
+        //PEGA OS TOKEN NA SESSÃO
+        if(isset($_SESSION)){
+            $id_token = $_SESSION['admin']['usuario']['id_token'];
+            $access_token = $_SESSION['admin']['usuario']['access_token'];
+            $refresh_token = $_SESSION['admin']['usuario']['refresh_token'];
+        }
+        
         //INSTÂNCIA OAUTH2 PARA API GOOGLE CALENDAR
         $client = new Google\Client();
         $client->setAccessToken($access_token);
@@ -58,6 +63,9 @@ class Ordem extends Page{
                 $rule->getScope()->setType('default');
             }
         }
+
+        //FINALIZA O BUFFER INTERNO
+        ob_end_flush();
 
         //CONTEÚDO DA PÁGINA 
         $content = View::render('Admin/ordem/ordem', [

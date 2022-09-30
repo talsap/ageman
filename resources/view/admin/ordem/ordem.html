@@ -17,6 +17,7 @@
             initialView: 'dayGridMonth',
             themeSystem: 'bootstrap',
             locale: 'pt-br',
+            eventColor: 'rgb(90, 92, 105)',
             googleCalendarApiKey: '{{API_KEY}}',
             eventSources: [{
                 googleCalendarId: id,
@@ -34,6 +35,13 @@
                 day: 'dia',
                 list: 'lista'
             },
+            eventClick: function(info) {
+                info.jsEvent.preventDefault(); // don't let the browser navigate
+
+                if (info.event.url) {
+                    alert(info.event.url);
+                }
+            }
         });
         calendar.render();
     });
