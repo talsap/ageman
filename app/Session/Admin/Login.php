@@ -25,12 +25,13 @@ class Login{
 
         //DEFINE A SESSÃO DO USUÁRIO
         $_SESSION['admin']['usuario'] = [
-            'id'            => $obUser->id,
-            'nome'          => $obUser->nome,
-            'email'         => $obUser->email,
-            'id_token'      => $id_token,
-            'access_token'  => $access_token,
-            'refresh_token' => $refresh_token
+            'id'                => $obUser->id,
+            'nome'              => $obUser->nome,
+            'email'             => $obUser->email,
+            'id_token'          => $id_token,
+            'access_token'      => $access_token,
+            'refresh_token'     => $refresh_token,
+            'idGoogleCalendar'  => ''
         ];
 
         //SECESSO

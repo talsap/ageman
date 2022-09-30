@@ -10,8 +10,11 @@ class File{
      * @return string
      */
     private static function getFilePath($hash){
+        //CRIA UM LOCAL PARA O USUÁRIO
+        $locale = 'User'.$_SESSION['admin']['usuario']['id'];
+
         //DIRETÓRIO DE CACHE
-        $dir = getenv('CACHE_DIR');
+        $dir = getenv('CACHE_DIR').'/'.$locale;
 
         //VERIFICA A EXISTÊNCIA DO DIRETÓRIO
         if(!file_exists($dir)){

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use \App\Utils\View;
+use \App\Model\Entity\Agendamentos as EntityAgendamentos;
 use \App\Apis\GoogleCalendar as GC;
 use Google;
 
@@ -13,15 +14,64 @@ class Ordem extends Page{
      * @return string 
     */
     public static function getOrdem($request){
+        //INICIA A VARIÁVEL
+        $IDcalendar = '';
+        
+        //VERIFICA SE EXISTE O ID DO GOOGLE CALENDARIO NA SESSÃO DO USUÁRIO
+        if($_SESSION['admin']['usuario']['idGoogleCalendar'] == ''){
+            $IDcalendar = self::getIdGoogleCalendar();
+            $_SESSION['admin']['usuario']['idGoogleCalendar'] = $IDcalendar;
+        }else{
+            $IDcalendar = $_SESSION['admin']['usuario']['idGoogleCalendar'];
+        }
+        
+        //$a = self::getEventsManu();
+
+        //CONTEÚDO DA PÁGINA 
+        $content = View::render('Admin/ordem/ordem', [
+            'googleCalendarId' => $IDcalendar
+        ]);
+
+        //RETORNA A PÁGINA COMPLETA
+        return parent::getPanel('MANUUFRB - Ordens e Serviços', $content, 'Ordem', $request);
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR PEGAR TODOS OS EVENTOS COM STATUS DE ENVIO PARA O BANCO
+     * @return void
+     */
+    public static function getEventsManu(){
+        //ITENS
+        $itens  = '';
+
+        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        $id_user = $_SESSION['admin']['usuario']['id'];
+
+        //RESULTADOS DO BANCO
+        $results = EntityAgendamentos::getAgendamentos('id_user = "'.$id_user.'" and status <> ""', 'id DESC', NULL);
+        
+        //RENDERIZA CADA AGENDAMENTO
+        while($obAgendamentos = $results->fetchObject(EntityAgendamentos::class)){
+            echo '<pre>';
+            print_r($obAgendamentos);
+            echo '</pre>';
+        }
+
+        exit;
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR RETORNAR O ID DO CALENDÁRIO GOOGLE
+     * @return string
+     */
+    public static function getIdGoogleCalendar(){
         //ATIVA O BUFFER INTERNO DE SAÍDA
         ob_start();
 
         //PEGA OS TOKEN NA SESSÃO
-        if(isset($_SESSION)){
-            $id_token = $_SESSION['admin']['usuario']['id_token'];
-            $access_token = $_SESSION['admin']['usuario']['access_token'];
-            $refresh_token = $_SESSION['admin']['usuario']['refresh_token'];
-        }
+        $id_token = $_SESSION['admin']['usuario']['id_token'];
+        $access_token = $_SESSION['admin']['usuario']['access_token'];
+        $refresh_token = $_SESSION['admin']['usuario']['refresh_token'];
         
         //INSTÂNCIA OAUTH2 PARA API GOOGLE CALENDAR
         $client = new Google\Client();
@@ -67,12 +117,6 @@ class Ordem extends Page{
         //FINALIZA O BUFFER INTERNO
         ob_end_flush();
 
-        //CONTEÚDO DA PÁGINA 
-        $content = View::render('Admin/ordem/ordem', [
-            'googleCalendarId' => $IDcalendar
-        ]);
-
-        //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Ordens e Serviços', $content, 'Ordem', $request);
+        return $IDcalendar;
     }
 }

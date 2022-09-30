@@ -61,7 +61,7 @@ $obRouter->get('/localizacoes', [
 //ROTA LOCALIZAÇÕES (POST)
 $obRouter->post('/localizacoes', [
     'middlewares' => [
-        'required-admin-login',
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Admin\Localizacoes::setLocalizacoes($request));
