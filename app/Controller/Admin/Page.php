@@ -58,16 +58,21 @@ class Page{
      * @return string
      */
     private static function getPerfil(){
-        //PEGA O NOME DO USUÁRIO PELA SESSÃO
+        //PEGA OS DADOS DO USUÁRIO PELA SESSÃO
         $name       = $_SESSION['admin']['usuario']['nome'];
         $id_token   = $_SESSION['admin']['usuario']['id_token'] ?? '';
+        
+        //DEFINE UM CAMINHO PADRÃO PARA O FOTO DO PERFIL
         $foto = 'resources/img/uplouds/perfil/default-1.svg';
 
         //MODIFICA A IMAGEM DO PERFIL SE HOUVER LOGIN GOOGLE
-        if(!empty($id_token)){
+        if($id_token != ''){
+            //INSTÂNCIA DO GOOGLE CLIENT
             $client = new Google\Client();
             $user = $client->verifyIdToken($id_token);
-            if(!empty($user['picture'])){
+            
+            //VERIFICA SE EXISTE O CAMINHO DA IMAGEM
+            if(isset($user['picture'])){
                 $foto = $user['picture'];
             }
         }

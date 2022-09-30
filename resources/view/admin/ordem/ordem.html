@@ -10,12 +10,18 @@
 </div>
 
 <script>
+    var id = '{{googleCalendarId}}';
     document.addEventListener('DOMContentLoaded', function() {
         let calendarEl = document.getElementById('calendar');
         let calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             themeSystem: 'bootstrap',
             locale: 'pt-br',
+            googleCalendarApiKey: '{{API_KEY}}',
+            eventSources: [{
+                googleCalendarId: id,
+                className: 'nice-event'
+            }],
             headerToolbar:{
                 start: 'prevYear,prev,next,nextYear,today',
                 center: 'title',
@@ -27,7 +33,7 @@
                 week: 'semana',
                 day: 'dia',
                 list: 'lista'
-            }
+            },
         });
         calendar.render();
     });

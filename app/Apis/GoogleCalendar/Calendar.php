@@ -20,6 +20,12 @@ class Calendar{
         //CRIA UM NOVO CALENDÁRIO PARA O CLIENTE SERVICE
         $createdCalendar = $service->calendars->insert($calendar);
 
+        //VERIFICA SE O USUÁRIO É PÚBLICO CASO CONTRÁRIO TORNA PÚBLICO
+        $rule = $service->acl->get($IDcalendar, 'default');
+        if($rule->getScope()->getType() != 'default'){
+            $rule->getScope()->setType('default');
+        }
+
         //RETORNA COM O ID DO CALENDÁRIO CRIADO
         return $createdCalendar->getId();
     }
