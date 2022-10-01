@@ -1,2 +1,8 @@
+#ignore paste vendor
 vendor
+
+#ignore all logs
 *.log
+
+#ignore .env
+.env
