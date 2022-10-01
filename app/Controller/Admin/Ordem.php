@@ -24,12 +24,13 @@ class Ordem extends Page{
         }else{
             $IDcalendar = $_SESSION['admin']['usuario']['idGoogleCalendar'];
         }
-        
-        //$a = self::getEventsManu();
+
+        $obj = self::getEventsManu();
 
         //CONTEÚDO DA PÁGINA 
         $content = View::render('Admin/ordem/ordem', [
-            'googleCalendarId' => $IDcalendar
+            'googleCalendarId' => $IDcalendar,
+            'eventsManu'       => $obj
         ]);
 
         //RETORNA A PÁGINA COMPLETA
@@ -37,27 +38,35 @@ class Ordem extends Page{
     }
 
     /**
-     * MÉTODO RESPONSÁVEL POR PEGAR TODOS OS EVENTOS COM STATUS DE ENVIO PARA O BANCO
-     * @return void
+     * MÉTODO RESPONSÁVEL POR RETORNAR OS AGENDAMENTOS CRIADOS
+     * @return Object
      */
     public static function getEventsManu(){
         //ITENS
         $itens  = '';
 
-        //PEGA O ID DO USUÁRIO PELA SESSÃO
+        //id DO USUÁRIO DA SESSÃO
         $id_user = $_SESSION['admin']['usuario']['id'];
 
         //RESULTADOS DO BANCO
         $results = EntityAgendamentos::getAgendamentos('id_user = "'.$id_user.'" and status <> ""', 'id DESC', NULL);
-        
+                
         //RENDERIZA CADA AGENDAMENTO
-        while($obAgendamentos = $results->fetchObject(EntityAgendamentos::class)){
-            echo '<pre>';
-            print_r($obAgendamentos);
-            echo '</pre>';
-        }
+        //while($obAgendamentos = $results->fetchObject(EntityAgendamentos::class)){
+            
+            //echo '<pre>';
+            //print_r($obAgendamentos);
+            //echo '</pre>';
+        //}
 
-        exit;
+        $itens = array([
+            'title' => 'The Title',
+            'start' => '2022-10-01',
+            'end'   => '2022-10-02'
+            ]
+        );
+        
+        return json_encode($itens);
     }
 
     /**

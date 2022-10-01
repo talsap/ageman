@@ -10,19 +10,22 @@
 </div>
 
 <script>
-    var id = '{{googleCalendarId}}';
     document.addEventListener('DOMContentLoaded', function() {
-        let calendarEl = document.getElementById('calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             themeSystem: 'bootstrap',
             locale: 'pt-br',
-            eventColor: 'rgb(90, 92, 105)',
             googleCalendarApiKey: '{{API_KEY}}',
             eventSources: [{
-                googleCalendarId: id,
-                className: 'nice-event'
-            }],
+                    googleCalendarId: '{{googleCalendarId}}',
+                    color: 'rgb(90, 92, 105)'
+                },
+                {
+                    events: JSON.parse('{{eventsManu}}'),
+                    color: 'rgb(28, 200, 138)'
+                }
+            ],
             headerToolbar:{
                 start: 'prevYear,prev,next,nextYear,today',
                 center: 'title',

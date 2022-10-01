@@ -139,7 +139,6 @@ class Agendamentos{
         return (new Database('agendamentos'))->delete('id = '.$this->id);
     }
 
-
     /**
      * MÉTODO RESPONSÁVEL POR RETORNAR AGENDAMENTOS DO BANCO
      * @param string $where
