@@ -102,18 +102,33 @@ class Login extends Page{
                 exit;
             }
 
-            //OBTÉM OS DADOS DO USUÁRIO COM BASE NO JWT
-            $payload = $client->verifyIdToken($postVars['credential']); //CREDENTIAL=JWT
+            do {
+                $attempt = 0;
+                try {
+                    //OBTÉM OS DADOS DO USUÁRIO COM BASE NO JWT
+                    $payload = $client->verifyIdToken($postVars['credential']); //CREDENTIAL=JWT
+                    $retry = false;
+
+                } catch (\Throwable $payload) {
+                    //DEFINE UMA MARGEM DE MANOBRA PARA O JWT
+                    $jwt = new \Firebase\JWT\JWT;
+                    $jwt::$leeway = 5;
+                    
+                    //REALIZA NO MÁXIMO OUTRA TENTATIVA
+                    $attempt++;
+                    $retry = $attempt < 2;
+                }
+            } while ($retry);
 
             //VERIFICA OS DADOS DO PAYLOAD
-            if(isset($payload['email'])){
-                $email = $payload['email'] ?? '';
+            if(!isset($payload['email'])){
+                //RETORNA A TELA INICIAL
+                return self::getLogin($request, 'Problema com o token de autorização!');
             }else{
-                //REDIRECIONA O USUÁRIO PARA O /
-                $request->getRouter()->redirect('/');
-                exit;
+                //CASO CONTRÁRIO PROSSEGUE DEFININDO O EMAIL
+                $email = $payload['email'] ?? '';
             }
-            
+
             //BUSCA O USUÁRIO PELO E-MAIL E VERIFICA SE EXISTE
             $obUser = User::getUserByEmail($email);
             if(!$obUser instanceof User){
@@ -145,6 +160,10 @@ class Login extends Page{
 
                 //VERIFICA SE NÃO HÁ ERROS
                 if(isset($token['id_token'])){
+                    //DEFINE UMA MARGEM DE MANOBRA PARA O JWT
+                    $jwt = new \Firebase\JWT\JWT;
+                    $jwt::$leeway = 5;
+
                     //OBTÉM OS DADOS DO USUÁRIO COM BASE NO JWT
                     $payload = $client->verifyIdToken($token['id_token']); //CREDENTIAL=JWT
 

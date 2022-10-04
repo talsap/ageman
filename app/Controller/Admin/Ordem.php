@@ -81,7 +81,7 @@ class Ordem extends Page{
         $id_token = $_SESSION['admin']['usuario']['id_token'];
         $access_token = $_SESSION['admin']['usuario']['access_token'];
         $refresh_token = $_SESSION['admin']['usuario']['refresh_token'];
-        
+
         //INSTÂNCIA OAUTH2 PARA API GOOGLE CALENDAR
         $client = new Google\Client();
         $client->setAccessToken($access_token);
@@ -91,7 +91,7 @@ class Ordem extends Page{
             //CRIA UMA NOVA INSTÂNCIA DE CLIENTE GOOGLE
             $client->setClientId(ID_OAUTH);
             $client->setClientSecret(CLIENT_SECRET);
-            
+
             //BUSCA UM NOVO TOKEN DE ACESSO OAUTH
             $access_token = $client->fetchAccessTokenWithRefreshToken($refresh_token);
 

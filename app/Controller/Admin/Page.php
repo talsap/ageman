@@ -67,6 +67,10 @@ class Page{
 
         //MODIFICA A IMAGEM DO PERFIL SE HOUVER LOGIN GOOGLE
         if($id_token != ''){
+            //DEFINE UMA MARGEM DE MANOBRA PARA O JWT
+            $jwt = new \Firebase\JWT\JWT;
+            $jwt::$leeway = 5;
+
             //INSTÂNCIA DO GOOGLE CLIENT
             $client = new Google\Client();
             $user = $client->verifyIdToken($id_token);
@@ -76,7 +80,7 @@ class Page{
                 $foto = $user['picture'];
             }
         }
-
+        
         //RETORNA A RENDERIZAÇÃO DO PERFIL
         return View::render('Admin/perfil/perfil', [
             'name' => $name,
