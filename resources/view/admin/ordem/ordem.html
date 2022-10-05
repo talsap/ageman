@@ -24,6 +24,16 @@
                 {
                     events: JSON.parse('{{eventsManu}}'),
                     color: 'rgb(28, 200, 138)'
+                },
+                {
+                    title: 'my recurring event',
+                    rrule: {
+                        freq: 'weekly',
+                        interval: 5,
+                        byweekday: [ 'mo', 'fr' ],
+                        dtstart: '2022-10-01T10:30:00', // will also accept '20120201T103000'
+                        until: '2022-12-01' // will also accept '20120201'
+                    }
                 }
             ],
             headerToolbar:{

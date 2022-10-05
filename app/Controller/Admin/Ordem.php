@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use \App\Utils\View;
+use \App\Utils\FullCalendar\FullCalendar as FC;
 use \App\Model\Entity\Agendamentos as EntityAgendamentos;
 use \App\Apis\GoogleCalendar as GC;
 use Google;
@@ -43,7 +44,7 @@ class Ordem extends Page{
      */
     public static function getEventsManu(){
         //ITENS
-        $itens  = '';
+        $itens  = [];
 
         //id DO USUÁRIO DA SESSÃO
         $id_user = $_SESSION['admin']['usuario']['id'];
@@ -52,20 +53,10 @@ class Ordem extends Page{
         $results = EntityAgendamentos::getAgendamentos('id_user = "'.$id_user.'" and status <> ""', 'id DESC', NULL);
                 
         //RENDERIZA CADA AGENDAMENTO
-        //while($obAgendamentos = $results->fetchObject(EntityAgendamentos::class)){
-            
-            //echo '<pre>';
-            //print_r($obAgendamentos);
-            //echo '</pre>';
-        //}
+        while($obAgendamento = $results->fetchObject(EntityAgendamentos::class)){
+            $itens = array_merge($itens, FC::getEventFullCalendar($obAgendamento));
+        }
 
-        $itens = array([
-            'title' => 'The Title',
-            'start' => '2022-10-01',
-            'end'   => '2022-10-02'
-            ]
-        );
-        
         return json_encode($itens);
     }
 
