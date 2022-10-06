@@ -37,13 +37,13 @@ class FullCalendar{
         $sab    = $freq[14];
         $d_sem = Array($dom, $seg, $ter, $qua, $qui, $sex, $sab);
 
-        $frequencia = self::getFrequeciaRepeticoes($replace, $dia, $sem, $d_sem, $mes, $ano, $duracao, $count, $dtst, $dtfs);
+        $frequencia = self::getFrequeciaRepeticoes($replace, $dia, $sem, $d_sem, $mes, $ano, $duracao, $count, $dtst, $dtfs, '');
 
         if($replace != '0'){
             return array([
                 'title' => $title,
                 'start' => $start,
-                'rrule' => $frequencia
+                //'rrule' => $frequencia
                 ]
             );
         }else{
@@ -51,7 +51,7 @@ class FullCalendar{
                 'title' => $title,
                 'start' => $start,
                 'end'   => $end,
-                'rrule' => $frequencia
+                //'rrule' => $frequencia
                 ]
             );
         }
@@ -86,9 +86,10 @@ class FullCalendar{
      * @param string $dur
      * @param string $num
      * @param string $dtfs
+     * @param string $tz
      * @return frequencia
      */
-    public static function getFrequeciaRepeticoes($idt, $dia, $sem, $d_sem, $mes, $ano, $dur, $num, $dtst, $dtfs){
+    public static function getFrequeciaRepeticoes($idt, $dia, $sem, $d_sem, $mes, $ano, $dur, $num, $dtst, $dtfs, $tz){
         //RECEBE 1 CASO SEJA NULO
         if($dia == ''){ $dia = '1';}
         if($sem == ''){ $sem = '1';}
@@ -103,9 +104,6 @@ class FullCalendar{
             }
         }
         $string_day = rtrim($string_day, ',');
-
-        //DETERMINA O TIMIZONE
-        $tz = 'T235959Z';
 
         //DETERMINA OS DATE START E FINISH
         $dtst = self::getDateFormatCalendar($dtst);

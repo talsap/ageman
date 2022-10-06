@@ -26,8 +26,8 @@ class Ordem extends Page{
             $IDcalendar = $_SESSION['admin']['usuario']['idGoogleCalendar'];
         }
 
-        $obj = self::getEventsManu();
-
+        $obj = str_replace('\n', 'n', self::getEventsManu());
+        
         //CONTEÚDO DA PÁGINA 
         $content = View::render('Admin/ordem/ordem', [
             'googleCalendarId' => $IDcalendar,

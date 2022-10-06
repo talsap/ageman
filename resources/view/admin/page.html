@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="vendor/bootstrap-datepicker/css/bootstrap-datepicker.css">
 
     <!-- Custom style for FullCalendar-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css">
 </head>
 
 <body id="page-top">
@@ -36,13 +36,18 @@
     <script src="js/virtual-select.min.js"></script>
 
     <!-- rrule lib -->
-    <script src='https://jakubroztocil.github.io/rrule/dist/es5/rrule.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/rrule@2.7.1/dist/es5/rrule.js'></script>
+
+    <!-- rrule lib -->
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@5.11.3/main.js'></script>
+
+    <!-- FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.js"></script>
 
     <!-- the rrule-to-fullcalendar connector. must go AFTER the rrule lib -->
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@5.11.3/main.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@5.11.3/main.global.js'></script>
     
-    <!-- FullCalendar -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    
 
     {{content}}
 
