@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="calendar"  id='calendar'></div>
+    <div id='calendar'></div>
     <style>
         .calendar{
             width: 100%;
@@ -13,29 +13,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugin: ['rrule'],
             initialView: 'dayGridMonth',
             themeSystem: 'bootstrap',
             locale: 'pt-br',
             googleCalendarApiKey: '{{API_KEY}}',
-            eventSources: [{
-                    googleCalendarId: '{{googleCalendarId}}',
-                    color: 'rgb(90, 92, 105)'
-                },
-                {
-                    events: JSON.parse('{{eventsManu}}'),
-                    color: 'rgb(28, 200, 138)'
-                },
-                {
-                    title: 'my recurring event',
-                    rrule: {
-                        freq: 'weekly',
-                        interval: 5,
-                        byweekday: [ 'mo', 'fr' ],
-                        dtstart: '2022-10-01T10:30:00', // will also accept '20120201T103000'
-                        until: '2022-12-01' // will also accept '20120201'
-                    }
-                }
-            ],
             headerToolbar:{
                 start: 'prevYear,prev,next,nextYear,today',
                 center: 'title',
@@ -48,6 +30,23 @@
                 day: 'dia',
                 list: 'lista'
             },
+            eventSources: [{
+                    googleCalendarId: '{{googleCalendarId}}',
+                    color: 'rgb(90, 92, 105)'
+                },
+                {
+                    events: JSON.parse('{{eventsManu}}'),
+                    color: 'rgb(28, 200, 138)'
+                },
+                {
+                    events: [
+                        {
+                            title: 'my recurring event',
+                            rrule: 'DTSTART:20221001\nRRULE:FREQ=WEEKLY;INTERVAL=1;UNTIL=20231201;BYDAY=MO,FR'
+                        }
+                    ]
+                }
+            ],
             eventClick: function(info) {
                 info.jsEvent.preventDefault(); // don't let the browser navigate
 
