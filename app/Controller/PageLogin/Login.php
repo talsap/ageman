@@ -209,8 +209,18 @@ class Login extends Page{
         //DESTROI A SESSÃO DE LOGIN
         SessionAdminLogin::logout();
 
+        //QUERY PARAMS
+        $queryParams = $request->getQueryParams();
+        
+        //STATUS
+        if(!isset($queryParams['status'])){
+            $query = '';
+        }else{
+            $query = '?'.$queryParams['status'];
+        }
+
         //REDIRECIONA O USUÁRIO PARA A TELA DE LOGIN
-        $request->getRouter()->redirect('/');
+        $request->getRouter()->redirect('/'.$query);
     }
 }
 

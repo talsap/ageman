@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use \App\Utils\View;
 use \App\Controller\PageLogin\Alert;
+use \App\Session\Admin\Login as SessionAdminLogin;
 use Google;
 
 class Page{
@@ -78,6 +79,9 @@ class Page{
             //VERIFICA SE EXISTE O CAMINHO DA IMAGEM
             if(isset($user['picture'])){
                 $foto = $user['picture'];
+            }else{
+                //REDIRECIONA O USUÁRIO PARA A ROTA DE LOGOUT
+                $request->getRouter()->redirect('/logout?status=session-expired');
             }
         }
         

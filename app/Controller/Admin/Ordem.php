@@ -19,15 +19,19 @@ class Ordem extends Page{
         $IDcalendar = '';
         
         //VERIFICA SE EXISTE O ID DO GOOGLE CALENDARIO NA SESSÃO DO USUÁRIO
-        if($_SESSION['admin']['usuario']['idGoogleCalendar'] == ''){
-            $IDcalendar = self::getIdGoogleCalendar();
-            $_SESSION['admin']['usuario']['idGoogleCalendar'] = $IDcalendar;
+        if($_SESSION['admin']['usuario']['id_token']!= ''){
+            if($_SESSION['admin']['usuario']['idGoogleCalendar'] == ''){
+                $IDcalendar = self::getIdGoogleCalendar();
+                $_SESSION['admin']['usuario']['idGoogleCalendar'] = $IDcalendar;
+            }else{
+                $IDcalendar = $_SESSION['admin']['usuario']['idGoogleCalendar'];
+            }
         }else{
-            $IDcalendar = $_SESSION['admin']['usuario']['idGoogleCalendar'];
+            $IDcalendar = '';
         }
 
-        $obj = str_replace('\n', 'n', self::getEventsManu());
-        
+        $obj = self::getEventsManu();
+
         //CONTEÚDO DA PÁGINA 
         $content = View::render('Admin/ordem/ordem', [
             'googleCalendarId' => $IDcalendar,
@@ -56,7 +60,7 @@ class Ordem extends Page{
         while($obAgendamento = $results->fetchObject(EntityAgendamentos::class)){
             $itens = array_merge($itens, FC::getEventFullCalendar($obAgendamento));
         }
-
+     
         return json_encode($itens);
     }
 

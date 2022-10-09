@@ -8,7 +8,6 @@
         }
     </style>
 </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -34,19 +33,9 @@
                     color: 'rgb(90, 92, 105)'
                 },
                 {
-                    events: [
-                        {
-                            title: 'my recurring event',
-                            rrule: 'DTSTART:20220930\nRRULE:FREQ=DAILY;WKST=SU;COUNT=3;INTERVAL=2'
-                        }
-                    ],
-                    color: 'rgb(28, 200, 138)'
-                },
-                {
                     events: JSON.parse('{{eventsManu}}'),
                     color: 'rgb(28, 200, 138)'
                 },
-                
             ],
             eventClick: function(info) {
                 info.jsEvent.preventDefault(); // don't let the browser navigate

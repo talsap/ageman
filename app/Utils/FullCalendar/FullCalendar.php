@@ -42,8 +42,8 @@ class FullCalendar{
         if($replace != '0'){
             return array([
                 'title' => $title,
-                'start' => $start,
-                //'rrule' => $frequencia
+                //'start' => $start,
+                'rrule' => $frequencia
                 ]
             );
         }else{
@@ -51,7 +51,6 @@ class FullCalendar{
                 'title' => $title,
                 'start' => $start,
                 'end'   => $end,
-                //'rrule' => $frequencia
                 ]
             );
         }
@@ -130,24 +129,41 @@ class FullCalendar{
             case '2':
                 switch ($dur) {
                     case '0':
-                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=WEEKLY;WKST=SU;INTERVAL='.$sem.';BDAY='.$string_day;
+                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=WEEKLY;INTERVAL='.$sem.';BYDAY='.$string_day.'';
                         break;
                     case '1':
-                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=WEEKLY;WKST=SU;COUNT='.$num.';INTERVAL='.$sem.';BDAY='.$string_day;
+                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=WEEKLY;COUNT='.$num.';INTERVAL='.$sem.';BYDAY='.$string_day;
                         break;
                     case '2':
-                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=WEEKLY;WKST=SU;UNTIL='.$dtfs.$tz.';INTERVAL='.$sem.';BDAY='.$string_day;
+                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=WEEKLY;UNTIL='.$dtfs.$tz.';INTERVAL='.$sem.';BYDAY='.$string_day;
                         break;
                 }                        
                 break;
             case '3':
-                return '';
+                switch ($dur) {
+                    case '0':
+                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=MONTHLY;INTERVAL='.$mes;
+                        break;
+                    case '1':
+                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=MONTHLY;COUNT='.$num.';INTERVAL='.$mes;
+                        break;
+                    case '2':
+                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=MONTHLY;UNTIL='.$dtfs.$tz.';INTERVAL='.$mes;
+                        break;
+                }                        
                 break;
             case '4':
-                return '';
-                break;
-            case '5':
-                return $outro;
+                switch ($dur) {
+                    case '0':
+                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=YEARLY;INTERVAL='.$ano;
+                        break;
+                    case '1':
+                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=YEARLY;COUNT='.$num.';INTERVAL='.$ano;
+                        break;
+                    case '2':
+                        return 'DTSTART:'.$dtst.$tz.'\nRRULE:FREQ=YEARLY;UNTIL='.$dtfs.$tz.';INTERVAL='.$ano;
+                        break;
+                }                        
                 break;
             default:
                 return '';
