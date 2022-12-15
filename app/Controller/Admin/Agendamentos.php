@@ -7,6 +7,8 @@ use \App\Utils\View;
 use \App\Model\Entity\Agendamentos as EntityAgendamentos;
 use \App\Model\Entity\Equipamentos as EntityEquipamentos;
 use \App\Model\Entity\Responsaveis as EntityResponsaveis;
+use \App\Apis\GoogleCalendar as GC;
+use Google;
 
 class Agendamentos extends Page{
     /**
@@ -214,6 +216,10 @@ class Agendamentos extends Page{
     public static function setNewAgendamento($request){
         //DADOS DO POST
         $postVars = $request->getPostVars();
+
+        echo '<pre>';
+        print_r($postVars);
+        echo '</pre>'; exit;
 
         //TIPO DE MANUTENÇÃO
         $tipos = self::getTipoManutencao($postVars['tipo'], $postVars['outro']);
@@ -475,8 +481,97 @@ class Agendamentos extends Page{
     }
 
     /**
+     * MÉTODO RESPONSÁVEL EM CRIAR A ARRAY EVENT NO FORMANTO GOOGLE
+     * @param string $obAgendamento
+     * @return array
+     */
+    public static function getEventAdg($obAgendamento){
+        echo '<pre>';
+        print_r($obAgendamento);
+        echo '</pre>';
+
+        //OBTÉM O EQUIPAMENTO DO BANCO DE DADOS
+        $obEquipamento = EntityEquipamentos::getEquip(strval(explode(',',$obAgendamento->equipamento)[0]));
+
+        $event = array(
+            "summary" => "(".$obEquipamento->nome.") ".$obAgendamento->title,
+            "location" => $obEquipamento->local."/".$obEquipamento->area,
+            'description' => "(".$obEquipamento->nome.") --> ".$obEquipamento->descricao."\n(Serviço) --> ".$obAgendamento->descricao,
+            'start' => array(
+                'dateTime' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_st)->format('Y-m-d'),
+                'timeZone' => 'America/Los_Angeles',
+            ),
+            'end' => array(
+                'dateTime' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_fs)->format('Y-m-d'),
+                'timeZone' => 'America/Los_Angeles',
+            ),
+            'recurrence' => array(
+                'RRULE:FREQ=DAILY;COUNT=2'
+            ),
+            'attendees' => array(
+                array('email' => 'lpage@example.com'),
+                array('email' => 'sbrin@example.com'),
+            ),
+            'reminders' => array(
+                'useDefault' => FALSE,
+                'overrides' => array(
+                  array('method' => 'email', 'minutes' => 24 * 60),
+                  array('method' => 'popup', 'minutes' => 10),
+                ),
+            ),
+        );
+
+        echo '<pre>';
+        print_r($event);
+        echo '</pre>'; exit;
+
+        return $event;
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR ENVIAR UM AGENDAMENTO PARA O GOOGLE CALENDÁRIO
+     * @param Request $request
+     * @param integer $id
+     * @return string
+     */
+    public static function setEnvAgendamento($request, $id){
+        //OBTÉM O AGENDAMENTO DO BANCO DE DADOS
+        $obAgendamento = EntityAgendamentos::getAgend($id);
+
+        //VALIDA A INSTANCIA
+        if(!$obAgendamento instanceof EntityAgendamentos){
+            $request->getRouter()->redirect('/agendamentos');
+        }
+        
+        //CRIA O ARRAY EVENTO NO FORMATO DO GOOGLE CALENDAR
+        $event = self::getEventAdg($obAgendamento);
+
+        //PEGA O ACCESS_TOKEN E O CALENDARID NA SESSÃO
+        $access_token = $_SESSION['admin']['usuario']['access_token'];
+        $calendarId = $_SESSION['admin']['usuario']['idGoogleCalendar'];
+
+        //INSTÂNCIA OAUTH2 PARA API GOOGLE CALENDAR
+        $client = new Google\Client();
+        $client->setAccessToken($access_token);
+
+        //INICIA A CLIENTE DE SERVICO
+        $service = new Google\Service\Calendar($client);
+
+        echo '<pre>';
+        print_r($calendarId);
+        echo '</pre>'; exit;
+
+        //CRIA O EVENTO NO CALENDÁRIO DO USUÁRIO
+        //$event = $service->events->insert($calendarId, $event);
+
+        //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+        $request->getRouter()->redirect('/agendamentos?status=sent');
+    }
+
+    /**
      * MÉTODO RESPONSÁVEL POR EDITAR UM AGENDAMENTO (POST)
      * @param Request $request
+     * @param integer $id
      * @return string
      */
     public static function setEditAgendamento($request, $id){

@@ -43,6 +43,16 @@ $obRouter->post('/edit-agendamento={id}', [
     }
 ]);
 
+//ROTA DE ENVIO DE UM AGENDAMENTO
+$obRouter->get('/env-agendamento={id}', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function($request, $id){
+        return new Response(200, Admin\Agendamentos::setEnvAgendamento($request, $id));
+    }
+]);
+
 //ROTA DE EXCLUSÃO DE UM AGENDAMENTO
 $obRouter->get('/delete-agendamento={id}', [
     'middlewares' => [
