@@ -498,12 +498,12 @@ class Agendamentos extends Page{
             "location" => $obEquipamento->local."/".$obEquipamento->area,
             'description' => "(".$obEquipamento->nome.") --> ".$obEquipamento->descricao."\n(Serviço) --> ".$obAgendamento->descricao,
             'start' => array(
-                'dateTime' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_st)->format('Y-m-d'),
-                'timeZone' => 'America/Los_Angeles',
+                'date' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_st)->format('Y-m-d'),
+                'timeZone' => 'America/Bahia',
             ),
             'end' => array(
-                'dateTime' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_fs)->format('Y-m-d'),
-                'timeZone' => 'America/Los_Angeles',
+                'date' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_fs)->format('Y-m-d'),
+                'timeZone' => 'America/Bahia',
             ),
             'recurrence' => array(
                 'RRULE:FREQ=DAILY;COUNT=2'

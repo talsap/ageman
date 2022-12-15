@@ -58,7 +58,7 @@ class Page{
      * MÉTODO RESPONSÁVEL POR RENDERIZAR A VIEW DO PERFIL DO PAINEL
      * @return string
      */
-    private static function getPerfil(){
+    private static function getPerfil($request){
         //PEGA OS DADOS DO USUÁRIO PELA SESSÃO
         $name       = $_SESSION['admin']['usuario']['nome'];
         $id_token   = $_SESSION['admin']['usuario']['id_token'] ?? '';
@@ -126,7 +126,7 @@ class Page{
         //RENDERIZA A VIEW DO PAINEL
         $contentPanel = View::render('Admin/panel/panel', [
             'menu'      => self::getMenu($currentModule),
-            'perfil'    => self::getPerfil(),
+            'perfil'    => self::getPerfil($request),
             'conteudo'  => $content,
             'status'    => self::getStatus($request)
         ]);
