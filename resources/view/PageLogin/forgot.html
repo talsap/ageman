@@ -13,9 +13,14 @@
                                 <h1 class="h4 text-gray-900 mb-2">Esqueceu sua senha?</h1>
                                 <p class="mb-4">Nós entendemos, coisas acontecem. Basta digitar o seu endereço de e-mail abaixo e enviaremos um link para redefinir sua senha!</p>
                             </div>
-                            <form method="get" class="user">
+
+                            <div class="text-center">
+                                {{status}}
+                            </div>
+
+                            <form method="post" class="user">
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email">
+                                    <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email" required>
                                 </div>
                                 <button href="{{URL}}" class="btn btn-primary btn-user btn-block" type="submit">Redefinir senha</button>
                             </form>

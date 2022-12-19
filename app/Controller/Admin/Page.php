@@ -164,8 +164,17 @@ class Page{
             case 'sent':
                 return Alert::getSuccess('Enviado com sucesso!');
                 break;
+            case 'update':
+                return Alert::getSuccess('Reenviado com sucesso!');
+                break;
             case 'error':
                 return Alert::getErro('Algum erro encontrado!');
+                break;
+            case 'not-exits':
+                return Alert::getErro('Evento não existe no google agenda!');
+                break;
+            case 'conect-conta-google':
+                return Alert::getErro('Vincule a uma conta Google!');
                 break;
         }
 

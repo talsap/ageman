@@ -4,10 +4,10 @@ namespace App\Controller\Admin;
 
 use \DateTime;
 use \App\Utils\View;
+use \App\Utils\FullCalendar\FullCalendar as FC;
 use \App\Model\Entity\Agendamentos as EntityAgendamentos;
 use \App\Model\Entity\Equipamentos as EntityEquipamentos;
 use \App\Model\Entity\Responsaveis as EntityResponsaveis;
-use \App\Apis\GoogleCalendar as GC;
 use Google;
 
 class Agendamentos extends Page{
@@ -191,16 +191,22 @@ class Agendamentos extends Page{
             }else{
                 $eq = '';
             }
-            if($obAgendamentos->status != 'success'){
-                $env_display = 'style="display: none;"';
-            }else{
+            if($obAgendamentos->status == 'success'){
                 $env_display = '';
+            }else{
+                $env_display = 'style="display: none;"';
+            }
+            if($obAgendamentos->status == 'info'){
+                $atl_display = '';
+            }else{
+                $atl_display = 'style="display: none;"';
             }
             $itens .= View::render('Admin/agendamentos/itens', [
                 'id'         => $obAgendamentos->id,        
                 'title'      => $obAgendamentos->title.$eq,
                 'status'     => $obAgendamentos->status,
-                'env_display'=> $env_display
+                'env_display'=> $env_display,
+                'atl_display'=> $atl_display
             ]);
         }
 
@@ -216,10 +222,6 @@ class Agendamentos extends Page{
     public static function setNewAgendamento($request){
         //DADOS DO POST
         $postVars = $request->getPostVars();
-
-        echo '<pre>';
-        print_r($postVars);
-        echo '</pre>'; exit;
 
         //TIPO DE MANUTENÇÃO
         $tipos = self::getTipoManutencao($postVars['tipo'], $postVars['outro']);
@@ -260,6 +262,7 @@ class Agendamentos extends Page{
         //CRIA NOVA INSTÂNCIA DE AGENDAMENTO
         $obAgendamento = new EntityAgendamentos();
         $obAgendamento->id_user         = strval($_SESSION['admin']['usuario']['id']);
+        $obAgendamento->idg             = '';
         $obAgendamento->equipamento     = $equipamento ?? NULL;
         $obAgendamento->responsaveis    = $postVars['resp'] ?? '';
         $obAgendamento->title           = $postVars['titulo'] ?? '';
@@ -331,11 +334,40 @@ class Agendamentos extends Page{
             $request->getRouter()->redirect('/agendamentos');
         }
 
-        //EXCLUI O AGENDAMENTO
-        $obAgendamento->excluir();
-        
-        //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
-        $request->getRouter()->redirect('/agendamentos?status=deleted');
+        //VERIFICA SE É UM EVENTO QUE TÊM VÍNCULO COM O GOOGLE AGENDA
+        if($obAgendamento->idg == ''){
+            //EXCLUI O AGENDAMENTO DO BANCO DE DADOS
+            $obAgendamento->excluir();
+
+            //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+            $request->getRouter()->redirect('/agendamentos?status=deleted');
+        }
+
+        //PEGA O ACCESS_TOKEN E O CALENDARID NA SESSÃO
+        $access_token = $_SESSION['admin']['usuario']['access_token'];
+        $calendarId = $_SESSION['admin']['usuario']['idGoogleCalendar'];
+
+        //INSTÂNCIA OAUTH2 PARA API GOOGLE CALENDAR
+        $client = new Google\Client();
+        $client->setAccessToken($access_token);
+
+        //INICIA SERVIÇO DO CLIENTE
+        $service = new Google\Service\Calendar($client);
+
+        //TENTATIVA DE EXCLUIR NO GOOGLE AGENDA, CASO CONTRÁRIO RETORNA A PAGINA AGENDAMENTOS
+        try {
+            //SERVIÇO DE EXCLUSÃO DO AGENDAMENTO NO GOOGLE AGENDA
+            $service->events->delete($calendarId, $obAgendamento->idg);
+
+            //EXCLUI O AGENDAMENTO DO BANCO DE DADOS
+            $obAgendamento->excluir();
+
+            //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+            $request->getRouter()->redirect('/agendamentos?status=deleted');
+        } catch (\Throwable $th) {
+            //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+            $request->getRouter()->redirect('/agendamentos?status=conect-conta-google');
+        }
     }
 
     /**
@@ -486,44 +518,107 @@ class Agendamentos extends Page{
      * @return array
      */
     public static function getEventAdg($obAgendamento){
-        echo '<pre>';
-        print_r($obAgendamento);
-        echo '</pre>';
-
         //OBTÉM O EQUIPAMENTO DO BANCO DE DADOS
         $obEquipamento = EntityEquipamentos::getEquip(strval(explode(',',$obAgendamento->equipamento)[0]));
 
-        $event = array(
-            "summary" => "(".$obEquipamento->nome.") ".$obAgendamento->title,
-            "location" => $obEquipamento->local."/".$obEquipamento->area,
-            'description' => "(".$obEquipamento->nome.") --> ".$obEquipamento->descricao."\n(Serviço) --> ".$obAgendamento->descricao,
-            'start' => array(
-                'date' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_st)->format('Y-m-d'),
+        //OBTÉM OS IDS DOS RESPONSÁVEIS
+        $idUser = explode(',', $obAgendamento->responsaveis);
+
+        //PEGA O EMAIL DOS RESPONSÁVEIS E SEPARA NA ARRAY USERS
+        for ($i=0; $i < count($idUser) ; $i++) { 
+            $User = EntityResponsaveis::getResp($idUser[$i]);
+            $Users[$i] = array('email' => $User->email);
+        }
+
+        //RETORNA AS DATAS
+        $dtst = $obAgendamento->dt_st;
+        $dtfs = $obAgendamento->dt_fs;
+
+        //RECRIA A STRING DE FREQUÊNCIA DE REPETIÇÕES
+        $freq = explode(',', $obAgendamento->freq);
+        $replace = $freq[0];
+        $duracao = $freq[1];
+        $count  = $freq[2];
+        $until  = $freq[3];
+        $dia    = $freq[4];
+        $sem    = $freq[5];
+        $mes    = $freq[6];
+        $ano    = $freq[7];
+        $dom    = $freq[8];
+        $seg    = $freq[9];
+        $ter    = $freq[10];
+        $qua    = $freq[11];
+        $qui    = $freq[12];
+        $sex    = $freq[13];
+        $sab    = $freq[14];
+        $d_sem = Array($dom, $seg, $ter, $qua, $qui, $sex, $sab);
+
+        //OBTEM A STRING DE FREQUENCIA REMOVENDO A PARTE DTSTART
+        $frequencia = substr(FC::getFrequeciaRepeticoes($replace, $dia, $sem, $d_sem, $mes, $ano, $duracao, $count, $dtst, $dtfs, ''), 18);
+
+        //CRIA O ARRAY COM OS ALERTAS
+        $alert = explode(',', $obAgendamento->alert);
+
+        //timeInit E timeFinish inicia sendo vazio
+        $timeInit = '';
+        $timeFinish = '';
+        $minutos = 0;
+        $notifications = [];
+
+        //VERIFICA SE EXISTE O PRIMEIRO ALERTA
+        if($alert[0] != ''){
+            $timeInit = 'T'.DateTime::createFromFormat('H:i', $alert[0])->format('H:i:s');
+            $timeFinish = 'T23:59:59';
+            $minutos = intval(DateTime::createFromFormat('H:i', $alert[0])->format('H'))*60+intval(DateTime::createFromFormat('H:i', $alert[0])->format('i'));
+            array_push($notifications, array('method' => 'email', 'minutes' => 0));
+            $start = array(
+                'dateTime' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_st)->format('Y-m-d').$timeInit,
                 'timeZone' => 'America/Bahia',
-            ),
-            'end' => array(
+            );
+            $end = array(
+                'dateTime' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_fs)->format('Y-m-d').$timeFinish,
+                'timeZone' => 'America/Bahia',
+            );
+        }else{
+            $start = array(
+                'date' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_st)->format('Y-m-d').$timeInit,
+                'timeZone' => 'America/Bahia',
+            );
+            $end = array(
                 'date' => DateTime::createFromFormat('d/m/Y', $obAgendamento->dt_fs)->format('Y-m-d'),
                 'timeZone' => 'America/Bahia',
-            ),
+            );
+        }
+
+        //VERIFICA SE EXISTE O SEGUNDO ALERTA
+        if($alert[1] != ''){
+            $timetwo = 24*60 + $minutos - intval(DateTime::createFromFormat('H:i', $alert[1])->format('H'))*60+intval(DateTime::createFromFormat('H:i', $alert[1])->format('i'));
+            array_push($notifications, array('method' => 'email', 'minutes' => $timetwo));
+        }
+
+        //VERIFICA SE EXISTE O TERCEIRO ALERTA
+        if($alert[2] != ''){
+            $timetree = 47*60 + $minutos - intval(DateTime::createFromFormat('H:i', $alert[2])->format('H'))*60+intval(DateTime::createFromFormat('H:i', $alert[2])->format('i'));
+            array_push($notifications, array('method' => 'email', 'minutes' => $timetree));
+        }
+
+        //CRIAR O ARRAY DO EVENTO
+        $event = array(
+            "summary" => $obAgendamento->title." (".$obEquipamento->nome.")",
+            "location" => $obEquipamento->local."/".$obEquipamento->area,
+            'description' => "(".$obEquipamento->nome.") --> ".$obEquipamento->descricao."\n(Serviço) --> ".$obAgendamento->descricao,
+            'start' => $start,
+            'end' => $end,
             'recurrence' => array(
-                'RRULE:FREQ=DAILY;COUNT=2'
+                $frequencia
             ),
-            'attendees' => array(
-                array('email' => 'lpage@example.com'),
-                array('email' => 'sbrin@example.com'),
-            ),
+            'attendees' => $Users
+            ,
             'reminders' => array(
                 'useDefault' => FALSE,
-                'overrides' => array(
-                  array('method' => 'email', 'minutes' => 24 * 60),
-                  array('method' => 'popup', 'minutes' => 10),
-                ),
+                'overrides' => $notifications,
             ),
         );
-
-        echo '<pre>';
-        print_r($event);
-        echo '</pre>'; exit;
 
         return $event;
     }
@@ -544,7 +639,7 @@ class Agendamentos extends Page{
         }
         
         //CRIA O ARRAY EVENTO NO FORMATO DO GOOGLE CALENDAR
-        $event = self::getEventAdg($obAgendamento);
+        $ev = self::getEventAdg($obAgendamento);
 
         //PEGA O ACCESS_TOKEN E O CALENDARID NA SESSÃO
         $access_token = $_SESSION['admin']['usuario']['access_token'];
@@ -557,15 +652,91 @@ class Agendamentos extends Page{
         //INICIA A CLIENTE DE SERVICO
         $service = new Google\Service\Calendar($client);
 
-        echo '<pre>';
-        print_r($calendarId);
-        echo '</pre>'; exit;
+        //INSTACIA O OBJETO DO EVENTO
+        $evento = new Google\Service\Calendar\Event($ev);
 
-        //CRIA O EVENTO NO CALENDÁRIO DO USUÁRIO
-        //$event = $service->events->insert($calendarId, $event);
+        //TENTA ENVIAR O EVENTO, CASO CONTRÁRIO RETORNA STATUS DE ERRO
+        try {
+            //CRIA O EVENTO NO CALENDÁRIO DO USUÁRIO
+            $event = $service->events->insert($calendarId, $evento);
 
-        //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
-        $request->getRouter()->redirect('/agendamentos?status=sent');
+            //AUTERA O STATUS DO AGENDAMENTO
+            $obAgendamento->status = ''; //COLORS STATUS: success=VERDE|primary=AZUL|warning=AMARELO|info=CIANO|danger=VERMELHO
+            $obAgendamento->idg    = $event->getId(); //id do evento google
+
+            //ATUALIZA O AGENDAMENTO NO BANCO DE DADOS
+            $obAgendamento->atualizar();
+            
+            //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+            $request->getRouter()->redirect('/agendamentos?status=sent');
+
+        } catch (\Throwable $th) {
+            //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+            $request->getRouter()->redirect('/agendamentos?status=conect-conta-google');
+        }
+    }
+
+    /**
+     * MÉTODO RESPONSÁVEL POR ATUALIZAR UM AGENDAMENTO DO GOOGLE CALENDÁRIO
+     * @param Request $request
+     * @param integer $id
+     * @return string
+     */
+    public static function setAtlAgendamento($request, $id){
+        //OBTÉM O AGENDAMENTO DO BANCO DE DADOS
+        $obAgendamento = EntityAgendamentos::getAgend($id);
+
+        //VALIDA A INSTANCIA
+        if(!$obAgendamento instanceof EntityAgendamentos){
+            $request->getRouter()->redirect('/agendamentos');
+        }
+        
+        //CRIA O ARRAY EVENTO NO FORMATO DO GOOGLE CALENDAR
+        $ev = self::getEventAdg($obAgendamento);
+
+        //PEGA O ACCESS_TOKEN E O CALENDARID NA SESSÃO
+        $access_token = $_SESSION['admin']['usuario']['access_token'];
+        $calendarId = $_SESSION['admin']['usuario']['idGoogleCalendar'];
+
+        //INSTÂNCIA OAUTH2 PARA API GOOGLE CALENDAR
+        $client = new Google\Client();
+        $client->setAccessToken($access_token);
+
+        //INICIA A CLIENTE DE SERVICO
+        $service = new Google\Service\Calendar($client);
+
+        try {
+            //INSTACIA O OBJETO DO EVENTO
+            $event = $service->events->get($calendarId, $obAgendamento->idg);
+            
+            //INSTACIA O OBJETO DO EVENTO
+            $evento = new Google\Service\Calendar\Event($ev);
+
+            //ATUALIZA O EVENTO DE ACORDO COM O IDG
+            $updatedEvent = $service->events->update($calendarId, $obAgendamento->idg, $evento);
+
+            //AUTERA O STATUS DO AGENDAMENTO
+            $obAgendamento->status = ''; //COLORS STATUS: success=VERDE|primary=AZUL|warning=AMARELO|info=CIANO|danger=VERMELHO
+
+            //ATUALIZA O AGENDAMENTO NO BANCO DE DADOS
+            $obAgendamento->atualizar();
+            
+            //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+            $request->getRouter()->redirect('/agendamentos?status=update');
+
+        } catch (\Throwable $th) {
+            //AUTERA O STATUS DO AGENDAMENTO
+            $obAgendamento->status = 'success'; //COLORS STATUS: success=VERDE|primary=AZUL|warning=AMARELO|info=CIANO|danger=VERMELHO
+
+            //ATUALIZA O AGENDAMENTO NO BANCO DE DADOS
+            $obAgendamento->atualizar();
+
+            //REDIRECIONA O USUÁRIO PARA A PAGE AGENDAMENTOS
+            $request->getRouter()->redirect('/agendamentos?status=not-exits');
+        }
+        
+        //INSTACIA O OBJETO DO EVENTO
+        $list_eventos = $service->events->listEvents($calendarId)->items;
     }
 
     /**
@@ -635,8 +806,11 @@ class Agendamentos extends Page{
         $obAgendamento->tipo            = $tipo ?? '';
         $obAgendamento->inspecao        = strval($postVars['inspecao']);
         $obAgendamento->descricao       = $postVars['descricao'] ?? '';
-        $obAgendamento->status          = 'success'; //COLORS STATUS: success=VERDE|primary=AZUL|warning=AMARELO|info=CIANO|danger=VERMELHO
-
+        if($obAgendamento->idg == ''){
+            $obAgendamento->status          = 'success'; //COLORS STATUS: success=VERDE|primary=AZUL|warning=AMARELO|info=CIANO|danger=VERMELHO
+        }else{
+            $obAgendamento->status          = 'info'; //COLORS STATUS: success=VERDE|primary=AZUL|warning=AMARELO|info=CIANO|danger=VERMELHO
+        }
         //ATUALIZA O AGENDAMENTO NO BANCO DE DADOS
         $obAgendamento->atualizar();
 

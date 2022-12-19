@@ -54,7 +54,7 @@ class Ordem extends Page{
         $id_user = $_SESSION['admin']['usuario']['id'];
 
         //RESULTADOS DO BANCO
-        $results = EntityAgendamentos::getAgendamentos('id_user = "'.$id_user.'" and status <> ""', 'id DESC', NULL);
+        $results = EntityAgendamentos::getAgendamentos('id_user = "'.$id_user.'" and status <> "" and status <> "info"', 'id DESC', NULL);
                 
         //RENDERIZA CADA AGENDAMENTO
         while($obAgendamento = $results->fetchObject(EntityAgendamentos::class)){

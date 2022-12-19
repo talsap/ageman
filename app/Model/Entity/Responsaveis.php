@@ -68,7 +68,7 @@ class Responsaveis{
 
         //ATUALIZA TODOS OS AGENDAMENTO NO BANCO DE DADOS MUDANDO O STATUS
         $atualizaAgendamentos = (new Database('agendamentos'))->update($sql,[
-            'status'          =>'success'
+            'status'          =>'info'
         ]);
 
         //ATUALIZA OS DADOS DO RESPONSÁVEL NO BANCO DE DADOS

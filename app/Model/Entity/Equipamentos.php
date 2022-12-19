@@ -122,7 +122,7 @@ class Equipamentos{
         //ATUALIZA TODOS OS AGENDAMENTO NO BANCO DE DADOS MUDANDO O STATUS
         $atualizaAgendamentos = (new Database('agendamentos'))->update($sql,[
             'equipamento'     => $this->id.','.$this->nome,
-            'status'          => 'success'
+            'status'          => 'info'
         ]);
 
         //ATUALIZA OS DADOS DO EQUIPAMENTO NO BANCO DE DADOS

@@ -53,6 +53,16 @@ $obRouter->get('/env-agendamento={id}', [
     }
 ]);
 
+//ROTA DE ATUALIZAÇÃO DE UM AGENDAMENTO
+$obRouter->get('/atl-agendamento={id}', [
+    'middlewares' => [
+        'required-admin-login'
+    ],
+    function($request, $id){
+        return new Response(200, Admin\Agendamentos::setAtlAgendamento($request, $id));
+    }
+]);
+
 //ROTA DE EXCLUSÃO DE UM AGENDAMENTO
 $obRouter->get('/delete-agendamento={id}', [
     'middlewares' => [

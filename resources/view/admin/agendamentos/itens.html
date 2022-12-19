@@ -15,7 +15,13 @@
                         </span>
                         <span class="text">Enviar</span>
                     </a>
-                    <div class="dropdown-divider" {{env_display}}></div>
+                    <a class="dropdown-item" href="{{URL}}/atl-agendamento={{id}}" {{atl_display}}>
+                        <span class="icon">
+                            <i class="fas fa-share-square"></i>
+                        </span>
+                        <span class="text">Atualizar</span>
+                    </a>
+                    <div class="dropdown-divider" {{alt_display}}></div>
                     <a class="dropdown-item" href="{{URL}}/edit-agendamento={{id}}">
                         <span class="icon">
                             <i class="fas fa-edit"></i>

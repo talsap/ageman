@@ -19,6 +19,12 @@ class Agendamentos{
     public $id_user;
     
     /**
+     * ID DO EVENTO NO GOOGLE
+     * @var string
+     */
+    public $idg;
+    
+    /**
      * TÍTULO DO AGENDAMENTO
      * @var string
      */
@@ -92,6 +98,7 @@ class Agendamentos{
         //INSERE OS DADOS DO AGENDAMENTO NO BANCO DE DADOS
         $this->id = (new Database('agendamentos'))->insert([
             'id_user'       =>$this->id_user,
+            'idg'           =>$this->idg,
             'equipamento'   =>$this->equipamento,
             'responsaveis'  =>$this->responsaveis,
             'title'         =>$this->title,
@@ -116,6 +123,7 @@ class Agendamentos{
     public function atualizar(){
         //ATUALIZA OS DADOS DO AGENDAMENTO NO BANCO DE DADOS
         return (new Database('agendamentos'))->update('id = '.$this->id,[
+            'idg'           =>$this->idg,
             'equipamento'   =>$this->equipamento,
             'responsaveis'  =>$this->responsaveis,
             'title'         =>$this->title,

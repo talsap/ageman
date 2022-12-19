@@ -18,8 +18,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `manuufrb`
+-- Banco de dados: `ageman`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `recovery`
+--
+
+CREATE TABLE IF NOT EXISTS `recovery` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `hash` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
+  UNIQUE (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -30,6 +44,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `agendamentos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
+  `idg` varchar(255) NOT NULL,
   `equipamento` varchar(255) NOT NULL,
   `responsaveis` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,

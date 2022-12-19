@@ -21,7 +21,7 @@ class Login extends Page{
         //CONTEÚDO DA PÁGINA DE LOGIN
         $content = View::render('PageLogin/login', [
             'title' => 'MANUUFRB - Login',
-             'name' => 'MANUUFRB',
+            'name' => 'MANUUFRB',
             'status' => $status
         ]);
 
