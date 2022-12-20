@@ -559,6 +559,16 @@ class Agendamentos extends Page{
         //CRIA O ARRAY COM OS ALERTAS
         $alert = explode(',', $obAgendamento->alert);
 
+        //IDENTIFICA O TIPO DE MANUTENCAO
+        $tipo = explode(',', $obAgendamento->tipo);
+
+        //IDENTIFICA A INSPEÇÃO
+        if($obAgendamento->inspecao != 1){
+            $insp = 'Não';
+        }else{
+            $insp = 'Sim';
+        }
+
         //timeInit E timeFinish inicia sendo vazio
         $timeInit = '';
         $timeFinish = '';
@@ -606,7 +616,7 @@ class Agendamentos extends Page{
         $event = array(
             "summary" => $obAgendamento->title." (".$obEquipamento->nome.")",
             "location" => $obEquipamento->local."/".$obEquipamento->area,
-            'description' => "(".$obEquipamento->nome.") --> ".$obEquipamento->descricao."\n(Serviço) --> ".$obAgendamento->descricao,
+            'description' => "(Tipo de Manutenção) --> ".$tipo[1]."\n(".$obEquipamento->nome.") --> ".$obEquipamento->descricao."\n(Serviço) --> ".$obAgendamento->descricao."\n(I.V.) --> ".$insp,
             'start' => $start,
             'end' => $end,
             'recurrence' => array(
@@ -619,6 +629,10 @@ class Agendamentos extends Page{
                 'overrides' => $notifications,
             ),
         );
+
+        echo '<pre>';
+        print_r($event);
+        echo '</pre>'; exit;
 
         return $event;
     }
