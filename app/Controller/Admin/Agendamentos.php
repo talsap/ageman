@@ -556,6 +556,10 @@ class Agendamentos extends Page{
         //OBTEM A STRING DE FREQUENCIA REMOVENDO A PARTE DTSTART
         $frequencia = substr(FC::getFrequeciaRepeticoes($replace, $dia, $sem, $d_sem, $mes, $ano, $duracao, $count, $dtst, $dtfs, ''), 18);
 
+        if($frequencia != ''){
+            $frequencia = array($frequencia);
+        }
+        
         //CRIA O ARRAY COM OS ALERTAS
         $alert = explode(',', $obAgendamento->alert);
 
@@ -619,20 +623,13 @@ class Agendamentos extends Page{
             'description' => "(Tipo de Manutenção) --> ".$tipo[1]."\n(".$obEquipamento->nome.") --> ".$obEquipamento->descricao."\n(Serviço) --> ".$obAgendamento->descricao."\n(I.V.) --> ".$insp,
             'start' => $start,
             'end' => $end,
-            'recurrence' => array(
-                $frequencia
-            ),
-            'attendees' => $Users
-            ,
+            'recurrence' => $frequencia,
+            'attendees' => $Users,
             'reminders' => array(
                 'useDefault' => FALSE,
                 'overrides' => $notifications,
             ),
         );
-
-        echo '<pre>';
-        print_r($event);
-        echo '</pre>'; exit;
 
         return $event;
     }
