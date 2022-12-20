@@ -60,7 +60,7 @@ class Localizacoes extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Localizações', $content, 'Localizacoes', $request);
+        return parent::getPanel('AGEMAN - Localizações', $content, 'Localizacoes', $request);
     }
 
     /**
@@ -102,7 +102,7 @@ class Localizacoes extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Editar Local', $content, 'Localizacoes', $request);
+        return parent::getPanel('AGEMAN - Editar Local', $content, 'Localizacoes', $request);
     }
 
     /**
@@ -219,7 +219,7 @@ class Localizacoes extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Cadastrar Local', $content, 'Localizacoes', $request);
+        return parent::getPanel('AGEMAN - Cadastrar Local', $content, 'Localizacoes', $request);
     }
 
     /**
@@ -283,7 +283,7 @@ class Localizacoes extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Cadastrar Área', $content, 'Localizacoes', $request);
+        return parent::getPanel('AGEMAN - Cadastrar Área', $content, 'Localizacoes', $request);
     }
 
     /**
@@ -344,7 +344,7 @@ class Localizacoes extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Editar Área', $content, 'Localizacoes', $request);
+        return parent::getPanel('AGEMAN - Editar Área', $content, 'Localizacoes', $request);
     }
 
     /**

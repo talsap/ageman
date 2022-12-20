@@ -26,7 +26,7 @@ class Agendamentos extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Agendamentos', $content, 'Agendamentos', $request);
+        return parent::getPanel('AGEMAN - Agendamentos', $content, 'Agendamentos', $request);
     }
 
     /**
@@ -99,7 +99,7 @@ class Agendamentos extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Agendamento', $content, 'Agendamentos', $request);
+        return parent::getPanel('AGEMAN - Agendamento', $content, 'Agendamentos', $request);
     }
 
     /**
@@ -509,7 +509,7 @@ class Agendamentos extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Editar Agendamento', $content, 'Agendamentos', $request);
+        return parent::getPanel('AGEMAN - Editar Agendamento', $content, 'Agendamentos', $request);
     }
 
     /**

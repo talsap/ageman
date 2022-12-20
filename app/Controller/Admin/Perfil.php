@@ -15,6 +15,6 @@ class Perfil extends Page{
         $content = View::render('Admin/perfil/page', []);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Perfil', $content, '', $request);
+        return parent::getPanel('AGEMAN - Perfil', $content, '', $request);
     }
 }

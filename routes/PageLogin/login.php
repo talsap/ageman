@@ -75,7 +75,7 @@ $obRouter->get('/logout', [
 
 
 //ROTA RECUPERAR SENHA 
-$obRouter->get('/recuperar-senha', [
+/**$obRouter->get('/recuperar-senha', [
     'middlewares' => [
         'required-admin-logout'
     ],
@@ -93,3 +93,5 @@ $obRouter->post('/recuperar-senha', [
         return new Response(200, PageLogin\Forgot::setForgot($request));
     }
 ]);
+
+*/

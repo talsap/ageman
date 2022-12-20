@@ -17,13 +17,13 @@ class Forgot extends Page{
 
         //CONTEÚDO DA PÁGINA DE LOGIN
         $content = View::render('PageLogin/forgot', [
-            'title'  => 'MANUUFRB - Login', 
-            'name'   => 'MANUUFRB',
+            'title'  => 'AGEMAN - Login', 
+            'name'   => 'AGEMAN',
             'status' => $status
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPage('MANUUFRB - Recuperar', $content);
+        return parent::getPage('AGEMAN - Recuperar', $content);
     }
 
     /**

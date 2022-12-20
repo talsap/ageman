@@ -15,6 +15,6 @@ class Home extends Page{
         $content = View::render('Admin/home/home', []);
 
         //RETORNA O CONTEÚDO DO PAINEL
-        return parent::getPanel('MANUUFRB - Home', $content, 'home', $request);
+        return parent::getPanel('AGEMAN - Home', $content, 'home', $request);
     }
 }

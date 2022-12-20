@@ -1,5 +1,5 @@
 {
-    "name":"htdocs/manuufrb",
+    "name":"htdocs/ageman",
     "autoload":{
         "psr-4": {
             "App\\":"app/"

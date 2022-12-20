@@ -60,7 +60,7 @@ class Equipamentos extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Equipamentos', $content, 'Equipamentos', $request);
+        return parent::getPanel('AGEMAN - Equipamentos', $content, 'Equipamentos', $request);
     }
     
     /**
@@ -85,7 +85,7 @@ class Equipamentos extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Cadastrar Equipamento', $content, 'Equipamentos', $request);
+        return parent::getPanel('AGEMAN - Cadastrar Equipamento', $content, 'Equipamentos', $request);
     }
 
     /**
@@ -190,7 +190,7 @@ class Equipamentos extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Editar Equipamento', $content, 'Equipamentos', $request);
+        return parent::getPanel('AGEMAN - Editar Equipamento', $content, 'Equipamentos', $request);
     }
 
     /**

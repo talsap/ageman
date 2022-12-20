@@ -4,7 +4,7 @@ use \App\Http\Response;
 use \App\Controller\Admin;
 
 //ROTA DE ACESSO AO PERFIL
-$obRouter->get('/perfil', [
+/**$obRouter->get('/perfil', [
     'middlewares' => [
         'required-admin-login'
     ],
@@ -12,3 +12,4 @@ $obRouter->get('/perfil', [
         return new Response(200, Admin\Perfil::getPerfil($request));
     }
 ]);
+*/

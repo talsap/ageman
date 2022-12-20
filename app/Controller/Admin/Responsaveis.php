@@ -50,7 +50,7 @@ class Responsaveis extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Responsáveis', $content, 'Responsaveis', $request);
+        return parent::getPanel('AGEMAN - Responsáveis', $content, 'Responsaveis', $request);
     }
     
     /**
@@ -71,7 +71,7 @@ class Responsaveis extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Cadastrar Responsável', $content, 'Responsaveis', $request);
+        return parent::getPanel('AGEMAN - Cadastrar Responsável', $content, 'Responsaveis', $request);
     }
 
     /**
@@ -123,7 +123,7 @@ class Responsaveis extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Editar Responsável', $content, 'Responsaveis', $request);
+        return parent::getPanel('AGEMAN - Editar Responsável', $content, 'Responsaveis', $request);
     }
 
     /**

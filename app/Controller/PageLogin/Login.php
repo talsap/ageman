@@ -20,13 +20,13 @@ class Login extends Page{
         
         //CONTEÚDO DA PÁGINA DE LOGIN
         $content = View::render('PageLogin/login', [
-            'title' => 'MANUUFRB - Login',
-            'name' => 'MANUUFRB',
+            'title' => 'AGEMAN - Login',
+            'name' => 'AGEMAN',
             'status' => $status
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPage('MANUUFRB - Login', $content);
+        return parent::getPage('AGEMAN - Login', $content);
     }
 
     /**
@@ -54,8 +54,8 @@ class Login extends Page{
         //CRIA A SESSÃO DE LOGIN
         SessionAdminLogin::login($obUser, '', '', '');
         
-        //REDIRECIONA O USUÁRIO PARA O /ADMIN
-        $request->getRouter()->redirect('/admin');
+        //REDIRECIONA O USUÁRIO PARA O /ORDESN-SERVIÇOS (ANTES ERA /ADMIN)
+        $request->getRouter()->redirect('/ordens-servicos');
     }
 
     /**
@@ -67,7 +67,8 @@ class Login extends Page{
         ob_start();
 
         //DETERMINA OS ESCOPOS DA APLICAÇÃO PARA USO DAS APIS
-        $scopes = [Google\Service\Calendar::CALENDAR, 
+        $scopes = [Google\Service\Calendar::CALENDAR,
+                   Google\Service\Calendar::CALENDAR_READONLY,  
                    Google\Service\Calendar::CALENDAR_EVENTS
         ];
 
@@ -189,8 +190,8 @@ class Login extends Page{
                     //CRIA A SESSÃO DE LOGIN
                     SessionAdminLogin::login($obUser, $token['id_token'], $token['access_token'], $token['refresh_token']);
                     
-                    //REDIRECIONA O USUÁRIO PARA O /ADMIN
-                    $request->getRouter()->redirect('/admin');
+                    //REDIRECIONA O USUÁRIO PARA O /ORDESN-SERVICOS
+                    $request->getRouter()->redirect('/ordens-servicos');
                 }else{
                     return self::getLogin($request, 'Erro na autorização!');
                 }

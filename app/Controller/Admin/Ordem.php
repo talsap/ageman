@@ -19,7 +19,7 @@ class Ordem extends Page{
         $IDcalendar = '';
         
         //VERIFICA SE EXISTE O ID DO GOOGLE CALENDARIO NA SESSÃO DO USUÁRIO
-        if($_SESSION['admin']['usuario']['id_token']!= ''){
+        if($_SESSION['admin']['usuario']['id_token'] != ''){
             if($_SESSION['admin']['usuario']['idGoogleCalendar'] == ''){
                 $IDcalendar = self::getIdGoogleCalendar();
                 $_SESSION['admin']['usuario']['idGoogleCalendar'] = $IDcalendar;
@@ -39,7 +39,7 @@ class Ordem extends Page{
         ]);
 
         //RETORNA A PÁGINA COMPLETA
-        return parent::getPanel('MANUUFRB - Ordens e Serviços', $content, 'Ordem', $request);
+        return parent::getPanel('AGEMAN - Ordens e Serviços', $content, 'Ordem', $request);
     }
 
     /**
@@ -101,21 +101,15 @@ class Ordem extends Page{
         $service = new Google\Service\Calendar($client);
 
         //VERIFICA SE O CALENDÁRIO ESPECIFICADO EXISTE PARA O CLIENTE DE SERVICO
-        $lista = GC\CalendarList::VerifyExistCalendar($service, 'MANU');
+        $lista = GC\CalendarList::VerifyExistCalendar($service, 'AGEMAN');
         
         //CRIA O CALENDÁRIO SE NÃO EXISTIR CASO CONTRÁRIO PEGA O ID
         if($lista == false){
             //CRIA UM NOVO CALENDÁRIO
-            $IDcalendar = GC\Calendar::CrateCalendarSummary($service, 'MANU');
+            $IDcalendar = GC\Calendar::CrateCalendarSummary($service, 'AGEMAN');
         }else{
             //PEGA O ID DO CALENDÁRIO DE ACORDO COM O NOME
-            $IDcalendar = GC\CalendarList::getCalendarSummary($service, 'MANU');
-            
-            //VERIFICA SE O USUÁRIO É PÚBLICO CASO CONTRÁRIO TORNA PÚBLICO
-            $rule = $service->acl->get($IDcalendar, 'default');
-            if($rule->getScope()->getType() != 'default'){
-                $rule->getScope()->setType('default');
-            }
+            $IDcalendar = GC\CalendarList::getCalendarSummary($service, 'AGEMAN');
         }
 
         //FINALIZA O BUFFER INTERNO

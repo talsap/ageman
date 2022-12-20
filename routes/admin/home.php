@@ -4,7 +4,7 @@ use \App\Http\Response;
 use \App\Controller\Admin;
 
 //ROTA ADMIN
-$obRouter->get('/admin', [
+/**$obRouter->get('/admin', [
     'middlewares' => [
         'required-admin-login'
     ],
@@ -13,4 +13,5 @@ $obRouter->get('/admin', [
     }
 ]);
 
+*/
 
