@@ -129,8 +129,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `refresh_token`) VALUES
-(1, 'Teste Manuufrb', 'teste@teste.com', '$2y$10$6KwhKt5FGvI1EXYzDSNtkOGDPb0/ua4xIKPvFQP1oSlujWWROEe2W', ''),
-(2, 'Tarcisio', 'tarcisiosapucaia@aluno.ufrb.edu.br', '$2y$10$6KwhKt5FGvI1EXYzDSNtkOGDPb0/ua4xIKPvFQP1oSlujWWROEe2W', '');
+(1, 'Tarcisio Sapucaia', 'tarcisiosapucaia@aluno.ufrb.edu.br', '$2y$10$6KwhKt5FGvI1EXYzDSNtkOGDPb0/ua4xIKPvFQP1oSlujWWROEe2W', ''),
+(2, 'Acbal Rucas', 'acbal@ufrb.edu.br', '$2y$10$6KwhKt5FGvI1EXYzDSNtkOGDPb0/ua4xIKPvFQP1oSlujWWROEe2W', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
