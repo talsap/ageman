@@ -1,6 +1,14 @@
+#DESABILITA OS INDEXES
+Options -Indexes
+
 #LIGA O REWRITE
 RewriteEngine on
 
 # REGRA DE REWRITE TUDO PARA INDEX
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ ./index.php [QSA,NC]
+
+#DESABILITA O ACESSO AO .ENV
+<FilesMatch "\.env$">
+    Deny from all
+</FilesMatch>

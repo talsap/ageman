@@ -22,7 +22,8 @@ class Login extends Page{
         $content = View::render('PageLogin/login', [
             'title' => 'AGEMAN - Login',
             'name' => 'AGEMAN',
-            'status' => $status
+            'status' => $status,
+            'URL' => 'http://localhost/ageman'
         ]);
 
         //RETORNA A PÁGINA COMPLETA

@@ -151,7 +151,7 @@ class Router{
         
         //METHOD
         $httpMethod = $this->request->getHttpMethod();
-        
+
         //VALIDA AS ROTAS
         foreach($this->routes as $patternRoute=>$methods){
             //VERIFICA SE A URI BATE COM O PADRÃO

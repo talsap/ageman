@@ -20,7 +20,7 @@ Database::config(
 );
 
 //DEFINE A CONSTANTE DE URL DO PROJETO
-define('URL',getenv('URL'));
+define('URL', getenv('URL'));
 define('ID_OAUTH', getenv('ID_OAUTH'));
 define('CLIENT_SECRET', getenv('CLIENT_SECRET'));
 define('API_KEY', getenv('API_KEY'));
