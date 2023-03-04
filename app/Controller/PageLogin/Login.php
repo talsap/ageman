@@ -5,6 +5,7 @@ namespace App\Controller\PageLogin;
 use \App\Utils\View;
 use \App\Model\Entity\User;
 use \App\Session\Admin\Login as SessionAdminLogin;
+use \Firebase\JWT\JWT;
 use Google;
 
 class Login extends Page{
@@ -79,7 +80,7 @@ class Login extends Page{
         $client->setClientSecret(CLIENT_SECRET);
         $client->addScope($scopes);
         $client->setRedirectUri(URL.'/login-google');
-        $client->setAccessType('offline');
+        $client->setAccessType('online');
         $client->setIncludeGrantedScopes(true);
         //$client->setPrompt('consent');
         
@@ -103,7 +104,7 @@ class Login extends Page{
                 $request->getRouter()->redirect('/');
                 exit;
             }
-
+            
             do {
                 $attempt = 0;
                 try {

@@ -4,9 +4,12 @@ Options -Indexes
 #LIGA O REWRITE
 RewriteEngine on
 
-# REGRA DE REWRITE TUDO PARA INDEX
+#REGRA DE REWRITE TUDO PARA INDEX
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ ./index.php [QSA,NC]
+ 
+#DESABILITA A ASSINATURA DO SERVIDOR APACHE
+ServerSignature off
 
 #DESABILITA O ACESSO AO .ENV
 <FilesMatch "\.env$">
